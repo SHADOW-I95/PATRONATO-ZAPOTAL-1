@@ -5,27 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="inicio.css">
+    <link rel="stylesheet" href="./boton_hamburguesa/btn.css">
     <title>Pro-mejoramiento Patronato</title>
 </head>
 
 <body>
 
     <header class="header">
-        <img src="" alt="logo-patronato">
-        <h2 class="title">Pro-Mejoramiento <br><span class="title-spam">patromato</span></h2>
 
-        <button>iniciar seccion</button>
+        <div class="header-div1">
+        <img src="../assets/img/logo.png-removebg-preview.png" alt="logo-patronato">
+        <h2 class="title">Patronato Pro-mejoramiento <br><span class="title-spam">Zapotal</span></h2>
+        </div>
 
-           <button class="hamburguesa" id="BTN_BURGER" onclick="toggleMenu()" aria-label="Abrir menú" aria-expanded="false">
+        <div class="header-div2">
+        <button class="header-seccion">iniciar seccion</button>
+
+        <button class="hamburguesa" id="BTN_BURGER" onclick="toggleMenu()" aria-label="Abrir menú"
+            aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
         </button>
+        </div>
     </header>
 
-     <div class="overlay" id="OVERLAY" onclick="cerrarMenu()"></div>
+    <div class="overlay" id="OVERLAY" onclick="cerrarMenu()"></div>
 
-   <nav class="menu" id="MENU">
+    <nav class="menu" id="MENU">
         <ul>
             <li class="nav-li"><a href="" onclick="cerrarMenu()">Quienes somos</a></li>
             <li class="nav-li"><a href="" onclick="cerrarMenu()">Pgos</a></li>
@@ -37,11 +44,10 @@
     <section class="section-1">
         <div class="section-eslogan">
             <!--ESLOGAN DEL PATRONATO-->
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita mollitia cum inventore, odit
-                voluptate pariatur molestiae architecto temporibus maiores sint, et ipsa aspernatur. Numquam
-                nesciunt dolor, repellat officiis quo earum.
-            </p>
+            <h1>
+               Trabajamos por un <br><span>Mejor servicio</span> <br> para nuestra comunidad
+            </h1>
+            <p>comprometidos con el bienestar de todos, asegurando un sericio eficiente y sostenible</p>
         </div>
 
         <div class="cards-fondo-1">
@@ -109,10 +115,10 @@
             <span>Telefono</span>
             <p>67060660</p>
         </div>
-        
+
         <!--dentro de este div ira el mapa-->
         <div></div>
-         
+
     </section>
 
 
