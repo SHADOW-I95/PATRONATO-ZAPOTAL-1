@@ -1,0 +1,14 @@
+.hamburguesa{
+    background:none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap:4px;
+}
+
+.hamburguesa span{
+   width: 30px;
+   height: 4px;
+   background: #000;
+   border-radius: 2px;
+}
