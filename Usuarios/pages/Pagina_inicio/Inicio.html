@@ -16,19 +16,21 @@
 
         <button>iniciar seccion</button>
 
-        <button class="hamburguesa" id="BTN_BURGER">
+           <button class="hamburguesa" id="BTN_BURGER" onclick="toggleMenu()" aria-label="Abrir menú" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
         </button>
     </header>
 
-    <nav class="nav" id="MENU">
+     <div class="overlay" id="OVERLAY" onclick="cerrarMenu()"></div>
+
+   <nav class="menu" id="MENU">
         <ul>
-            <li class="nav-li"><a href="">Quienes somos</a></li>
-            <li class="nav-li"><a href="">Pgos</a></li>
-            <li class="nav-li"><a href="">Ubicacion de oficinas</a></li>
-            <li class="nav-li"><a href="">Reportar queja</a></li>
+            <li class="nav-li"><a href="" onclick="cerrarMenu()">Quienes somos</a></li>
+            <li class="nav-li"><a href="" onclick="cerrarMenu()">Pgos</a></li>
+            <li class="nav-li"><a href="" onclick="cerrarMenu()">Ubicacion de oficinas</a></li>
+            <li class="nav-li"><a href="" onclick="cerrarMenu()">Reportar queja</a></li>
         </ul>
     </nav>
 
@@ -100,10 +102,12 @@
             <p></p>
 
             <h4>Horario de atencion</h4>
-            <p></p>
+            <p>Lunes a viernes <br> 8:00AM - 5:00PM</p>
+            <P>Sabado <br>8:00AM - 12:00PM</P>
+            <p>Domingo <br>Solo caso de emergencia</p>
 
             <span>Telefono</span>
-            <p></p>
+            <p>67060660</p>
         </div>
         
         <!--dentro de este div ira el mapa-->
