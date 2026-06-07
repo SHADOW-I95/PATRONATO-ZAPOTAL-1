@@ -5,7 +5,7 @@
 
 body {
   background-color: rgba(169, 169, 169, 0.39);
-  font-family: 'inter', sans-serif;
+  font-family: "inter", sans-serif;
 }
 
 .header {
@@ -22,7 +22,6 @@ body {
   z-index: 1000;
 }
 
-
 .header-div1 {
   display: flex;
   width: 50%;
@@ -32,8 +31,8 @@ body {
 .header-div1 img {
   height: 100%;
 }
-.header-div1 h2 {
-  font-size: 40px;
+.title {
+  font-size: 5vh;
   color: #000;
 }
 
@@ -59,7 +58,6 @@ body {
   background-size: 100%;
   overflow: hidden;
   width: auto;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -69,11 +67,11 @@ body {
   font-size: 20px;
 }
 
-.section-eslogan{
+.section-eslogan {
   padding: 20px;
 }
 
-.section-eslogan p{
+.section-eslogan p {
   color: transparent;
   -webkit-text-stroke: 1px #97f68e;
 }
@@ -81,13 +79,12 @@ body {
 .section-eslogan h1 {
   font-size: 90px;
   color: #fff;
- /* -webkit-text-stroke: 2px #fff;*/
+  /* -webkit-text-stroke: 2px #fff;*/
 }
 
-.section-eslogan h1 span{
+.section-eslogan h1 span {
   color: #97f68e;
 }
-
 
 .cards-fondo-1 {
   display: flex;
@@ -99,24 +96,81 @@ body {
   height: 20vh;
 }
 
-.section-cards{
+.section-cards {
   display: flex;
   align-items: center;
   gap: 25px;
 }
 
-.section-cards img{
+.section-cards img {
   height: 50px;
 }
 
+/*====QUIENES SOMOS======*/
 
-.section-1-cards-fondo{
-  align-content: end;
-
-}
-
-.section-2card{
+.section-2 {
+  background-color: #ffffff;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  padding: 10%;
+  margin: 1px;
+  gap: 90px;
+  height: 115vh;
 }
 
+.section-gap {
+  gap: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.full-section2-card1 span {
+  border: 2px solid hsl(108, 100%, 50%);
+  border-radius: 30px;
+  display: flex;
+  width: 45px;
+}
+
+.full-section2-card2 {
+  display: flex;
+  justify-content: space-between;
+  height: 60vh;
+  gap: 100px;
+}
+
+.full-section2-img {
+  height: 50%;
+}
+
+.cards-fondo-section2 {
+  display: flex;
+  justify-content: space-evenly;
+  height: 23vh;
+}
+.cards3-section2 {
+  border: 2px solid #7575753c;
+  border-radius: 5px;
+  text-align: center;
+  width: 30%;
+}
+
+/*===ubicacion-section3*/
+
+.section-3{
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.section3-card1 {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  justify-content: center;
+  
+}
+
+.section3-card{
+  display: flex;
+  flex-direction: column;
+}

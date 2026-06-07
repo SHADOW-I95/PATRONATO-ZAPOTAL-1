@@ -1,0 +1,64 @@
+.wrap {
+  background: transparent;
+  border-radius: 10px;
+  padding-top: 30px;
+  max-width: 700px;
+}
+
+.track {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  flex: 0 0 160px;
+  text-align: center;
+  border: 2px solid hsl(0, 0%, 13%);
+  border-radius: 20px;
+  justify-items: center;
+}
+
+.item img {
+  width: 160px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.item span {
+  display: block;
+  margin-top: 8px;
+  color: #ddd;
+  font-size: 13px;
+}
+
+.btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btns button {
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 6px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btns button:hover {
+  background: #333;
+}
+
+
