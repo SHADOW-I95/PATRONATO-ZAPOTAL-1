@@ -104,19 +104,3 @@ button:hover{
     text-decoration:none;
     color:#2a5db0;
 }
-
-.menu-btn{
-    width: auto;
-    background: none;
-    border: none;
-    color: #555;
-    padding: 10px;
-    position: absolute;
-    top: 40px;
-    right: 50px;
-    font-size: 40px;
-    
-}
-.menu-btn:hover{
-    background: none;
-}
