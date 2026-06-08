@@ -1,77 +1,122 @@
-*{
+* {
   margin: 0%;
   padding: 0%;
 }
 
-body{
+body {
   background-color: rgba(169, 169, 169, 0.39);
-  font-family:sans-serif;
+  font-family: 'inter', sans-serif;
 }
 
-.header{
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
   background-color: #ffffff;
-  border-bottom: 3px solid none;
-  border-radius: 6px;
+  height: 10vh;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: auto;
+  z-index: 1000;
 }
 
-.header-div1{
+
+.header-div1 {
   display: flex;
-  width:max-content;
-  justify-content:space-around ;
+  width: 50%;
+  justify-content: space-evenly;
+  height: 100%;
 }
-.header-div1 img{
-  height: 100px;
+.header-div1 img {
+  height: 100%;
 }
-.header-div1 h2{
-  font-size: 50px;
-  color: transparent;
-  -webkit-text-stroke: 1px #000;
-  font-family: 'Times New Roman', Times, serif;
+.header-div1 h2 {
+  font-size: 40px;
+  color: #000;
 }
 
-.header-div2{
+.header-div2 {
   display: flex;
   gap: 30px;
   align-items: center;
 }
 
-.header-seccion{
-  width: 100%;
+.header-seccion {
+  width: 140px;
   height: 5vh;
   border: none;
   border-radius: 5px;
   color: #ffffff;
   background-color: blue;
-  
 }
 
-.section-1{
-  background-image: url(../assets/img/abstract-green-background-free-vector.jpg);
+.section-1 {
+  background-image: url(../assets/img/WhatsApp\ Image\ 2026-06-03\ at\ 11.08.42\ AM.jpeg);
   color: #fff;
+  background-repeat: no-repeat;
+  background-size: 100%;
   overflow: hidden;
-  gap: 40px;  
-  width: 100%;
+  width: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
-.section-1 p{
+.section-1 p {
   font-size: 20px;
 }
 
-.section-eslogan h1{
-  font-size: 89px;
-  color: transparent;
-  -webkit-text-stroke: 2px #fff;
+.section-eslogan{
+  padding: 20px;
 }
 
-.cards-fondo-1{
+.section-eslogan p{
+  color: transparent;
+  -webkit-text-stroke: 1px #97f68e;
+}
+
+.section-eslogan h1 {
+  font-size: 90px;
+  color: #fff;
+ /* -webkit-text-stroke: 2px #fff;*/
+}
+
+.section-eslogan h1 span{
+  color: #97f68e;
+}
+
+
+.cards-fondo-1 {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   background-color: #fff;
   color: #000;
+  border-top: 0 solid transparent;
+  border-radius: 20px 20px 0 0;
+  height: 20vh;
 }
 
+.section-cards{
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.section-cards img{
+  height: 50px;
+}
+
+
+.section-1-cards-fondo{
+  align-content: end;
+
+}
+
+.section-2card{
+  display: flex;
+  justify-content: space-around;
+}
 
