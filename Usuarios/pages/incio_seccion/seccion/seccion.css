@@ -1,0 +1,122 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background:#06223a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.contenedor{
+    width:700px;
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    position:relative;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.logo img{
+    width:60px;
+}
+
+.logo h2{
+    font-size:20px;
+}
+
+.formulario{
+    text-align:center;
+}
+
+.formulario h1{
+    color:#45b649;
+    margin-bottom:10px;
+}
+
+.formulario p{
+    color:#555;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.password-box{
+    position:relative;
+}
+
+.password-box span{
+    position:absolute;
+    right:15px;
+    top:12px;
+    cursor:pointer;
+}
+
+.opciones{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+    font-size:14px;
+}
+
+.opciones a{
+    text-decoration:none;
+    color:#2a5db0;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#4CAF50;
+    border:none;
+    color:white;
+    font-size:18px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#3f9f42;
+}
+
+.registro{
+    margin-top:25px;
+}
+
+.registro a{
+    text-decoration:none;
+    color:#2a5db0;
+}
+
+.menu-btn{
+    width: auto;
+    background: none;
+    border: none;
+    color: #555;
+    padding: 10px;
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    font-size: 40px;
+    
+}
+.menu-btn:hover{
+    background: none;
+}
