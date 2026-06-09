@@ -133,9 +133,13 @@ body {
 
 .full-section2-card2 {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   height: 60vh;
   gap: 100px;
+}
+
+.center-section2{
+  align-content: center ;
 }
 
 .full-section2-img {
