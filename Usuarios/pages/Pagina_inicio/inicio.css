@@ -52,7 +52,7 @@ body {
 }
 
 .section-1 {
-  background-image: url(../assets/img/WhatsApp\ Image\ 2026-06-03\ at\ 11.08.42\ AM.jpeg);
+  background-image: url(./assets/img/WhatsApp\ Image\ 2026-06-03\ at\ 11.08.42\ AM.jpeg);
   color: #fff;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -133,9 +133,13 @@ body {
 
 .full-section2-card2 {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   height: 60vh;
   gap: 100px;
+}
+
+.center-section2{
+  justify-items: center;
 }
 
 .full-section2-img {
@@ -157,20 +161,11 @@ body {
 /*===ubicacion-section3*/
 
 .section-3{
-  padding: 20px;
-  background-color: #ffffff;
-}
-
-.section3-card1 {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
   justify-content: center;
-  
+  align-content: center;
 }
 
-.section3-card{
+.section3-div2{
   display: flex;
-  flex-direction: column;
 }
