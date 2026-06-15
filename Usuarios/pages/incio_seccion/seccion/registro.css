@@ -112,3 +112,15 @@ body {
     text-decoration: underline;
     font-weight: 600;
 }
+
+.volver {
+   display: inline-block;
+   padding: 8px 12px;
+   background-color: #007BFF; /* azul */
+   color: white;
+   text-decoration: none;
+   border-radius: 5px;
+}
+.volver:hover {
+   background-color: #0056b3;
+}
