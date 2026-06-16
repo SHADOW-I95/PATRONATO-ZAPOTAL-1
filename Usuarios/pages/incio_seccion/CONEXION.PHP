@@ -1,11 +1,10 @@
 <?php
-$host = "localhost";      
-$usuario = "root";        
-$clave = "";              
-$bd = "mi_base";          
+$dbhost = "localhost";
+$dbuser = "root";
+$dbpass = "";
+$dbname = "patronato";          
 
-$conexion = new mysqli($host, $usuario, $clave, $bd);
-
+$conexion = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 $conexion->set_charset("utf8");
 
 if ($conexion->connect_error) {
