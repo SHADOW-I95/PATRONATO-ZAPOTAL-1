@@ -15,23 +15,34 @@
 
     <div class="contenedor">
 
-    
+
 
         <div class="logo">
             <img src="img/logo_-removebg-preview.png" alt="Logo">
             <h2>PATRONATO<br>DE AGUA</h2>
         </div>
 
+
         <a href="../../Pagina_inicio/Inicio.html">volver</a>
 
-        <div class="formulario">
-            <h1>Iniciar sesión</h1>
-            <p>Accede a tu cuenta para continuar.</p>
 
-            <input type="text" placeholder="Usuario o correo electrónico">
+
+        <form class="formulario" method="post" action="GAURDAR.php">
+            <div>
+                <h1>Iniciar sesión</h1>
+                <p>Accede a tu cuenta para continuar.</p>
+            </div>
+
+            
+
+
+
+            <input type="text" placeholder="No.Identidad" name="ID">
+
+            <input type="text" placeholder="Usuario o correo electrónico" name="CORREO">
 
             <div class="password-box">
-                <input type="password" id="password" placeholder="Contraseña">
+                <input type="password" id="password" placeholder="Contraseña" name="CONTRASEÑA">
                 <span onclick="mostrarPassword()">👁</span>
             </div>
 
@@ -40,7 +51,7 @@
                     <input type="checkbox">
                     Recuérdame
                 </label>
-                
+
                 <a href="Olvidaste_contraseña.html">¿Olvidaste tu contraseña?</a>
                 <a href="Olvidaste_contraseña.html"></a>
 
@@ -49,11 +60,11 @@
             <button>Ingresar</button>
 
             <p class="registro">
-              ¿No tienes cuenta?
-              <a href="registro.html">Registrarse</a>
+                ¿No tienes cuenta?
+                <a href="registro.html">Registrarse</a>
             </p>
 
-        </div>
+        </form>
 
 
 

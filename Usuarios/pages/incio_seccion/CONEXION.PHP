@@ -1,8 +1,9 @@
 <?php
+
 $host = "localhost";      
 $usuario = "root";        
 $clave = "";              
-$bd = "mi_base";          
+$bd = "patronato";          
 
 $conexion = new mysqli($host, $usuario, $clave, $bd);
 
@@ -13,4 +14,5 @@ if ($conexion->connect_error) {
 } else {
     echo "✅ Conexión exitosa a la base de datos.";
 }
+
 ?>

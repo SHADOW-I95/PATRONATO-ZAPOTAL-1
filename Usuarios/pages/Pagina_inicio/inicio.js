@@ -21,3 +21,4 @@ const SECION = document.getElementById("BTN-SECION");
 SECION.addEventListener("click", () => {
     window.location.href = "../incio_seccion/seccion/seccion.html";
 });
+
