@@ -1,0 +1,9 @@
+* {
+  margin: 0%;
+  padding: 0%;
+}
+
+body {
+  background-color: rgba(169, 169, 169, 0.39);
+  font-family: "inter", sans-serif;
+}

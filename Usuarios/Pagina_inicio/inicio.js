@@ -13,7 +13,9 @@ function toggleMenu() {
             document.getElementById('BTN_BURGER').classList.remove('activo');
             document.getElementById('MENU').classList.remove('abierto');
             document.getElementById('OVERLAY').classList.remove('visible');
-            document.getElementById('BTN_BURGER').setAttribute('aria-expanded', false);}
+            document.getElementById('BTN_BURGER').setAttribute('aria-expanded', false);
+        }
+
 
 
 const SECION = document.getElementById("BTN-SECION");
@@ -21,3 +23,4 @@ const SECION = document.getElementById("BTN-SECION");
 SECION.addEventListener("click", () => {
     window.location.href = "../incio_seccion/seccion/seccion.html";
 });
+
