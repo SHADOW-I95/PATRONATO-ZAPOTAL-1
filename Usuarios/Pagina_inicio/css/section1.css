@@ -1,0 +1,54 @@
+.section-1 {
+  background-image: url(../assets/img/fondo-lago.jpeg);
+  color: #fff;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  overflow: hidden;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.section-1 p {
+  font-size: 20px;
+}
+
+.section-eslogan {
+  padding: 20px;
+}
+
+.section-eslogan p {
+  color: transparent;
+  -webkit-text-stroke: 1px #97f68e;
+}
+
+.section-eslogan h1 {
+  font-size: 90px;
+  color: #fff;
+  /* -webkit-text-stroke: 2px #fff;*/
+}
+
+.section-eslogan h1 span {
+  color: #97f68e;
+}
+
+.cards-fondo-1 {
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff;
+  color: #000;
+  border-top: 0 solid transparent;
+  border-radius: 20px 20px 0 0;
+  height: 20vh;
+}
+
+.section-cards {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.section-cards img {
+  height: 50px;
+}
