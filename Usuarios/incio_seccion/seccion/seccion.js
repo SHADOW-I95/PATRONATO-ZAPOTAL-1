@@ -9,3 +9,9 @@ function mostrarPassword() {
     }
 
 }
+
+const INGRESAR  = document.getElementById("ingresar");
+
+INGRESAR.addEventListener("click", () => {
+    window.location.href = "../Pagina_inicio/index.php";
+});
