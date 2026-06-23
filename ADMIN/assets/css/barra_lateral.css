@@ -1,0 +1,33 @@
+.navbar{
+    background-color: #2a475e;
+    height: 100vh;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    
+}
+
+.navbar-ul{
+    height: 100vh;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items:center;
+    justify-content: center;
+}
+
+.navbar-li{
+    list-style: none;
+}
+
+.navbar-li a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.span{
+    border: 1px solid #e0dedea7;
+    width: 90%;
+}
