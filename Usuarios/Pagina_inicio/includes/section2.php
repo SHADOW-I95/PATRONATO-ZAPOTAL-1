@@ -25,31 +25,31 @@
                 <div class="wrap">
                     <div class="track" id="t">
                         <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
+                            <img src="Usuarios/Pagina_inicio/assets/img/img1.jpeg" alt="">
                             <span>persona</span>
                         </div>
                         <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
+                            <img src="Usuarios/Pagina_inicio/assets/img/img2.jpeg" alt="">
                             <span>persona</span>
                         </div>
                         <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
+                            <img src="Usuarios/Pagina_inicio/assets/img/img3.jpeg" alt="">
                             <span>persona</span>
                         </div>
                         <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
+                            <img src="Usuarios/Pagina_inicio/assets/img/img4.jpeg" alt="">
                             <span>persona</span>
                         </div>
                         <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
+                            <img src="Usuarios/Pagina_inicio/assets/img/img5.jpeg alt="">
                             <span>persona</span>
                         </div>
                         <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
+                            <img src="Usuarios/Pagina_inicio/assets/img/img6.jpeg" alt="">
                             <span>persona</span>
                         </div>
                         <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
+                            <img src="Usuarios/Pagina_inicio/assets/img/img7.jpeg" alt="">
                             <span>perso</span>
                         </div>
                     </div>
