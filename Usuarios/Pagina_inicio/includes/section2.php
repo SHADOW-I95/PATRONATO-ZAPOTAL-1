@@ -26,11 +26,6 @@
                     <div class="track" id="t">
 
                         <div class="item">
-                            <img src="assets/img/arelyxd.jpeg" alt="">
-                            <span>Arely zapata Dueña de todo</span>
-                        </div>
-
-                        <div class="item">
                             <img src="assets/img/img2.jpeg" alt="">
                             <span>Dilsia Lopez  Presidente</span>
                         </div>
