@@ -1,8 +1,8 @@
-<!--esta parte no esta trerminada se tiene que hacer como se veria la cuenta que esta dentro-->
+
     <header class="barra_superior">
 
         <div class="barra_logo">
-            <img src="../assets/img/LOGO.png">
+            <img src="./assets/img/LOGO.png">
             <h2>Patronato pro-mejoramiento
                 <br>zapotal
             </h2>

@@ -1,117 +1,153 @@
-<?php
-include('../conexion.php');
 
-$sql = "SELECT * FROM usuarios";
-$resultado = mysqli_query($conexion,$sql);
-?>
+ <div class="contenido">
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="../assets/css/usuarios.css">
-<link rel="stylesheet" href="../assets/css/barra_lateral.css">
-<link rel="stylesheet" href="../assets/css/global.css">
-<link rel="stylesheet" href="../assets/css/barra_superior.css">
-<title>Usuarios</title>
-</head>
-<body>
+        <div class="encabezado">
+            <h1>Usuarios</h1>
+        </div>
 
-<?php 
-include '../layout/barra_superior.php';
-?>
+        <div class="buscador">
+            <input type="text" placeholder="Buscar usuario...">
 
+            <button class="btn-nuevo" id="abrir-modal">
+                + Nuevo Usuario
+            </button>
 
-<div class="contenido">
-
-    <div class="encabezado">
-
-        <h1>Usuarios</h1>
-
-        <a href="agregar.php" class="btn-nuevo">
-            + Nuevo Usuario
-        </a>
-
+        </div>
     </div>
 
-    <div class="buscador">
+    <div class="modal" id="modal">
+        <div class="modal-contenido">
+            <span class="cerrar" id="cerrar-modal">&times;</span>
+            <h2>Nuevo usuario</h2>
 
-        <input
-        type="text"
-        placeholder="Buscar usuario...">
+            <form action="" method="post">
 
+                <div class="infromacion_personal">
+                    <span>infromacion personal</span>
+
+                    <label for="">DNI</label>
+                    <input type="number" placeholder="Numero identidad" name="dni" >
+
+                    <label for="">Nombre</label>
+                    <input type="text" placeholder="Nombre" name="nombre">
+
+                    <label for="">Apellido</label>
+                    <input type="text" placeholder="Apellido" name="apellido">
+
+                    <label for="">Fecha de Nacimiento</label>
+                    <input type="datetime-local" placeholder="dd/mm/aa" name="fecha_nac">
+
+                    <label for="">Telefono</label>
+                    <input type="number" placeholder="Telefono" name="telefono">
+
+                    <label for="">Correo</label>
+                    <input type="email" placeholder="Email" name="email">
+                </div>
+
+                <div class="inormacion_servicios">
+                    <span>Servivios</span>
+
+                    <label for="">Sector</label>
+                    <select id="" name="sector">
+                        <option>Aida</option>
+                        <option>Balvino</option>
+                        <option>Brisas del Rio</option>
+                        <option>Camino la coronilla</option>
+                        <option>Campita</option>
+                        <option>Campo de Futbol</option>
+                        <option>Calle las Delicias</option>
+                        <option>Calle Principal</option>
+                        <option>Colegio</option>
+                        <option>Chupin</option>
+                        <option>Denis Montes</option>
+                        <option>Mangal</option>
+                        <option>Mario Claros</option>
+                        <option>Oviedo</option>
+                        <option>Pedregal</option>
+                        <option>Tabora</option>
+                        <option>Vueltona</option>
+                    </select>
+
+                    <label for="">Numero de Casa</label>
+                    <input type="number" placeholder="Numero casa" name="nuumero_casa">
+
+                    <label for="">Tipo Servicio</label>
+                    <select id="" name="tipo_servicio">
+                        <option>Casa</option>
+                        <option>Apartamento</option>
+                        <option>Negocio</optio>
+                        <option>Alquilado</option>
+                    </select>
+
+                    <label for="">Cantidad Propiedades</label>
+                    <input type="number" placeholder="Cntidad de propiedades" name="cant_propiedades">
+
+                    <label for="">Cuota Mensual</label>
+                    <input type="number" placeholder="Cuota Mensual" name="cuota">
+
+                    <label for="">Estado</label>
+                    <select id="" name="estado">
+                        <option>Activo</option>
+                        <option>Inactivo</option>
+                    </select>
+
+                    <label for="">Obervaciones</label>
+                    <input type="text" placeholder="Observaciones" name="observaciones">
+
+                </div>
+            </form>
+
+        </div>
     </div>
 
-    <div class="tabla-contenedor">
 
-        <table>
+    <div class="div-table">
+        <table class="table">
 
-            <thead>
-
+            <thead class="thead">
                 <tr>
-
-                    <th>ID</th>
+                    <th>#</th>
                     <th>DNI</th>
-                    <th>NOMBRE COMPLETO</th>
-                    <th>SECTOR</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDO</th>
+                    <th>FECHA_NACIMIENTO</th>
                     <th>TELEFONO</th>
+                    <th>CORREO</th>
+                    <th>SECTOR</th>
+                    <th>NUMERO_CASA</th>
+                    <th>TIPO_SERVICIO</th>
+                    <th>CANT_PROPIEDADES</th>
+                    <th>CUOTA_MEN</th>
                     <th>ESTADO</th>
-                    <th>ACCIONES</th>
-
+                    <th>FECHA_REGISTRO</th>
+                    <th>OBSERVACIONES</th>
+                    <th></th>
+                    <th></th>
                 </tr>
-
             </thead>
 
-            <tbody>
-
-                <?php while($fila = mysqli_fetch_assoc($resultado)){ ?>
-
+            <tbody class="tbody">
                 <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
 
-                    <td><?= $fila['DNI']; ?></td>
-
-                    <td><?= $fila['NOMBRE']; ?></td>
-
-                    <td><?= $fila['APELLIDO']; ?></td>
-
-                    <td><?= $fila['SECTOR']; ?></td>
-
-                    <td>L <?= $fila['CUOTA_MENSUAL']; ?></td>
-
-                    <td>
-
-                        <span class="estado <?= strtolower($fila['ESTADO']) ?>">
-                            <?= $fila['ESTADO']; ?>
-                        </span>
-
-                    </td>
-
-                    <td>
-
-                        <a href="ver.php?id=<?= $fila['id_usuario']; ?>">👁</a>
-
-                        <a href="editar.php?id=<?= $fila['id_usuario']; ?>">✏</a>
-
-                        <a href="eliminar.php?id=<?= $fila['id_usuario']; ?>">🗑</a>
-
-                    </td>
-
+                    <th></th>
+                    <th></th>
                 </tr>
-
-                <?php } ?>
-
             </tbody>
 
         </table>
-
     </div>
-
-</div>
-
-<?php
-include '../layout/barra_lateral.php'; 
-
- ?>
-
-</body>
-</html>

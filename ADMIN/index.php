@@ -8,18 +8,20 @@
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/barra_lateral.css">
     <link rel="stylesheet" href="./assets/css/barra_superior.css">
+    <link rel="stylesheet" href="./assets/css/modal.css">
+    <link rel="stylesheet" href="./assets/css/usuarios.css">
 </head>
-
-<?php 
-
-  include 'layout/barra_superior.php';
-  include 'layout/barra_lateral.php';
-  include 'usuarios/usuario.php'
-
-?>
-
 <body>
 
-</body>
 
+<?php 
+ 
+  include 'layout/barra_superior.php';
+  include 'usuarios/usuario.php';
+include 'layout/barra_lateral.php';
+?>
+
+<script src="./assets/js/modal.js"></script>
+
+</body>
 </html>

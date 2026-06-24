@@ -26,8 +26,13 @@
                     <div class="track" id="t">
 
                         <div class="item">
+                            <img src="assets/img/arelyxd.jpeg" alt="">
+                            <span>Arely zapata Dueña de todo</span>
+                        </div>
+
+                        <div class="item">
                             <img src="assets/img/img2.jpeg" alt="">
-                            <span>Dilsia Lopez  Precidente</span>
+                            <span>Dilsia Lopez  Presidente</span>
                         </div>
 
                         <div class="item">
@@ -49,7 +54,7 @@
                         </div>
                         <div class="item">
                             <img src="assets/img/img6.jpeg" alt="">
-                            <span>Gabriel Linares FiscL</span>
+                            <span>Gabriel Linares Fiscal</span>
                         </div>
                         <div class="item">
                             <img src="assets/img/img7.jpeg" alt="">

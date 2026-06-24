@@ -1,12 +1,13 @@
 
 .barra_superior{
-    height: 80px;
+    height: 60px;
     width: 100%;
     background-color: #fff;
     box-shadow: 5px 5px 40px #c3c2c2;
     align-items: center;
     justify-content: space-between;
     display: flex;
+    z-index: 2;
 }
 
 .barra_logo{

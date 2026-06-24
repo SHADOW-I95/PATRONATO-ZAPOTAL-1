@@ -1,72 +1,47 @@
-.contenido{
-    width: 80%;
-    margin-left: 200px;
-    position: absolute;
-    padding:30px 30px 30px;
+.contenido {
+  width: 80%;
+  position: relative;
+  left: 160px;
+  padding: 30px 30px 30px;
 }
 
-.encabezado{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
 }
 
-.encabezado h1{
-    font-size:28px;
-    color:#222;
+.encabezado h1 {
+  font-size: 28px;
+  color: #222;
 }
 
-.btn-nuevo{
-    background:#1f2937;
-    color:white;
-    text-decoration:none;
-    padding:12px 18px;
-    border-radius:8px;
-    font-weight:600;
+.btn-nuevo {
+  background: #1f2937;
+  color: white;
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: 600;
 }
 
-.btn-nuevo:hover{
-    opacity:.9;
+.btn-nuevo:hover {
+  opacity: 0.9;
 }
 
-.buscador{
-    margin-bottom:20px;
+.buscador {
+  margin-bottom: 20px;
 }
 
-.buscador input{
-    width:350px;
-    padding:12px;
-    border:1px solid #dcdcdc;
-    border-radius:8px;
+.buscador input {
+  width: 350px;
+  padding: 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
 }
 
-.tabla-contenedor{
-    background:white;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 0 10px rgba(0,0,0,.08);
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-thead{
-    background:#f5f6f8;
-}
-
-thead th{
-    text-align:left;
-    padding:15px;
-}
-
-tbody td{
-    padding:15px;
-    border-top:1px solid #eee;
-}
-
+/*
 .estado{
     padding:6px 12px;
     border-radius:20px;
@@ -82,4 +57,31 @@ tbody td{
 .inactivo{
     background:#fee2e2;
     color:#991b1b;
+}
+*/
+.div-table {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  position: relative;
+  left: 160px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.thead {
+  background: #f5f6f8;
+}
+
+.thead th {
+  text-align: left;
+  padding: 15px;
+}
+
+.tbody {
+  padding: 15px;
+  border-top: 1px solid #eee;
 }
