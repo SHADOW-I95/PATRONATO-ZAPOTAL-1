@@ -1,27 +1,24 @@
 <?php
-include("../CONEXION.PHP");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   
-    $CORREO     = $_POST['correo'];
-    $CONTRASEÑA = $_POST['contrasena'];
+$id = $_POST['ID'];
+$correo = $_POST['CORREO'];
+$contrasena = $_POST['CONTRASEÑA'];
 
+$sql = "SELECT * FROM usuarios 
+        WHERE ID = ? 
+        AND CORREO = ? 
+        AND CONTEASEÑA = ?";
 
-    $sql = "SELECT * FROM usuario WHERE CORREO='$CORREO'";
-    $resultado = $conexion->query($sql);
+$stmt = $conexion->prepare($sql);
 
-    if ($resultado->num_rows > 0) {
-        $fila = $resultado->fetch_assoc();
+$stmt->bind_param("iss", $id, $correo, $contrasena);
+$stmt->execute();
 
+$resultado = $stmt->get_result();
 
-        if (password_verify($CONTRASEÑA, $fila['CONTRASEÑA'])) {
-            echo "✅ Bienvenido " . $fila['NOMBRES'];
-        
-        } else {
-            echo "❌ Contraseña incorrecta";
-        }
-    } else {
-        echo "❌ Usuario no encontrado";
-    }
+if ($resultado->num_rows > 0) {
+    echo "Datos correctos";
+} else {
+    echo "Datos incorrectos";
 }
 ?>

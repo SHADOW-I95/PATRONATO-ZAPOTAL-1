@@ -24,33 +24,36 @@
 
                 <div class="wrap">
                     <div class="track" id="t">
+
                         <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
-                            <span>persona</span>
+                            <img src="assets/img/img2.jpeg" alt="">
+                            <span>Dilsia Lopez  Presidente</span>
+                        </div>
+
+                        <div class="item">
+                            <img src="assets/img/img1.jpeg" alt="">
+                            <span>Eleomar Paz Vocal</span>
+                        </div>
+                    
+                        <div class="item">
+                            <img src="assets/img/img3.jpeg" alt="">
+                            <span>Victor Suniga Secretario</span>
                         </div>
                         <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
-                            <span>persona</span>
+                            <img src="assets/img/img4.jpeg" alt="">
+                            <span>Pablo Mendez Tesorero</span>
                         </div>
                         <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
-                            <span>persona</span>
+                            <img src="assets/img/img5.jpeg" alt="">
+                            <span>Mario Lorenzo Vocal</span>
                         </div>
                         <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
-                            <span>persona</span>
+                            <img src="assets/img/img6.jpeg" alt="">
+                            <span>Gabriel Linares Fiscal</span>
                         </div>
                         <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
-                            <span>persona</span>
-                        </div>
-                        <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
-                            <span>persona</span>
-                        </div>
-                        <div class="item">
-                            <img src="./assets/img/PERSONA.jpg" alt="">
-                            <span>perso</span>
+                            <img src="assets/img/img7.jpeg" alt="">
+                            <span>Fredi Garcia Vocal</span>
                         </div>
                     </div>
 
