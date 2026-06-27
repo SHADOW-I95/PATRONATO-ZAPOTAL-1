@@ -1,14 +1,14 @@
 <?php
 
-$conexion = mysqli_connect(
-    "localhost",
-    "root",
-    "",
-    "patronato"
-);
+function connection(){
+    $host = "localhost";
+    $user = "root";
+    $pass = "";
+    $bd = "patronato";
 
-if(!$conexion){
-
-    die("Error de conexión");
+    $connect = mysqli_connect($host, $user, $pass);
+    mysqli_select_db($connect, $bd);
+    
+    return $connect;
 
 }

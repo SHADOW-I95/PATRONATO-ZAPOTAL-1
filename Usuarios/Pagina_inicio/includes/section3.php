@@ -16,14 +16,7 @@
         </div>
 
         <div class="mapa">
-            <div class="mapa-road road-1"></div>
-            <div class="mapa-road road-2"></div>
-            <div class="mapa-road road-3"></div>
-            <div class="mapa-dot dot-1"></div>
-            <div class="mapa-dot dot-2"></div>
-            <div class="mapa-dot dot-3"></div>
-            <div class="mapa-pin"></div>
-            <div class="mapa-label">Patronato de Zapotal</div>
+            
         </div>
     </div>
 </section>

@@ -61,10 +61,12 @@
 */
 .div-table {
   background: white;
-  border-radius: 12px;
+  border: 1px solid #000;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
   position: relative;
-  left: 160px;
+  margin-left: 160px;
+  overflow-x: auto;
 }
 
 .table {
@@ -73,7 +75,7 @@
 }
 
 .thead {
-  background: #f5f6f8;
+  background: #bfc0c2;
 }
 
 .thead th {
@@ -81,7 +83,8 @@
   padding: 15px;
 }
 
-.tbody {
-  padding: 15px;
-  border-top: 1px solid #eee;
+.tbody th{
+  border-top: 1px solid #0e0e0e;
 }
+
+

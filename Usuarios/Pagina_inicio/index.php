@@ -18,18 +18,10 @@
 <body>
 
  <?php 
-<<<<<<< HEAD
   include 'includes/header.php';
   include 'includes/section1.php';
   include 'includes/section2.php';
-  include 'includes/section3.html';
-=======
-    include 'includes/header.php';
-    include 'includes/section1.php';
-    include 'includes/section2.php';
-    include 'includes/section3.php';
-    include 'includes/footer.php'
->>>>>>> bd4b5b3ba45cdf8ae92e8fd72e74f4885638e2fd
+  include 'includes/section3.php';
   ?>
 
 

@@ -15,10 +15,9 @@
 
 
 <?php 
- 
   include 'layout/barra_superior.php';
-  include 'usuarios/usuario.php';
   include 'layout/barra_lateral.php';
+  include 'usuarios/usuario.php';
 ?>
 
 <script src="./assets/js/modal.js"></script>

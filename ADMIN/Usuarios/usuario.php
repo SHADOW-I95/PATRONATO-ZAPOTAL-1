@@ -1,3 +1,12 @@
+<?php
+  include('conexion.php');
+  
+  $con = connection();
+
+  $sql = "SELECT * FROM usuarios";
+  $query = mysqli_query($con, $sql);
+
+?>
 
  <div class="contenido">
 
@@ -20,7 +29,7 @@
             <span class="cerrar" id="cerrar-modal">&times;</span>
             <h2>Nuevo usuario</h2>
 
-            <form action="" method="post">
+            <form action="agregar.php" method="POST">
 
                 <div class="infromacion_personal">
                     <span>infromacion personal</span>
@@ -121,32 +130,38 @@
                     <th>ESTADO</th>
                     <th>FECHA_REGISTRO</th>
                     <th>OBSERVACIONES</th>
-                    <th></th>
-                    <th></th>
+
+                    <th>EDITAR</th>
+                    <th>ELIMINAR</th>
+                    <th>VER</th>
                 </tr>
             </thead>
 
             <tbody class="tbody">
+              <?php while($row = mysqli_fetch_array($query)): ?>
                 <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th><?= $row['id_usuario'] ?></th>
+                    <th><?= $row['DNI'] ?></th>
+                    <th><?= $row['NOMBRE'] ?></th>
+                    <th><?= $row['APELLIDO'] ?></th>
+                    <th><?= $row['FECHA_NACIMIENTO'] ?></th>
+                    <th><?= $row['TELEFONO'] ?></th>
+                    <th><?= $row['CORREO'] ?></th>
+                    <th><?= $row['SECTOR'] ?></th>
+                    <th><?= $row['NUMERO_CASA'] ?></th>
+                    <th><?= $row['TIPO_SERVICIO'] ?></th>
+                    <th><?= $row['CANT_PROPIEDADES'] ?></th>
+                    <th><?= $row['CUOTA_MENSUAL'] ?></th>
+                    <th><?= $row['ESTADO'] ?></th>
+                    <th><?= $row['FECHA_REGISTRO'] ?></th>
+                    <th><?= $row['OBSERVACIONES'] ?></th>
 
-                    <th></th>
-                    <th></th>
+                    <th><a href="">Editar</a></th>
+                    <th><a href="">Eliminar</a></th>
+                    <th><a href="">Ver</a></th>
+                    
                 </tr>
+                <?php endwhile; ?>
             </tbody>
 
         </table>

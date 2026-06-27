@@ -58,7 +58,9 @@
     linear-gradient(#eef6ff 1px, transparent 1px) 0 0 / 28px 28px,
     linear-gradient(90deg, #eef6ff 1px, transparent 1px) 0 0 / 28px 28px,
     linear-gradient(180deg, #f9fbff, #d7e9ff);
-  box-shadow: inset 0 0 0 1px #dde8f7, 0 8px 18px rgba(13, 79, 139, 0.08);
+  box-shadow:
+    inset 0 0 0 1px #dde8f7,
+    0 8px 18px rgba(13, 79, 139, 0.08);
 }
 
 .mapa::before {
@@ -66,11 +68,23 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.7) 0, rgba(255, 255, 255, 0) 8%),
-    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.5) 0, rgba(255, 255, 255, 0) 6%),
-    radial-gradient(circle at 58% 68%, rgba(255, 255, 255, 0.45) 0, rgba(255, 255, 255, 0) 9%);
+    radial-gradient(
+      circle at 20% 25%,
+      rgba(255, 255, 255, 0.7) 0,
+      rgba(255, 255, 255, 0) 8%
+    ),
+    radial-gradient(
+      circle at 72% 18%,
+      rgba(255, 255, 255, 0.5) 0,
+      rgba(255, 255, 255, 0) 6%
+    ),
+    radial-gradient(
+      circle at 58% 68%,
+      rgba(255, 255, 255, 0.45) 0,
+      rgba(255, 255, 255, 0) 9%
+    );
 }
-
+/*
 .mapa-road {
   position: absolute;
   background: #bcd7ff;
@@ -150,7 +164,7 @@
   font-size: 0.9rem;
   font-weight: 700;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-}
+}*/
 
 @media (max-width: 768px) {
   .section3-div2 {
