@@ -49,3 +49,23 @@ $resultado = $conexion->query("
     ORDER BY fecha_pago DESC
 ");
 ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="scripts.css">
+</head>
+<body>
+    
+<div class="pagos">
+<h3>Pagos Realizados</h3>
+ <p>$<?php echo $ID_PAGO['total']; ?></p>
+</div>
+
+</body>
+</html>
