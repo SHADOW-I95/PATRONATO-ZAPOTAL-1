@@ -41,30 +41,23 @@
   border-radius: 8px;
 }
 
-/*
-.estado{
-    padding:6px 12px;
-    border-radius:20px;
-    font-size:13px;
-    font-weight:600;
+.activo {
+  background: #d1fae5;
+  border-radius: 150px;
+  color: #065f46;
 }
 
-.activo{
-    background:#d1fae5;
-    color:#065f46;
+.inactivo {
+  background: #fee2e2;
+  border-radius: 150px;
+  color: #991b1b;
 }
-
-.inactivo{
-    background:#fee2e2;
-    color:#991b1b;
-}
-*/
 .div-table {
   background: white;
   border: 1px solid #000;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
-  position: relative;
+  border-radius: 7px;
+  box-shadow: 0 0 10px rgba(133, 131, 131, 0.5);
+
   margin-left: 160px;
   overflow-x: auto;
 }
@@ -83,8 +76,7 @@
   padding: 15px;
 }
 
-.tbody th{
+.tbody th {
   border-top: 1px solid #0e0e0e;
+  padding: 8px;
 }
-
-

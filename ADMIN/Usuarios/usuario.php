@@ -119,17 +119,11 @@
                     <th>DNI</th>
                     <th>NOMBRE</th>
                     <th>APELLIDO</th>
-                    <th>FECHA_NACIMIENTO</th>
                     <th>TELEFONO</th>
-                    <th>CORREO</th>
                     <th>SECTOR</th>
                     <th>NUMERO_CASA</th>
                     <th>TIPO_SERVICIO</th>
-                    <th>CANT_PROPIEDADES</th>
-                    <th>CUOTA_MEN</th>
                     <th>ESTADO</th>
-                    <th>FECHA_REGISTRO</th>
-                    <th>OBSERVACIONES</th>
 
                     <th>EDITAR</th>
                     <th>ELIMINAR</th>
@@ -144,17 +138,13 @@
                     <th><?= $row['DNI'] ?></th>
                     <th><?= $row['NOMBRE'] ?></th>
                     <th><?= $row['APELLIDO'] ?></th>
-                    <th><?= $row['FECHA_NACIMIENTO'] ?></th>
                     <th><?= $row['TELEFONO'] ?></th>
-                    <th><?= $row['CORREO'] ?></th>
                     <th><?= $row['SECTOR'] ?></th>
                     <th><?= $row['NUMERO_CASA'] ?></th>
                     <th><?= $row['TIPO_SERVICIO'] ?></th>
-                    <th><?= $row['CANT_PROPIEDADES'] ?></th>
-                    <th><?= $row['CUOTA_MENSUAL'] ?></th>
-                    <th><?= $row['ESTADO'] ?></th>
-                    <th><?= $row['FECHA_REGISTRO'] ?></th>
-                    <th><?= $row['OBSERVACIONES'] ?></th>
+
+                    <th class="estado <?= strtolower($row['ESTADO']) ?>">
+                      <?= $row['ESTADO'];?></th>
 
                     <th><a href="">Editar</a></th>
                     <th><a href="">Eliminar</a></th>
