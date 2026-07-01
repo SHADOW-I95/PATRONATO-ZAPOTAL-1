@@ -1,11 +1,6 @@
 <?php
-  include('conexion.php');
-  
-  $con = connection();
-
   $sql = "SELECT * FROM usuarios";
-  $query = mysqli_query($con, $sql);
-
+  $query = mysqli_query($conexion, $sql);
 ?>
 
  <div class="contenido">
