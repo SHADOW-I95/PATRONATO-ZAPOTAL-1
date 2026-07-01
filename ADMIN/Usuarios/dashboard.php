@@ -54,23 +54,9 @@ $resultado = $conexion->query("
 
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-
-<body>
-
 <div class="contenedor">
 
     <div class="contenido">
-
-        <h1>Bienvenido al Dashboard</h1>
 
         <div class="cards">
 
@@ -96,44 +82,6 @@ $resultado = $conexion->query("
             <div class="chart">
                 <canvas id="sectorChart"></canvas>
             </div>
-
-            <div class="chart">
-                <canvas id="mesChart"></canvas>
-            </div>
-
-        </div>
-
-        <div class="table-container">
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>No. Pago</th>
-                        <th>Nombre</th>
-                        <th>Sector</th>
-                        <th>No. Casa</th>
-                        <th>Mes</th>
-                        <th>Fecha Pago</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php while ($fila = $resultado->fetch_assoc()) { ?>
-                    <tr>
-                        <td><?php echo $fila['NO_PAGO']; ?></td>
-                        <td><?php echo $fila['NOMBRE']; ?></td>
-                        <td><?php echo $fila['SECTOR']; ?></td>
-                        <td><?php echo $fila['NO_CASA']; ?></td>
-                        <td><?php echo $fila['MES']; ?></td>
-                        <td><?php echo $fila['FECHA_DE_PAGO']; ?></td>
-                        <td>$<?php echo number_format($fila['TOTAL_A_PAGAR'], 2); ?></td>
-                    </tr>
-                <?php } ?>
-                </tbody>
-            </table>
-
-        </div>
-
     </div>
 
 </div>
@@ -141,35 +89,7 @@ $resultado = $conexion->query("
 <script>
 const sectorLabels = <?php echo json_encode($sectorLabels); ?>;
 const sectorDatos = <?php echo json_encode($sectorDatos); ?>;
-
 const mesLabels = <?php echo json_encode($mesLabels); ?>;
 const mesDatos = <?php echo json_encode($mesDatos); ?>;
-
-new Chart(document.getElementById('sectorChart'), {
-    type: 'pie',
-    data: {
-        labels: sectorLabels,
-        datasets: [{
-            data: sectorDatos,
-            backgroundColor: ['#4e73df','#1cc88a','#36b9cc','#f6c23e','#e74a3b','#858796']
-        }]
-    },
-    options: { plugins: { title: { display: true, text: 'Usuarios por Sector' } } }
-});
-
-new Chart(document.getElementById('mesChart'), {
-    type: 'bar',
-    data: {labels: mesLabels,
-        datasets: [{
-            label: 'Total Recaudado',
-            data: mesDatos,
-            backgroundColor: '#4e73df'
-        }]
-    },
-    options: { plugins: { title: { display: true, text: 'Recaudación por Mes' } } }
-});
 </script>
 
-</body>
-
-</html>

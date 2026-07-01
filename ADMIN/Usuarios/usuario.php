@@ -28,7 +28,7 @@
 
             <form  action="agregar.php" method="POST">
 
-                <div class="infromacion_personal">
+                <div class="informacion_personal">
                     <span>infromacion personal</span>
 
                     <label for="">DNI</label>
