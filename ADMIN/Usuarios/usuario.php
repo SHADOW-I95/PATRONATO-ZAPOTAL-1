@@ -102,6 +102,7 @@
 
                     <label for="">Obervaciones</label>
                     <input type="text" placeholder="Observaciones" name="observaciones">
+                    <input type="submit">
 
                 </div>
             </form>
@@ -144,7 +145,7 @@
                     <th><?= $row['TIPO_SERVICIO'] ?></th>
 
                     <th class="estado <?= strtolower($row['ESTADO']) ?>">
-                      <?= $row['ESTADO'];?></th>
+                     <?= $row['ESTADO'];?></th>
 
                     <th><a href="">Editar</a></th>
                     <th><a href="">Eliminar</a></th>
