@@ -1,24 +1,20 @@
 <?php
+session_start();
 
-$id = $_POST['ID'];
+$usuariosValidos = [
+    "marielayanorisvalle@gmail.com" => "1234",
+    "otrocorreo@gmail.com"          => "5678",
+    "admin@patronato.com"           => "91011"
+];
+
 $correo = $_POST['CORREO'];
 $contrasena = $_POST['CONTRASEÑA'];
 
-$sql = "SELECT * FROM usuarios 
-        WHERE ID = ? 
-        AND CORREO = ? 
-        AND CONTEASEÑA = ?";
-
-$stmt = $conexion->prepare($sql);
-
-$stmt->bind_param("iss", $id, $correo, $contrasena);
-$stmt->execute();
-
-$resultado = $stmt->get_result();
-
-if ($resultado->num_rows > 0) {
-    echo "Datos correctos";
+if(isset($usuariosValidos[$correo]) && $usuariosValidos[$correo] === $contrasena){
+    $_SESSION['usuario'] = $correo;
+    header("Location: dashboard.php");
+    exit();
 } else {
-    echo "Datos incorrectos";
+    echo "Correo o contraseña incorrectos";
 }
 ?>
