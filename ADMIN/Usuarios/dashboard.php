@@ -48,6 +48,7 @@ $resultado = $conexion->query("
     WHERE ID_USUARIO = $IDUSUARIO
     ORDER BY fecha_pago DESC
 ");
+<<<<<<< HEAD
 ?>
 
 
@@ -69,3 +70,6 @@ $resultado = $conexion->query("
 
 </body>
 </html>
+=======
+?>
+>>>>>>> 39b2185 (Resolviendo conflictos)
