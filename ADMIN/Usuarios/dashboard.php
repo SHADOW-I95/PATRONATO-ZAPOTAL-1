@@ -1,6 +1,7 @@
 <?php
 
-include("conexion.php");
+require_once "conexion.php";
+$conexion = connection();
 
 $totalVentas = $conexion->query(
     "SELECT SUM(TOTAL) AS total FROM dashboard"

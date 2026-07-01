@@ -1,4 +1,7 @@
 <?php
+
+require_once "conexion.php";
+$conexion = connection();
   $sql = "SELECT * FROM usuarios";
   $query = mysqli_query($conexion, $sql);
 ?>
