@@ -1,7 +1,6 @@
 <?php
 
-require_once "conexion.php";
-$conexion = connection();
+  require_once "conexion.php";
   $sql = "SELECT * FROM usuarios";
   $query = mysqli_query($conexion, $sql);
 ?>
@@ -27,7 +26,7 @@ $conexion = connection();
             <span class="cerrar" id="cerrar-modal">&times;</span>
             <h2>Nuevo usuario</h2>
 
-            <form action="agregar.php" method="POST">
+            <form  action="agregar.php" method="POST">
 
                 <div class="infromacion_personal">
                     <span>infromacion personal</span>
