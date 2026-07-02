@@ -1,8 +1,7 @@
 
 <?php
-  include ("../conexion.php");
-
-
+  include "../conexion.php";
+  $conexion = connection();
 
   $id_usuario = null;
   $dni = $_POST['dni'];
@@ -27,7 +26,7 @@
   $query = mysqli_query($conexion,$sql);
 
   if ($query) {
-    header('location: usuario.php');
+    header('location: ../inicio.php');
   }
 
 ?>
