@@ -1,5 +1,5 @@
 <?php
-  require_once "conexion.php";
+  require_once "./conexion.php";
   $sql = "SELECT * FROM usuarios";
   $query = mysqli_query($conexion, $sql);
 ?>
@@ -111,7 +111,6 @@
 
 
 <!--==================================TABLA DONDE SE GUARDARA ALGUNA INFORMACION DE USUARIOS==================================================-->
-
     <div class="div-table">
         <table class="table">
 
@@ -138,7 +137,7 @@
             <tbody class="tbody">
               <?php while($row = mysqli_fetch_array($query)): ?>
                 <tr>
-                    <th><?= $row['ID_USUARIO'] ?></th>
+                    <th><?= $row['id_usuario'] ?></th>
                     <th><?= $row['DNI'] ?></th>
                     <th><?= $row['NOMBRE'] ?></th>
                     <th><?= $row['APELLIDO'] ?></th>

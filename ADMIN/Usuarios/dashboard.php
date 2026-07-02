@@ -52,16 +52,15 @@ $activos = $activosQuery->fetch_assoc();
 // Consulta que agrupa los usuarios por sector.
 $sectorGrafico = $conexion->query("
 
-    // Selecciona el nombre del sector.
+    
     SELECT SECTOR,
 
-    // Cuenta cuántos usuarios existen en cada sector.
     COUNT(*) AS cantidad
 
-    // Obtiene los datos de la tabla usuarios.
+  
     FROM usuarios
 
-    // Agrupa los resultados por sector.
+
     GROUP BY SECTOR
 
 ");
@@ -92,16 +91,13 @@ while ($fila = $sectorGrafico->fetch_assoc()) {
 // Consulta que obtiene el total recaudado por cada mes.
 $mesGrafico = $conexion->query("
 
-    // Selecciona el mes.
+
     SELECT MES,
 
-    // Suma el dinero recaudado durante ese mes.
     SUM(TOTAL_A_PAGAR) AS total
 
-    // Tabla donde están registrados los pagos.
     FROM pagos_agua
 
-    // Agrupa los resultados por mes.
     GROUP BY MES
 
 ");
@@ -132,7 +128,7 @@ while ($fila = $mesGrafico->fetch_assoc()) {
 // Consulta para obtener los últimos 20 pagos registrados.
 $resultado = $conexion->query("
 
-    // Campos que se mostrarán en la tabla.
+    
     SELECT
         NO_PAGO,
         NOMBRE,
@@ -142,13 +138,11 @@ $resultado = $conexion->query("
         FECHA_DE_PAGO,
         TOTAL_A_PAGAR
 
-    // Tabla de donde se obtienen los datos.
+  
     FROM pagos_agua
 
-    // Ordena por fecha, mostrando primero los más recientes.
+    
     ORDER BY FECHA_DE_PAGO DESC
-
-    // Muestra únicamente los primeros 20 registros.
     LIMIT 20
 
 ");
