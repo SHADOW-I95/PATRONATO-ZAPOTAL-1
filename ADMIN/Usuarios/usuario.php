@@ -1,4 +1,6 @@
 <?php
+
+  require_once "conexion.php";
   $sql = "SELECT * FROM usuarios";
   $query = mysqli_query($conexion, $sql);
 ?>
@@ -24,9 +26,9 @@
             <span class="cerrar" id="cerrar-modal">&times;</span>
             <h2>Nuevo usuario</h2>
 
-            <form action="agregar.php" method="POST">
+            <form  action="agregar.php" method="POST">
 
-                <div class="infromacion_personal">
+                <div class="informacion_personal">
                     <span>infromacion personal</span>
 
                     <label for="">DNI</label>

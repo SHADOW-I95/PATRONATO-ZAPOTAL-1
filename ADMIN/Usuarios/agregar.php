@@ -1,7 +1,7 @@
 
 <?php
   include('conexion.php');
-  $con = connection();
+ 
 
   $id_usuario = null;
   $dni = $_POST['dni'];
@@ -17,14 +17,16 @@
   $estado = $_POST['estado'];
   $observaciones = $_POST['observaciones'];
 
-  $sql = "INSERT INTO usuarios(id_usuario,DNI,NOMBRE,APELLIDO,FECHA_NACIMIENTO,TELEFONO,CORREO,SECTOR,NUMERO_CASA,TIPO_SERVICIO,CANT_PROPIEDADES,ESTADO,\)
-  VALUES('$id_usuario','$dni','$nombre','$apellido','$fecha_nac','$telefono','$email','$sector','$numero_casa',
+  $sql = "INSERT INTO usuarios
+  (id_usuario,DNI,NOMBRE,APELLIDO,FECHA_NACIMIENTO,TELEFONO,CORREO,SECTOR,NUMERO_CASA,TIPO_SERVICIO,CANT_PROPIEDADES,ESTADO,OBSERVACIONES)
+  VALUES
+  ('$id_usuario','$dni','$nombre','$apellido','$fecha_nac','$telefono','$email','$sector','$numero_casa',
   '$tipo_servicio','$cant_propiedades','$estado','$observaciones')";
 
-  $query = mysqli_query($con,$sql);
+  $query = mysqli_query($conexion,$sql);
 
   if ($query) {
-    header('location: usuario.php')
+    header('location: usuario.php');
   }
 
 ?>

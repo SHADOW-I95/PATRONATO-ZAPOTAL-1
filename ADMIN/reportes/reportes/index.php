@@ -1,9 +1,3 @@
-<?php
-session_start();
-require_once "conexion.php";
-$conexion = connection();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,21 +10,18 @@ $conexion = connection();
     <link rel="stylesheet" href="./assets/css/barra_superior.css">
     <link rel="stylesheet" href="./assets/css/modal.css">
     <link rel="stylesheet" href="./assets/css/usuarios.css">
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 
 <?php 
+ 
   include 'layout/barra_superior.php';
-  include 'layout/barra_lateral.php';
-
   include 'usuarios/usuario.php';
-  include 'usuarios/dashboard.php';
+  include 'layout/barra_lateral.php';
 ?>
 
 <script src="./assets/js/modal.js"></script>
-<script src="script.js"></script>
 
 </body>
 </html>

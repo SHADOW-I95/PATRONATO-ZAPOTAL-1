@@ -1,4 +1,5 @@
- <nav class="navbar">
+
+    <nav class="navbar">
             <ul class="navbar-ul">
                 <li class="navbar-li"><a href="">Dasbhoar</a></li>
                 <li class="navbar-li"><a href="">Uusarios</a></li>
@@ -13,4 +14,4 @@
                 <li class="navbar-li"><a href="">configuracion</a></li>
                 <li class="navbar-li"><a href="">empleados</a></li>
             </ul>
-</nav>
+    </nav>
