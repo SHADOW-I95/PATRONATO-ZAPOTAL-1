@@ -152,6 +152,7 @@ $resultado = $conexion->query("
     LIMIT 20
 
 ");
+   
 
 ?>
 

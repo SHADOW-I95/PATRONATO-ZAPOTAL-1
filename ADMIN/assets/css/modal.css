@@ -29,3 +29,14 @@
     font-size: 25px;
     cursor: pointer;
 }
+
+.informacion_personal{
+    display: flex;
+    flex-direction: column;
+}
+
+.inormacion_servicios{
+        display: flex;
+    flex-direction: column;
+
+}

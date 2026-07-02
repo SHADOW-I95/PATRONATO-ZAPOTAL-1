@@ -60,7 +60,7 @@
         <thead class="thead">
             <tr>
                 <th>#</th>
-                <th>ID</th>
+                <th>DNI</th>
                 <th>Usuario</th>
                 <th>Asunto</th>
                 <th>Descripción</th>
@@ -80,15 +80,14 @@
             while($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td>".$contador++."</td>";
-                echo "<td>".$row['id']."</td>";
+                echo "<td>".$row['dni']."</td>";
                 echo "<td>".$row['usuario']."</td>";
                 echo "<td>".$row['asunto']."</td>";
                 echo "<td>".$row['descripcion']."</td>";
                 echo "<td>".$row['fecha']."</td>";
                 echo "<td>".$row['estado']."</td>";
                 echo "<td>
-                        <a href='editar.php?id=".$row['id']."'>✏️</a>
-                        <a href='eliminar.php?id=".$row['id']."'>🗑️</a>
+                
                       </td>";
                 echo "</tr>";
             }
