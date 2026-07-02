@@ -2,17 +2,17 @@
 session_start();
 
 $usuariosValidos = [
-    "marielayanorisvalle@gmail.com" => "1234",
+    "marielayanorisvalle@gmail.com" => "12345",
     "otrocorreo@gmail.com"          => "5678",
     "admin@patronato.com"           => "91011"
 ];
 
-$correo = $_POST['CORREO'];
-$contrasena = $_POST['CONTRASEÑA'];
+$correo = $_POST['correo'] ?? '';
+$contrasena = $_POST['contrasena'] ?? '';
 
-if(isset($usuariosValidos[$correo]) && $usuariosValidos[$correo] === $contrasena){
+if (isset($usuariosValidos[$correo]) && $usuariosValidos[$correo] === $contrasena) {
     $_SESSION['usuario'] = $correo;
-    header("Location: dashboard.php");
+    header("Location: ../../Pagina_inicio/index.php");
     exit();
 } else {
     echo "Correo o contraseña incorrectos";

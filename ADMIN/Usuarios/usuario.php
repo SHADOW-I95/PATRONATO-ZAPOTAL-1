@@ -132,7 +132,7 @@
             <tbody class="tbody">
               <?php while($row = mysqli_fetch_array($query)): ?>
                 <tr>
-                    <th><?= $row['id_usuario'] ?></th>
+                    <th><?= $row['ID_USUARIO'] ?></th>
                     <th><?= $row['DNI'] ?></th>
                     <th><?= $row['NOMBRE'] ?></th>
                     <th><?= $row['APELLIDO'] ?></th>
