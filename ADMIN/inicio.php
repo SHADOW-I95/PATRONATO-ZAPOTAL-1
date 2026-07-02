@@ -71,7 +71,7 @@ $conexion = connection();
   <!--=====================JS===================================-->
     <script src="./assets/js/modal.js"></script>
     <script src="./assets/js/dashboard.js"></script>
-    <script src="./assets/js/nose.js"></script>
+    <script src="./assets/js/PG.js"></script>
 
   </body>
 </html>

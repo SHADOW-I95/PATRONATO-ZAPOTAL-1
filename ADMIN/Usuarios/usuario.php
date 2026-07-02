@@ -1,9 +1,11 @@
 <?php
-
   require_once "conexion.php";
   $sql = "SELECT * FROM usuarios";
   $query = mysqli_query($conexion, $sql);
 ?>
+
+<!--===============================boton de agregar nuevo usuario y barra de busqueda
+                          solo esta la fachada falta darle funcionalidad a la barra de busqueda=================================-->
 
  <div class="contenido">
 
@@ -20,13 +22,13 @@
 
         </div>
     </div>
-
+<!--===============================MODAL DE AGREGAR NUEVO USUARIO-SE ENCUENTRA EN PROCESO==================================================-->
     <div class="modal" id="modal">
         <div class="modal-contenido">
             <span class="cerrar" id="cerrar-modal">&times;</span>
             <h2>Nuevo usuario</h2>
 
-            <form  action="agregar.php" method="POST">
+            <form  action="/PATRONATO-ZAPOTAL-1/ADMIN/Usuarios/agregar.php" method="POST">
 
                 <div class="informacion_personal">
                     <span>infromacion personal</span>
@@ -75,7 +77,7 @@
                     </select>
 
                     <label for="">Numero de Casa</label>
-                    <input type="number" placeholder="Numero casa" name="nuumero_casa">
+                    <input type="number" placeholder="Numero casa" name="numero_casa">
 
                     <label for="">Tipo Servicio</label>
                     <select id="" name="tipo_servicio">
@@ -99,14 +101,16 @@
 
                     <label for="">Obervaciones</label>
                     <input type="text" placeholder="Observaciones" name="observaciones">
-                    <input type="submit">
 
                 </div>
+                 <input type="submit">
             </form>
 
         </div>
     </div>
 
+
+<!--==================================TABLA DONDE SE GUARDARA ALGUNA INFORMACION DE USUARIOS==================================================-->
 
     <div class="div-table">
         <table class="table">
@@ -128,6 +132,8 @@
                     <th>VER</th>
                 </tr>
             </thead>
+
+<!--==========================LA LOGICA=este es el cuerpo de la pagina donde se guarda la informacion que haya en la base de datos=======================================================-->
 
             <tbody class="tbody">
               <?php while($row = mysqli_fetch_array($query)): ?>
