@@ -35,8 +35,7 @@ $result = mysqli_query($conn, $sql);
   </div>
 
   <div class="bloque-filtros">
-    <!-- formulario de filtros -->
-    <!-- (el que ya tienes, no lo repito para no hacer ruido) -->
+    
   </div>
 
   <div class="div-table">
@@ -59,15 +58,14 @@ $result = mysqli_query($conn, $sql);
         while($row = mysqli_fetch_assoc($result)) { ?>
           <tr>
             <td><?php echo $contador++; ?></td>
-            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['dni']; ?></td>
             <td><?php echo $row['usuario']; ?></td>
             <td><?php echo $row['asunto']; ?></td>
             <td><?php echo $row['descripcion']; ?></td>
             <td><?php echo $row['fecha']; ?></td>
             <td><?php echo $row['estado']; ?></td>
             <td>
-              <a href="editar.php?id=<?php echo $row['id']; ?>">✏️</a>
-              <a href="eliminar.php?id=<?php echo $row['id']; ?>">🗑️</a>
+              
             </td>
           </tr>
         <?php } ?>
