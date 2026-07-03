@@ -3,6 +3,10 @@
   include "../conexion.php";
   $conexion = connection();
 
+  // Validación: si el DNI no llegó o está vacío, detenemos el proceso
+  if (empty($_POST['dni'])) {
+    die("Error: el campo DNI es obligatorio y no puede estar vacío.");};
+
   $id_usuario = null;
   $dni = $_POST['dni'];
   $nombre = $_POST['nombre'];

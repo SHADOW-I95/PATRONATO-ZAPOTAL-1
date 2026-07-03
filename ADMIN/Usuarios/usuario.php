@@ -58,8 +58,7 @@
                     <input type="text" placeholder="Apellido" name="apellido">
 
                     <label for="">Fecha de Nacimiento</label>
-                    <!-- Nota: el input es datetime-local (fecha y hora), pero en la BD el campo FECHA_NACIMIENTO es tipo DATE -->
-                    <input type="datetime-local" placeholder="dd/mm/aa" name="fecha_nac">
+                    <input type="date" placeholder="dd/mm/aa" name="fecha_nac">
 
                     <label for="">Telefono</label>
                     <input type="number" placeholder="Telefono" name="telefono">

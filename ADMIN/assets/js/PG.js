@@ -1,16 +1,20 @@
-document.querySelectorAll('.menu-item').forEach(item => {
-      item.addEventListener('click', function (e) {
-        e.preventDefault();
-        cargarPagina(this.dataset.page);
-      });
-    });
-
-    function cargarPagina(page) {
-      fetch(`secciones/${page}.php`)
-        .then(res => res.text())
-        .then(html => {
-          document.getElementById('contenido').innerHTML = html;
+  document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', function (e) {
+          e.preventDefault();
+          const page = this.dataset.page;
+          if (!page) return; // secciones que aún no tienen ruta (Pagos, agua, etc.)
+          cargarPagina(page);
         });
-    }
+      });
 
-    cargarPagina('dashboard'); // se carga al abrir
+      function cargarPagina(pageUrl) {
+        fetch(pageUrl)
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById('contenido').innerHTML = html;
+          })
+          .catch(err => console.error('Error cargando sección:', err));
+      }
+
+      // Cargar el dashboard por defecto al abrir la página
+      cargarPagina('./dashboard/dasboard.php')

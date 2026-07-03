@@ -15,7 +15,7 @@ $conexion = connection();
     <link rel="stylesheet" href="./assets/css/barra_superior.css" />
     <link rel="stylesheet" href="./assets/css/global.css" />
     <link rel="stylesheet" href="./assets/css/modal.css" />
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/dashboard.css"/>
     <link rel="stylesheet" href="./assets/css/usuarios.css" />
 
     
@@ -41,19 +41,17 @@ $conexion = connection();
 
 
   <!--===================INCLUDES========================-->
-
-    <?php 
-     include 'usuarios/dashboard.php';
-     include 'usuarios/usuario.php'; 
-    ?>
-
+ <?php
+  include 'dashboard/dashboard.php';
+  include 'usuarios/usuario.php';
+  ?>
 
  <!--=================BARRA_LATERAL==================-->
 
     <nav class="navbar">
       <ul class="navbar-ul">
-        <li class="navbar-li"><a href="#" class="menu-item" data-page="usuario/dasboard.php">Dasbhoar</a></li>
-        <li class="navbar-li"><a href="#" class="menu-item" data-page="usuario/usuario.php">usarios</a></li>
+        <li class="navbar-li"><a href="#" class="menu-item" data-page="./dashboard/dasboard.php">Dasbhoar</a></li>
+        <li class="navbar-li"><a href="#" class="menu-item" data-page="./usuario/usuario.php">usarios</a></li>
         <li class="navbar-li"><a href="#" class="menu-item" data-page="">Pagos</a></li>
         <li class="navbar-li"><a href="#" class="menu-item" data-page="">agua</a></li>
         <li class="navbar-li"><a href="#" class="menu-item" data-page="">cementerio</a></li>
