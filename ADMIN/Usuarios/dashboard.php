@@ -51,9 +51,7 @@ $resultado = $conexion->query("
     ORDER BY FECHA_DE_PAGO DESC
     LIMIT 20
 ");
-<<<<<<< HEAD
-   
-=======
+ 
 
 ?>
 
@@ -95,5 +93,4 @@ const sectorDatos = <?php echo json_encode($sectorDatos); ?>;
 const mesLabels = <?php echo json_encode($mesLabels); ?>;
 const mesDatos = <?php echo json_encode($mesDatos); ?>;
 </script>
->>>>>>> c9327694f7acd366daade568f5f538fe422c5844
 
