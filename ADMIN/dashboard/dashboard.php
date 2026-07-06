@@ -41,6 +41,10 @@ $activosQuery = $conexion->query(
     "SELECT COUNT(*) AS total FROM usuarios WHERE ESTADO = 'ACTIVO'"
 );
 
+$activosQuery = $conexion->query(
+    "SELECT COUNT(*) AS total FROM usuarios WHERE ESTADO = 'INACTIVO'"
+);
+
 // Guarda el resultado en un arreglo.
 $activos = $activosQuery->fetch_assoc();
 
@@ -195,6 +199,17 @@ $resultado = $conexion->query("
                 <p><?php echo $activos['total'] ?? 0; ?></p>
 
             </div>
+
+             <div class="card">
+
+                <!-- Título -->
+                <h3>Usuarios inactivos</h3>
+
+                <!-- Muestra la cantidad de usuarios activos -->
+                <p><?php echo $activos['total'] ?? 0; ?></p>
+
+            </div>
+
 
         </div>
 
