@@ -43,7 +43,7 @@ $result = mysqli_query($conn, $sql);
       <thead class="thead">
         <tr>
           <th>#</th>
-          <th>ID</th>
+          <th>DNI</th>
           <th>Usuario</th>
           <th>Asunto</th>
           <th>Descripción</th>

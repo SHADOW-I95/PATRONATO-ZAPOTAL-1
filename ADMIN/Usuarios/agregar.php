@@ -1,7 +1,11 @@
 
 <?php
-  include('conexion.php');
- 
+  include "../conexion.php";
+  $conexion = connection();
+
+  // Validación: si el DNI no llegó o está vacío, detenemos el proceso
+  if (empty($_POST['dni'])) {
+    die("Error: el campo DNI es obligatorio y no puede estar vacío.");};
 
   $id_usuario = null;
   $dni = $_POST['dni'];
@@ -18,15 +22,15 @@
   $observaciones = $_POST['observaciones'];
 
   $sql = "INSERT INTO usuarios
-  (id_usuario,DNI,NOMBRE,APELLIDO,FECHA_NACIMIENTO,TELEFONO,CORREO,SECTOR,NUMERO_CASA,TIPO_SERVICIO,CANT_PROPIEDADES,ESTADO,OBSERVACIONES)
+  (DNI,NOMBRE,APELLIDO,FECHA_NACIMIENTO,TELEFONO,CORREO,SECTOR,NUMERO_CASA,TIPO_SERVICIO,CANT_PROPIEDADES,ESTADO,OBSERVACIONES)
   VALUES
-  ('$id_usuario','$dni','$nombre','$apellido','$fecha_nac','$telefono','$email','$sector','$numero_casa',
-  '$tipo_servicio','$cant_propiedades','$estado','$observaciones')";
+  ('$dni','$nombre','$apellido','$fecha_nac','$telefono','$email','$sector','$numero_casa',
+   '$tipo_servicio','$cant_propiedades','$estado','$observaciones')";
 
   $query = mysqli_query($conexion,$sql);
 
   if ($query) {
-    header('location: usuario.php');
+    header('location: ../inicio.php');
   }
 
 ?>

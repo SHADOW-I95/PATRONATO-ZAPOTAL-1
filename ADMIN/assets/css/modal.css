@@ -14,7 +14,7 @@
 .modal-contenido{
     color: #fff;
     background:#2a475e;
-    height: 60%;
+    height: 100%;
     width: 30%;
     padding: 20px;
     border-radius: 10px;
@@ -28,4 +28,15 @@
     right: 15px;
     font-size: 25px;
     cursor: pointer;
+}
+
+.informacion_personal{
+    display: flex;
+    flex-direction: column;
+}
+
+.inormacion_servicios{
+    display: flex;
+    flex-direction: column;
+
 }
