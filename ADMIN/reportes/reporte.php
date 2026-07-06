@@ -1,79 +1,100 @@
-<?php
-include("conexion.php");
-
-// recibir filtros
-$estado = $_GET['estado'] ?? '';
-$tipo   = $_GET['tipo'] ?? '';
-$desde  = $_GET['fecha_desde'] ?? '';
-$hasta  = $_GET['fecha_hasta'] ?? '';
-$buscar = $_GET['buscar'] ?? '';
-
-// consulta base
-$sql = "SELECT * FROM reportes WHERE 1=1";
-
-if($estado != '') $sql .= " AND estado='$estado'";
-if($tipo != '')   $sql .= " AND tipo='$tipo'";
-if($desde != '')  $sql .= " AND fecha >= '$desde'";
-if($hasta != '')  $sql .= " AND fecha <= '$hasta'";
-if($buscar != '') $sql .= " AND (usuario LIKE '%$buscar%' OR asunto LIKE '%$buscar%' OR descripcion LIKE '%$buscar%')";
-
-$result = mysqli_query($conn, $sql);
-?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Reportes</title>
-  <link rel="stylesheet" href="../assets/css/usuarios.css">
-</head>
-<body>
 <div class="contenido">
 
-  <div class="encabezado">
-    <h1>Reportes</h1>
-  </div>
+ <div class="encabezado">
+            <h1>.Reportes</h1>
+ </div>
 
-  <div class="bloque-filtros">
-    
-  </div>
+ <dic class="algodenose">
+            <h3>Inicio / Reportes</h3>
+ </div>
 
-  <div class="div-table">
-    <table class="table">
-      <thead class="thead">
-        <tr>
-          <th>#</th>
-          <th>DNI</th>
-          <th>Usuario</th>
-          <th>Asunto</th>
-          <th>Descripción</th>
-          <th>Fecha</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody class="tbody">
-        <?php 
-        $contador = 1;
-        while($row = mysqli_fetch_assoc($result)) { ?>
-          <tr>
-            <td><?php echo $contador++; ?></td>
-            <td><?php echo $row['dni']; ?></td>
-            <td><?php echo $row['usuario']; ?></td>
-            <td><?php echo $row['asunto']; ?></td>
-            <td><?php echo $row['descripcion']; ?></td>
-            <td><?php echo $row['fecha']; ?></td>
-            <td><?php echo $row['estado']; ?></td>
-            <td>
-              
-            </td>
-          </tr>
-        <?php } ?>
-      </tbody>
-    </table>
-  </div>
+ <div class="bloque-filtros">
+  <form method="GET" action="" class="filtros">
+   <div class="fila-filtros">
+    <div class="reportes">
+      <label>Tipo de Reportes:</label>
+      <select name="tipo">
+        <option value="">Todos</option> 
+        <option value="Agua">Agua</option>
+        <option value="Luz">Luz</option>
+        <option value="Otro">Otro</option>
+      </select>
+    </div>
+
+    <div class="estado">
+      <label>Estado:</label>
+      <select name="estado">
+        <option value="">Todos</option>
+        <option value="EN PROCESO">En Proceso</option>
+        <option value="FINALIZADO">Finalizado</option>
+      </select>
+    </div>
+
+    <div class="desde">
+      <label>Fecha desde:</label>
+      <input type="date" name="fecha_desde">
+    </div>
+
+    <div class="hasta">
+      <label>Fecha hasta:</label>
+      <input type="date" name="fecha_hasta">
+    </div>  
+
+    <div class="buscar">  
+      <label>Buscar:</label>
+      <input type="text" name="buscar" placeholder="Buscar reporte...">
+    </div>
+    </div>
+
+    <div class="fila-botones">
+    <a href="Usuarios/reportes.php" class="btn-limpiar">Limpiar</a>
+    <button type="submit" class="btn-filtrar">Filtrar</button>
+    <button type="button" class="btn-nuevo">+ Nuevo Reporte</button>
+    </div>
+ </form>
 
 </div>
-<script src="../assets/js/reportes.js"></script>
-</body>
-</html>
+
+<div class="div-table">
+    <table class="table">
+        <thead class="thead">
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Asunto</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody class="tbody">
+            <?php
+            include("conexion.php");
+            $sql = "SELECT * FROM reportes";
+            $result = mysqli_query($conn, $sql);
+            $contador = 1;
+
+            while($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>".$contador++."</td>";
+                echo "<td>".$row['id']."</td>";
+                echo "<td>".$row['usuario']."</td>";
+                echo "<td>".$row['asunto']."</td>";
+                echo "<td>".$row['descripcion']."</td>";
+                echo "<td>".$row['fecha']."</td>";
+                echo "<td>".$row['estado']."</td>";
+                echo "<td>
+                        <a href='editar.php?id=".$row['id']."'>✏️</a>
+                        <a href='eliminar.php?id=".$row['id']."'>🗑️</a>
+                      </td>";
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+
