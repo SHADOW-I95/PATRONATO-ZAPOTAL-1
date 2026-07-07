@@ -1,10 +1,52 @@
 function mostrarPassword() {
-    let password = document.getElementById("password");
-    password.type = (password.type === "password") ? "text" : "password";
+    const password = document.getElementById("password");
+    const icono = document.querySelector(".password-box i");
+    const esPassword = password.type === "password";
+
+    password.type = esPassword ? "text" : "password";
+
+    if (icono) {
+        icono.classList.toggle("fa-eye");
+        icono.classList.toggle("fa-eye-slash");
+    }
 }
 
-const INGRESAR = document.getElementById("Ingresar");
-INGRESAR.addEventListener("click", (e) => {
-    // El botón envía el formulario, no redirige manualmente
-    // Si quieres redirigir después del login, hazlo en PHP
+const formulario = document.getElementById("formLogin");
+
+formulario.addEventListener("submit", (e) => {
+    let valido = true;
+
+    const nombre = document.getElementById("nombre");
+    const dni = document.getElementById("dni");
+    const password = document.getElementById("password"); // antes decía "codigo" (bug)
+
+    limpiarErrores();
+
+    if (nombre.value.trim().length < 3) {
+        mostrarError("errorNombre", "Ingrese un nombre válido");
+        valido = false;
+    }
+
+    if (dni.value.trim().length < 5) {
+        mostrarError("errorDni", "Ingrese un DNI válido");
+        valido = false;
+    }
+
+    if (password.value.length < 4) {
+        mostrarError("errorPassword", "Ingrese la contraseña asignado");
+        valido = false;
+    }
+
+    if (!valido) {
+        e.preventDefault();
+    }
 });
+
+function mostrarError(idSpan, mensaje) {
+    const span = document.getElementById(idSpan);
+    if (span) span.textContent = mensaje;
+}
+
+function limpiarErrores() {
+    document.querySelectorAll(".error").forEach(span => span.textContent = "");
+}

@@ -1,14 +1,16 @@
 <?php
 
-function connection(){
+function connection() {
     $host = "localhost";
     $user = "root";
     $pass = "";
     $bd = "patronato";
 
-    $connect = mysqli_connect($host, $user, $pass);
-    mysqli_select_db($connect, $bd);
-    
-    return $connect;
+    $connect = mysqli_connect($host, $user, $pass, $bd);
 
+    if (!$connect) {
+        die("Error de conexión: " . mysqli_connect_error());
+    }
+
+    return $connect;
 }
