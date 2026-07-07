@@ -14,7 +14,7 @@ if (!isset($_SESSION['ultimo_intento'])) {
     $_SESSION['ultimo_intento'] = 0;
 }
 
-$LIMITE_INTENTOS = 5;
+$LIMITE_INTENTOS = 500;
 $TIEMPO_BLOQUEO  = 300;
 
 if ($_SESSION['intentos'] >= $LIMITE_INTENTOS) {
@@ -34,7 +34,7 @@ if ($nombre === '' || $dni === '' || $codigo === '') {
 
 $MENSAJE_GENERICO = "DNI o contraseña incorrectos";
 
-$stmt = $conexion->prepare("SELECT ID_USUARIO, NOMBRE, DNI, CONTRASENA, ESTADO FROM usuarios WHERE NOMBRE = ? AND DNI = ?");
+$stmt = $conexion->prepare("SELECT id_usuario, NOMBRE, DNI, CONTRASENA, ESTADO FROM usuarios WHERE NOMBRE = ? AND DNI = ?");
 $stmt->bind_param("ss", $nombre, $dni);
 $stmt->execute();
 $resultado = $stmt->get_result();

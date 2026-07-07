@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Mi Perfil - Patronato de Agua</title> <!-- titulo de la pagina -->
 
-<link rel="stylesheet" href="../style.css"> <!-- Enlace al archivo CSS -->
+<link rel="stylesheet" href="style.css"> <!-- Enlace al archivo CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> <!-- Enlace a Font Awesome para iconos -->
 </head>
 <body>

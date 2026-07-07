@@ -4,12 +4,12 @@ body{
     font-family: Arial; /* tipo de letra  */
 }
 
-.contenedor{
+.{
     display: flex; /* Utiliza flexbox para organizar los elementos hijos */
     align-items: center; /* Alinea verticalmente los elementos hijos al centro */
     gap: 20px; /* Espacio entre los elementos hijos */
 }
-.contenedor img{
+. img{
     width: 200px; /* Ancho de la imagen */ 
 }
 .p{
