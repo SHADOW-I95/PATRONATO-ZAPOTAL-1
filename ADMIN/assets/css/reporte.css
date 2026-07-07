@@ -1,0 +1,166 @@
+.contenido {
+  width: 80%;
+  position: relative;
+  left: 160px;
+  padding: 30px 30px 30px;
+}
+
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.encabezado h1 {
+  font-size: 28px;
+  color: #222;
+}
+
+.btn-nuevo {
+  background: #1f2937;
+  color: white;
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.btn-nuevo:hover {
+  opacity: 0.9;
+}
+
+.buscador {
+  margin-bottom: 20px;
+}
+
+.buscador input {
+  width: 350px;
+  padding: 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+}
+
+.activo {
+  background: #d1fae5;
+  border-radius: 150px;
+  color: #065f46;
+}
+
+.inactivo {
+  background: #fee2e2;
+  border-radius: 150px;
+  color: #991b1b;
+}
+.div-table {
+  background: white;
+  border: 1px solid #000;
+  border-radius: 7px;
+  box-shadow: 0 0 10px rgba(133, 131, 131, 0.5);
+
+  margin-left: 160px;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.thead {
+  background: #bfc0c2;
+}
+
+.thead th {
+  text-align: left;
+  padding: 15px;
+}
+
+.tbody th {
+  border-top: 1px solid #0e0e0e;
+  padding: 8px;
+}
+
+.bloque-filtros {
+  background: white;
+  border-radius: 7px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.08);
+  margin-left: 160px;     
+  margin-bottom: 20px;
+  padding: 20px 25px; 
+}
+
+.filtros {
+  display: flex;
+  flex-direction: column; 
+  gap: 15px;
+}
+
+.fila-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: flex-end;
+}
+
+.fila-filtros div {
+  display: flex;
+  flex-direction: column;
+}
+
+.fila-botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+button, .btn-limpiar {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-filtrar {
+  background-color: #6c757d;
+  color: white;
+}
+.btn-filtrar:hover {
+  background-color: #5a6268;
+}
+
+.fila-filtros select,
+.fila-filtros input[type="date"],
+.fila-filtros input[type="text"] {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+
+.fila-filtros select:focus,
+.fila-filtros input[type="date"]:focus,
+.fila-filtros input[type="text"]:focus {
+  border-color: #007bff; 
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}
+
+
+.fila-filtros label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+
+.btn-limpiar {
+  border: 1px solid #6c757d;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  display: inline-block;
+}
