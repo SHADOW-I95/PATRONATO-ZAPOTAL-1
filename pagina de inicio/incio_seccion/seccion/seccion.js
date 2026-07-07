@@ -1,6 +1,14 @@
 function mostrarPassword() {
-    let password = document.getElementById("password");
-    password.type = (password.type === "password") ? "text" : "password";
+    const password = document.getElementById("password");
+    const icono = document.querySelector(".password-box i");
+    const esPassword = password.type === "password";
+
+    password.type = esPassword ? "text" : "password";
+
+    if (icono) {
+        icono.classList.toggle("fa-eye");
+        icono.classList.toggle("fa-eye-slash");
+    }
 }
 
 const formulario = document.getElementById("formLogin");
@@ -10,7 +18,7 @@ formulario.addEventListener("submit", (e) => {
 
     const nombre = document.getElementById("nombre");
     const dni = document.getElementById("dni");
-    const password = document.getElementById("codigo");
+    const password = document.getElementById("password"); // antes decía "codigo" (bug)
 
     limpiarErrores();
 
@@ -25,7 +33,7 @@ formulario.addEventListener("submit", (e) => {
     }
 
     if (password.value.length < 4) {
-        mostrarError("errorPassword", "Ingrese el código asignado");
+        mostrarError("errorPassword", "Ingrese la contraseña asignado");
         valido = false;
     }
 

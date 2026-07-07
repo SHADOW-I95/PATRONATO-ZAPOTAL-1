@@ -1,4 +1,8 @@
-
+<?php
+$usuarioLogueado = isset($_SESSION['nombre']);
+$nombreUsuario = $usuarioLogueado ? htmlspecialchars($_SESSION['nombre']) : '';
+$inicial = $usuarioLogueado ? strtoupper(substr($nombreUsuario, 0, 1)) : '';
+?>
 
 <header class="header">
 
@@ -8,7 +12,14 @@
         </div>
 
         <div class="header-div2">
-            <button class="header-seccion" id="BTN-SECION">iniciar Sesion</button>
+
+            <?php if ($usuarioLogueado): ?>
+                <a href="perfil.php" class="avatar-perfil" title="<?php echo $nombreUsuario; ?>">
+                    <span class="avatar-circulo"><?php echo $inicial; ?></span>
+                </a>
+            <?php else: ?>
+                <button class="header-seccion" id="BTN-SECION" onclick="window.location.href='../incio_seccion/seccion/seccion.html'">iniciar Sesion</button>
+            <?php endif; ?>
 
             <button class="hamburguesa" id="BTN_BURGER" onclick="toggleMenu()" aria-label="Abrir menú"
                 aria-expanded="false">
