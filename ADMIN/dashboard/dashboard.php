@@ -159,10 +159,7 @@ $resultado = $conexion->query("
 ======================== -->
 
 <!-- Contenedor general del dashboard -->
-<div class="contenedor">
-
-    <!-- Área principal del contenido -->
-    <div class="contenido">
+<div class="contenido">
 
         <!-- Contenedor de las tarjetas -->
         <div class="cards">
@@ -225,8 +222,6 @@ $resultado = $conexion->query("
             </div>
 
         </div>
-
-    </div>
 
 </div>
 

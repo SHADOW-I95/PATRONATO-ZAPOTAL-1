@@ -1,0 +1,427 @@
+
+body{
+    margin: 0; /* Elimina el margen predeterminado del navegador */
+    font-family: Arial; /* tipo de letra  */
+}
+
+.{
+    display: flex; /* Utiliza flexbox para organizar los elementos hijos */
+    align-items: center; /* Alinea verticalmente los elementos hijos al centro */
+    gap: 20px; /* Espacio entre los elementos hijos */
+}
+. img{
+    width: 200px; /* Ancho de la imagen */ 
+}
+.p{
+    color: rgb(5, 60, 105); /* Color del texto */
+    padding: 15px;/* Espaciado interno del párrafo */
+    display: block; /* Muestra el párrafo como un bloque */
+}
+
+/* ===== Sidebar ===== */
+.sidebar{
+    position: fixed; /* Fija la barra lateral en su posición */
+    left: 0; /* Posición horizontal a la izquierda */
+    top: 0; /* Posición vertical en la parte superior */
+    width: 250px; /*    Ancho de la barra lateral */
+    height: 100vh; /* Altura de la barra lateral igual a la altura de la ventana */
+    background: #060820; /* Color de fondo de la barra lateral */
+    display: flex; /* Utiliza flexbox para organizar los elementos hijos */
+    flex-direction: column; /* Organiza los elementos hijos en una columna */
+}
+.sidebar h2, .sidebar a{
+    color: white; /* Color del texto de los encabezados y enlaces */
+    padding: 15px; /* Espaciado interno de los encabezados y enlaces */
+    display: block; /* Muestra los encabezados y enlaces como bloques */
+}
+
+.sidebar-logo{
+  display: flex; /* Utiliza flexbox para organizar los elementos hijos */
+  align-items: center; /* Alinea verticalmente los elementos hijos al centro */
+  gap: 12px; /* Espacio entre los elementos hijos */
+  padding: 20px 15px 10px 15px; /* Espaciado interno de la barra lateral */
+  color: #fff; /* Color del texto de la barra lateral */
+  font-weight: bold; /* Negrita para el texto de la barra lateral */
+  font-size: 15px; /* Tamaño de fuente para el texto de la barra lateral */
+  line-height: 1.2; /* Altura de línea para el texto de la barra lateral */
+}
+.sidebar-logo i{
+  font-size: 26px; /* Tamaño de fuente para el icono de la barra lateral */
+  color: #3b82f6; /* Color del icono de la barra lateral  (la gotaa ey)*/
+}
+
+.sidebar-titulo{ /* Estilo para el título de la barra lateral */
+  color: #6b7280; /* Color del texto del título de la barra lateral */
+  font-size: 11px; /* Tamaño de fuente para el título de la barra lateral */
+  letter-spacing: 0.5px; /* Espaciado entre letras para el título de la barra lateral */
+  padding: 10px 15px 5px 15px; /* Espaciado interno del título de la barra lateral */
+  margin: 0; /* Margen del título de la barra lateral */
+}
+
+.sidebar a{ /* Estilo para los enlaces de la barra lateral */
+  display: flex; /* organiza los elementos hijos */
+  align-items: center; /* Alinea verticalmente los elementos hijos al centro */
+  gap: 10px; /* Espacio entre los elementos hijos */
+  text-decoration: none; /* Elimina el subrayado del texto de los enlaces */
+  font-size: 14px; /* Tamaño de fuente para los enlaces de la barra lateral */
+  border-radius: 8px; /* Esquina redonda para los enlaces de la barra lateral */
+  margin: 2px 10px; /* Margen para los enlaces de la barra lateral */
+  width: auto; /* Ancho automático para los enlaces de la barra lateral */
+  padding: 10px 12px; /* Espaciado interno para los enlaces de la barra lateral */
+}
+.sidebar a:hover{ 
+  background: rgba(255,255,255,0.06); /* Color de fondo al pasar el mouse sobre los enlaces de la barra lateral */
+}
+.sidebar a.activo{
+  background: #2563eb; /* Color de fondo para el enlace activo de la barra lateral */
+  color: #fff; /* Color del texto para el enlace activo de la barra lateral */
+}
+
+/* ===== Contenido ===== */
+.contenido{
+    margin-left: 250px; /* Margen izquierdo para dejar espacio para la barra lateral */
+    padding: 20px; /* Espaciado interno del contenido */
+    background: #f4f6fb; /* Color de fondo del contenido */
+    min-height: 100vh; /* Altura mínima del contenido igual a la altura de la ventana */
+}
+
+/* ===== Topbar ===== */
+.topbar{
+  display: flex; /* Utiliza flexbox para organizar los elementos hijos */
+  align-items: center; /* Alinea verticalmente los elementos hijos al centro */
+  justify-content: space-between; /* Distribuye el espacio entre los elementos hijos */
+  background: #fff; /* Color de fondo de la barra superior */
+  border-radius: 10px; /* Esquinas redondeadas para la barra superior */
+  padding: 14px 20px; /* Espaciado interno de la barra superior */
+  margin-bottom: 20px; /* Margen inferior de la barra superior */
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05); /* Sombra para la barra superior */
+}
+
+
+/* ===== Encabezado de la página ===== */
+.perfil-header {
+  display: flex; /* organiza los elementos hijos */
+  align-items: center; /* Alinea verticalmente los elementos hijos al centro */
+  gap: 16px; /* Espacio entre los elementos hijos */
+  max-width: 900px; /* Ancho máximo del encabezado de la página */
+  margin: 0 0 20px 0; /* Margen inferior del encabezado de la página */
+  color: #1f2937; /* Color del texto del encabezado de la página */
+}
+
+.perfil-header-icon {
+  width: 48px; /* Ancho del icono del encabezado de la página */
+  height: 48px; /* Altura del icono del encabezado de la página */
+  border-radius: 50%; /* Hace que el icono del encabezado de la página sea circular */
+  border: 2px solid #2563eb; /* Borde del icono del encabezado de la página */
+  display: flex; /* organiza los elementos hijos */
+  align-items: center; /* Alinea verticalmente los elementos hijos al centro */
+  justify-content: center; /* Centra el contenido del icono del encabezado de la página */
+  color: #2563eb; /* Color del icono del encabezado de la página */
+  font-size: 20px; /* Tamaño de fuente del icono del encabezado de la página */
+  flex-shrink: 0; /* Evita que el icono del encabezado de la página se reduzca de tamaño */
+}
+
+.perfil-header h1 {
+  margin: 0; /* Elimina el margen predeterminado del encabezado */
+  font-size: 22px; /* Tamaño de fuente del encabezado */
+}
+
+.perfil-header p {
+  margin: 2px 0 0 0; /* Margen superior del párrafo */
+  color: #6b7280; /* Color del texto del párrafo */
+  font-size: 14px; /* Tamaño de fuente del párrafo */
+}
+
+/* ===== Tarjeta de perfil ===== */
+.perfil-card {
+  max-width: 900px; /* Ancho máximo de la tarjeta de perfil */
+  margin: 0; /* Margen de la tarjeta de perfil */
+  background: #fff; /* Color de fondo de la tarjeta de perfil */
+  border-radius: 14px; /* Esquinas redondeadas de la tarjeta de perfil */
+  border: 1px solid #e5e7eb; /* Borde de la tarjeta de perfil */
+  padding: 32px; /* Espaciado interno de la tarjeta de perfil */
+  display: flex; /* organiza los elementos hijos */
+  gap: 40px; /* Espacio entre los elementos hijos */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04); /* Sombra para la tarjeta de perfil */
+}
+
+.perfil-foto-col {
+  display: flex; /* organiza los elementos hijos */
+  flex-direction: column; /* Organiza los elementos hijos en una columna */
+  align-items: center; /* Alinea verticalmente los elementos hijos al centro */
+  gap: 14px; /* Espacio entre los elementos hijos */
+}
+
+.perfil-foto {
+  width: 130px; /* Ancho de la foto de perfil */
+  height: 130px; /* Altura de la foto de perfil */
+  border-radius: 50%; /* Hace que la foto de perfil sea circular */
+  background: #dbeafe; /* Color de fondo de la foto de perfil */
+  display: flex; /* organiza los elementos hijos */
+  align-items: center; /* Alinea verticalmente los elementos hijos al centro */
+  justify-content: center; /* Centra el contenido de la foto de perfil */
+  
+}
+
+.perfil-foto img {
+  width: 100%; /* Ancho de la imagen de perfil */
+  height: 100%; /* Altura de la imagen de perfil */
+  object-fit: cover; /* Ajusta la imagen para cubrir el área de la foto de perfil */
+}
+
+.perfil-foto-placeholder {
+  font-size: 56px; /* Tamaño de fuente del marcador de posición de la foto de perfil */
+  color: #93c5fd; /* Color del marcador de posición de la foto de perfil */
+}
+
+.btn-cambiar-foto {
+  border: 1px solid #2563eb; /* Borde del botón de cambiar foto */
+  color: #2563eb; /*  Color del texto del botón de cambiar foto */
+  background: #fff; /* Color de fondo del botón de cambiar foto */
+  border-radius: 8px; /* Esquinas redondeadas del botón de cambiar foto */
+  padding: 8px 14px; /* Espaciado interno del botón de cambiar foto */
+  font-size: 13px; /* Tamaño de fuente del botón de cambiar foto */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón de cambiar foto */
+}
+
+.btn-cambiar-foto:hover {
+  background: #eff6ff; /* Color de fondo al pasar el mouse sobre el botón de cambiar foto */
+}
+
+.perfil-info-col {
+  flex: 1; /* Permite que la columna de información de perfil ocupe el espacio restante */
+}
+
+.perfil-info-col h2 {
+  font-size: 16px; /* Tamaño de fuente del encabezado de la columna de información de perfil */
+  color: #2563eb; /* Color del texto del encabezado de la columna de información de perfil */
+  margin: 0 0 18px 0; /* Margen inferior del encabezado de la columna de información de perfil */
+  display: flex; /* organiza los elementos hijos */
+  align-items: center; /* Alinea verticalmente los elementos hijos al centro */
+  gap: 8px; /* Espacio entre los elementos hijos */
+}
+
+.perfil-dato {
+  display: grid; /* Utiliza un diseño de cuadrícula para organizar los elementos hijos */
+  grid-template-columns: 200px 1fr; /* Define dos columnas: la primera de 200px y la segunda que ocupa el espacio restante */
+  padding: 10px 0; /* Espaciado interno de los elementos de datos de perfil */
+  border-bottom: 1px solid #f1f5f9; /* Borde inferior de los elementos de datos de perfil */
+  font-size: 14.5px; /* Tamaño de fuente de los elementos de datos de perfil */
+}
+
+.perfil-dato:last-child {
+  border-bottom: none; /* Elimina el borde inferior del último elemento de datos de perfil */
+}
+
+.perfil-label {
+  color: #6b7280; /* Color del texto de las etiquetas de datos de perfil */
+}
+
+
+.perfil-acciones {
+  max-width: 900px; /* Ancho máximo de la sección de acciones de perfil */
+  margin: 24px 0 0 0; /* Margen superior de la sección de acciones de perfil */
+  text-align: left; /* Alinea el contenido de la sección de acciones de perfil a la izquierda */
+}
+
+.btn-editar {
+  border: 1px solid #2563eb; /* Borde del botón de editar */
+  color: #2563eb; /* Color del texto del botón de editar */
+  background: #fff; /* Color de fondo del botón de editar */
+  border-radius: 8px; /* Esquinas redondeadas del botón de editar */
+  padding: 10px 20px; /* Espaciado interno del botón de editar */
+  font-size: 14px; /* Tamaño de fuente del botón de editar */
+  cursor: pointer;
+}
+
+.btn-editar:hover {
+  background: #eff6ff; /* Color de fondo al pasar el mouse sobre el botón de editar */
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 640px) {  /*estilos especiales en un ancho de 650 px o menos*/
+  .perfil-card { 
+    flex-direction: column; /* Cambia la dirección de los elementos hijos a columna */
+    align-items: center; /* Alinea verticalmente los elementos hijos al centro */
+  }
+  .perfil-dato {
+    grid-template-columns: 1fr; /* Cambia la cuadrícula a una sola columna */
+    gap: 2px; /* Espacio entre los elementos de datos de perfil */
+  }
+}
+
+/* ===== Grid inferior: Resumen de Pagos + Avisos ===== */
+.dashboard-grid {
+  max-width: 1200px; /* Ancho máximo del grid principal */
+  margin-top: 20px; /* Margen superior del grid principal */
+  display: grid; /* Utiliza un diseño de cuadrícula */
+  grid-template-columns: 2fr 1fr; /* Define dos columnas: la primera de 2fr y la segunda de 1fr */
+  gap: 20px; /* Espacio entre los elementos del grid */
+  align-items: start; /* Alinea los elementos del grid al inicio verticalmente */
+}
+
+/* --- Resumen de Pagos --- */
+.resumen-pagos {
+  background: #fff; /* Color de fondo del resumen de pagos */
+  border-radius: 14px; /* Esquinas redondeadas del resumen de pagos */
+  border: 1px solid #e5e7eb; /* Borde del resumen de pagos */
+  padding: 24px; /* Espaciado interno del resumen de pagos */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04); /* Sombra para el resumen de pagos */
+}
+
+.resumen-pagos h3 {
+  margin: 0 0 18px 0; /* Margen inferior del encabezado del resumen de pagos */
+  font-size: 16px; /* Tamaño de fuente del encabezado del resumen de pagos */
+  color: #111827; /* Color del texto del encabezado del resumen de pagos */
+  display: flex; /* organiza los elementos hijos */
+  align-items: center; /* Alinea verticalmente los elementos hijos al centro */
+  gap: 8px; /* Espacio entre los elementos hijos */
+}
+
+.resumen-icono {
+  color: #10b981; /* Color del icono del resumen de pagos */
+}
+
+.resumen-grid {
+  display: grid; /* Utiliza un diseño de cuadrícula */
+  grid-template-columns: repeat(4, 1fr); /* Define cuatro columnas de igual tamaño */
+  gap: 14px; /* Espacio entre los elementos del grid */
+  margin-bottom: 18px; /* Margen inferior del grid de resumen */
+}
+
+.resumen-item {
+  border-radius: 10px; /* Esquinas redondeadas de los elementos del resumen */
+  padding: 14px; /* Espaciado interno de los elementos del resumen */
+  display: flex; /* organiza los elementos hijos */
+  flex-direction: column; /* Organiza los elementos hijos en una columna */
+  gap: 6px; /* Espacio entre los elementos hijos */
+}
+
+.resumen-item i {
+  font-size: 16px; /* Tamaño de fuente del icono del resumen */
+}
+
+.resumen-label {
+  font-size: 12px; /* Tamaño de fuente de la etiqueta del resumen */
+  color: #4b5563; /* Color del texto de la etiqueta del resumen */
+}
+
+.resumen-valor {
+  font-size: 17px; /* Tamaño de fuente del valor del resumen */
+  font-weight: 700; /* Negrita para el valor del resumen */
+}
+
+.resumen-verde {
+  background: #ecfdf5; /* Color de fondo del resumen verde */
+}
+.resumen-verde i, .resumen-verde .resumen-valor { color: #059669; } /* Color del icono y valor del resumen verde */
+
+.resumen-naranja {
+  background: #fff7ed; /* Color de fondo del resumen naranja */
+}
+.resumen-naranja i, .resumen-naranja .resumen-valor { color: #ea580c; } /* Color del icono y valor del resumen naranja */
+
+.resumen-azul {
+  background: #eff6ff; /* Color de fondo del resumen azul */
+}
+.resumen-azul i, .resumen-azul .resumen-valor { color: #2563eb; } /* Color del icono y valor del resumen azul */
+
+.resumen-morado {
+  background: #f5f3ff; /* Color de fondo del resumen morado */
+}
+.resumen-morado i, .resumen-morado .resumen-valor { color: #7c3aed; } /* Color del icono y valor del resumen morado */
+
+.btn-historial {
+  width: 100%; /* Ancho completo del botón de historial */                    
+  border: 1px solid #d1d5db; /* Borde del botón de historial */
+  background: #fff; /* Color de fondo del botón de historial */
+  color: #374151; /* Color del texto del botón de historial */
+  border-radius: 8px; /* Esquinas redondeadas del botón de historial */
+  padding: 10px; /* Espaciado interno del botón de historial */
+  font-size: 14px; /* Tamaño de fuente del botón de historial */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón de historial */
+}
+.btn-historial:hover {
+  background: #f9fafb; /* Color de fondo al pasar el mouse sobre el botón de historial */ 
+}
+
+/* --- Avisos Importantes --- */
+.avisos-importantes {
+  background: #fff;  /* Color de fondo de la sección de avisos importantes */
+  border-radius: 14px; /* Esquinas redondeadas de la sección de avisos importantes */
+  border: 1px solid #e5e7eb; /* Borde de la sección de avisos importantes */
+  padding: 24px; /* Espaciado interno de la sección de avisos importantes */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04); /* Sombra para la sección de avisos importantes */
+  position: relative; /* Posicionamiento relativo para permitir la colocación absoluta del enlace "Ver todos" */
+}
+
+.avisos-importantes h3 {
+  margin: 0 0 16px 0; /* Margen inferior del encabezado de la sección de avisos importantes */
+  font-size: 16px; /* Tamaño de fuente del encabezado de la sección de avisos importantes */
+  color: #111827; /* Color del texto del encabezado de la sección de avisos importantes */
+  display: flex; /* organiza los elementos hijos */
+  align-items: center; /* Alinea verticalmente los elementos hijos al centro */
+  gap: 8px; /* Espacio entre los elementos hijos */
+}
+
+.avisos-icono {
+  color: #10b981; /* Color del icono de la sección de avisos importantes */
+}
+
+.ver-todos {
+  position: absolute; /* Posicionamiento absoluto para colocar el enlace "Ver todos" en la esquina superior derecha */
+  top: 24px; /* Posición vertical a 24px desde la parte superior de la sección de avisos importantes */
+  right: 24px; /* Posición horizontal a 24px desde la parte derecha de la sección de avisos importantes */
+  font-size: 13px; /* Tamaño de fuente del enlace "Ver todos" */
+  color: #2563eb; /* Color del texto del enlace "Ver todos" */
+  text-decoration: none; /* Elimina el subrayado del texto del enlace "Ver todos" */
+}
+
+.avisos-vacio {
+  color: #9ca3af; /* Color del texto cuando no hay avisos */
+  font-size: 14px; /* Tamaño de fuente del texto cuando no hay avisos */
+}
+
+.aviso-item {
+  display: flex; /* organiza los elementos hijos */
+  gap: 12px; /* Espacio entre el icono y el contenido del aviso */
+  background: #eff6ff; /* Color de fondo del elemento de aviso */
+  border-radius: 10px; /* Esquinas redondeadas del elemento de aviso */
+  padding: 14px; /* Espaciado interno del elemento de aviso */
+  margin-bottom: 12px; /* Margen inferior del elemento de aviso */
+}
+
+.aviso-item-icono {
+  color: #2563eb; /* Color del icono del elemento de aviso */
+  font-size: 16px; /* Tamaño de fuente del icono del elemento de aviso */
+  margin-top: 2px; /* Margen superior del icono del elemento de aviso para alinearlo con el contenido */
+}
+
+.aviso-titulo {
+  margin: 0 0 4px 0; /* Margen inferior del título del aviso */
+  font-size: 14px; /* Tamaño de fuente del título del aviso */
+  font-weight: 700; /* Negrita para el título del aviso */
+  color: #111827; /* Color del texto del título del aviso */
+}
+
+.aviso-texto {
+  margin: 0 0 6px 0; /* Margen inferior del texto del aviso */
+  font-size: 13px; /* Tamaño de fuente del texto del aviso */
+  color: #4b5563; /* Color del texto del aviso */
+  line-height: 1.4; /* Espacio entre líneas del texto del aviso */
+}
+
+.aviso-fecha {
+  margin: 0; /* Elimina el margen predeterminado del párrafo */
+  font-size: 12px; /* Tamaño de fuente de la fecha del aviso */
+  color: #9ca3af; /* Color del texto de la fecha del aviso */
+}
+
+@media (max-width: 900px) { /* Ajustes para pantallas medianas */
+  .dashboard-grid { 
+    grid-template-columns: 1fr; /* Cambia la cuadrícula a una sola columna */
+  }
+  .resumen-grid {
+    grid-template-columns: repeat(2, 1fr); /* Cambia la cuadrícula a dos columnas */
+  }
+}

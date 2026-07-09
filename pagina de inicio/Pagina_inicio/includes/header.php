@@ -1,15 +1,18 @@
+<<<<<<< HEAD
 <?php
 session_start();
 ?>
+=======
+>>>>>>> 6202cb5d8e374e69580be2edeb31c307d782f0a1
 
 <header class="header">
 
         <div class="header-div1">
-            <img src="./assets/img/LOGO.png" alt="logo-patronato">
+            <img src="./assets/img/LOGO.png" alt="logo-patronato"> <!-- Imagen del logo del patronato -->
             <h2 class="title">Patronato Pro-mejoramiento <br><span class="title-spam">Zapotal</span></h2>
         </div>
 
-        <div class="header-div2">
+ <div class="header-div2">
             <button class="header-seccion" id="BTN-SECION">iniciar Sesion</button>
 
             <button class="hamburguesa" id="BTN_BURGER" onclick="toggleMenu()" aria-label="Abrir menú"
@@ -21,7 +24,7 @@ session_start();
         </div>
     </header>
 
-<div class="overlay" id="OVERLAY" onclick="cerrarMenu()"></div>
+ <div class="overlay" id="OVERLAY" onclick="cerrarMenu()"></div> <!-- Capa superpuesta para cerrar el menú -->
 
     <!--MENU NAV-->
 <nav class="menu" id="MENU">

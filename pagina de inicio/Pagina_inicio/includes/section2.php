@@ -8,6 +8,8 @@
 
         <div class="full-section2-card2">
 
+
+              <!--contenido -->
             <div class="center-section2">
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum vel commodi quam fuga
@@ -22,6 +24,7 @@
                     dolores porro dignissimos dolore, nesciunt veniam fuga.
                 </p>
 
+                <!-- Controles de desplazamiento -->
                 <div class="wrap">
                     <div class="track" id="t">
 
@@ -57,18 +60,18 @@
                         </div>
                     </div>
 
-                    <div class="btns">
-                        <button onclick="document.getElementById('t').scrollBy({left: -180, behavior: 'smooth'})">←
-                            Anterior</button>
+                    <div class="btns"> 
+                        <button onclick="document.getElementById('t').scrollBy({left: -180, behavior: 'smooth'})">←  
+                            Anterior</button> <!-- Botón para desplazarse a la izquierda -->
                         <button
                             onclick="document.getElementById('t').scrollBy({left: 180, behavior: 'smooth'})">Siguiente
-                            →</button>
+                            →</button> <!-- Botón para desplazarse a la derecha -->
                     </div>
                 </div>
             </div>
 
         </div>
-        <div class="cards-fondo-section2">
+        <div class="cards-fondo-section2"> <!-- contenido-->
             <div class="cards3-section2">
                 <img src="./assets/img/compania.png" alt="icon">
                 <h3>Mision</h3>
