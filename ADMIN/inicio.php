@@ -17,6 +17,7 @@ $conexion = connection();
     <link rel="stylesheet" href="./assets/css/modal.css" />
     <link rel="stylesheet" href="./assets/css/dashboard.css"/>
     <link rel="stylesheet" href="./assets/css/usuarios.css" />
+    <link rel="stylesheet" href="./assets/css/reporte.css">
 
     
     
@@ -44,6 +45,7 @@ $conexion = connection();
  <?php
   include 'dashboard/dashboard.php';
   include 'usuarios/usuario.php';
+  include 'reportes/listado.php';
   ?>
 
  <!--=================BARRA_LATERAL==================-->
@@ -69,7 +71,6 @@ $conexion = connection();
   <!--=====================JS===================================-->
     <script src="./assets/js/modal.js"></script>
     <script src="./assets/js/dashboard.js"></script>
-    <script src="./assets/js/PG.js"></script>
 
 
   </body>

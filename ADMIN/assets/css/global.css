@@ -8,3 +8,10 @@ body{
     flex-direction: column;
 }
 
+.contenido{
+  width: 80%;
+  position: relative;
+  left: 160px;
+  padding: 30px 30px 30px;
+}
+

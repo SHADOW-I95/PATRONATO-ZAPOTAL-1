@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="../../assets/css/reporte.css">
-
 <div class="contenido">
 
   <div class="encabezado">
@@ -73,7 +71,6 @@
 
       <tbody class="tbody">
         <?php
-        include("../../conexion.php");
         $conn = connection();
 
         // 🔹 Lógica de filtros
@@ -126,6 +123,3 @@
     </table>
   </div>
 </div>
-
-</body>
-</html>
