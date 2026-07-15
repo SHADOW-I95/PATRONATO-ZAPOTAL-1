@@ -1,0 +1,47 @@
+.reporte-box{
+    width: 280px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.1);
+}
+
+.reporte-box h2{
+    color: #2563eb;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.reporte-box label{
+    display:block;
+    margin-top:10px;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+.reporte-box select,
+.reporte-box textarea{
+    width:100%;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.reporte-box textarea{
+    resize:none;
+}
+
+.reporte-box button{
+    width:100%;
+    margin-top:15px;
+    padding:10px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.reporte-box button:hover{
+    background:#1d4ed8;
+}
