@@ -1,6 +1,6 @@
 <?php
   // Incluye el archivo de conexión a la base de datos
-  require_once "./conexion.php";
+  require_once "./config/conexion.php";
 
   // Consulta que trae todos los usuarios registrados en la tabla "usuarios"
   $sql = "SELECT * FROM usuarios";

@@ -1,8 +1,5 @@
 <?php // Indica el inicio del código PHP.
-
-// Incluye el archivo de conexión a la base de datos.
-// require_once evita que el archivo se cargue más de una vez.
-require_once "conexion.php";
+$conexion = connection();
 
 
 // =======================
@@ -159,7 +156,7 @@ $resultado = $conexion->query("
 ======================== -->
 
 <!-- Contenedor general del dashboard -->
-<div class="contenido">
+<div class="padre_contenido">
 
         <!-- Contenedor de las tarjetas -->
         <div class="cards">
