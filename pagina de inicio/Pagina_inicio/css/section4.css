@@ -1,47 +1,60 @@
-.reporte-box{
-    width: 280px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.1);
+.contenedor{
+    width: 350px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    margin: 20px auto;
 }
 
-.reporte-box h2{
+.contenedor h2{
+    text-align: center;
     color: #2563eb;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-size: 24px;
 }
 
-.reporte-box label{
-    display:block;
-    margin-top:10px;
-    margin-bottom:5px;
-    font-weight:bold;
+.contenedor label{
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
 }
 
-.reporte-box select,
-.reporte-box textarea{
-    width:100%;
-    padding:8px;
-    border:1px solid #ccc;
-    border-radius:5px;
+.contenedor select,
+.contenedor textarea{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
 }
 
-.reporte-box textarea{
-    resize:none;
+.contenedor select:focus,
+.contenedor textarea:focus{
+    outline: none;
+    border-color: #2563eb;
 }
 
-.reporte-box button{
-    width:100%;
-    margin-top:15px;
-    padding:10px;
-    background:#2563eb;
-    color:white;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
+.contenedor textarea{
+    resize: vertical;
+    min-height: 100px;
 }
 
-.reporte-box button:hover{
-    background:#1d4ed8;
+.contenedor button{
+    width: 100%;
+    padding: 12px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contenedor button:hover{
+    background: #1d4ed8;
 }
