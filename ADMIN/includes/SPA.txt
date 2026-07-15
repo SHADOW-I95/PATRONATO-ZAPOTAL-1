@@ -1,0 +1,20 @@
+
+
+=========se intendo hacer SPA de esa manera ============
+<?php/*
+$modulosArchivados = [
+    CLAVE-------------ITEM
+    'dashboard'     => ['texto' => 'Dashboard'],
+    'usuarios'      => ['texto' => 'Usuarios'],
+    'reportes'      => ['texto' => 'Reportes'],
+    'agua'          => ['texto' => 'agua'],
+    'cementerio'    => ['texto' => 'Cementerio'],
+    'facturas'      => ['texto' => 'Facturas'],
+    'empleados'     => ['texto' => 'empleados'],
+    'configuracion' => ['texto' => 'Configuración'],
+];
+$modulos_activo = $modulos_activo ?? 'dashboard';
+*/?>
+
+===========se esta haciendo SPA con if else===============
+
