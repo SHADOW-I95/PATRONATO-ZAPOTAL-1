@@ -18,9 +18,11 @@
   justify-content: space-evenly;
   height: 100%;
 }
+
 .header-div1 img {
   height: 100%;
 }
+
 .title {
   font-size: 5vh;
   color: #000;
@@ -32,6 +34,7 @@
   align-items: center;
 }
 
+/* Botón iniciar sesión */
 .header-seccion {
   width: 140px;
   height: 5vh;
@@ -39,4 +42,36 @@
   border-radius: 5px;
   color: #ffffff;
   background-color: blue;
+  cursor: pointer;
+}
+
+
+/* Botón de perfil cuando el usuario inicia sesión */
+.perfil-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: blue;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/* Efecto al pasar el mouse */
+.perfil-btn:hover {
+  background-color: darkblue;
+}
+
+
+/* Botón hamburguesa */
+.hamburguesa {
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }

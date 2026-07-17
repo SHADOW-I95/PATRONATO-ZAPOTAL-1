@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 <?php
 session_start();
 ?>
-=======
->>>>>>> 6202cb5d8e374e69580be2edeb31c307d782f0a1
+
 
 <header class="header">
 

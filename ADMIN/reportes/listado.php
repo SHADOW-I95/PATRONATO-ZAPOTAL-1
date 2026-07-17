@@ -99,7 +99,7 @@
         }
 
         $result = mysqli_query($conn, $sql);
-
+        include("../conexion.php");
         $contador = 1;
 
         while($row = mysqli_fetch_assoc($result)) {
