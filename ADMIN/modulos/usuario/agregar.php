@@ -1,37 +1,106 @@
-
 <?php
-  include "../conexion.php";
-  $conexion = connection();
 
-  // Validación: si el DNI no llegó o está vacío, detenemos el proceso
-  if (empty($_POST['dni'])) {
-    die("Error: el campo DNI es obligatorio y no puede estar vacío.");};
+require_once("../../config/conexion.php");
 
-  $id_usuario = null;
-  $dni = $_POST['dni'];
-  $nombre = $_POST['nombre'];
-  $apellido = $_POST['apellido'];
-  $fecha_nac = $_POST['fecha_nac'];
-  $telefono = $_POST['telefono'];
-  $email = $_POST['email'];  
-  $sector = $_POST['sector'];
-  $numero_casa = $_POST['numero_casa'];
-  $tipo_servicio = $_POST['tipo_servicio'];
-  $cant_propiedades = $_POST['cant_propiedades'];
-  $estado = $_POST['estado'];
-  $observaciones = $_POST['observaciones'];
+$conexion = Connection();
 
-  $sql = "INSERT INTO usuarios
-  (DNI,NOMBRE,APELLIDO,FECHA_NACIMIENTO,TELEFONO,CORREO,SECTOR,NUMERO_CASA,TIPO_SERVICIO,CANT_PROPIEDADES,ESTADO,OBSERVACIONES)
-  VALUES
-  ('$dni','$nombre','$apellido','$fecha_nac','$telefono','$email','$sector','$numero_casa',
-   '$tipo_servicio','$cant_propiedades','$estado','$observaciones')";
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    header("Location: ../index.php");
+    exit;
+}
 
-  $query = mysqli_query($conexion,$sql);
+try {
 
-  if ($query) {
-    header('location: ../inicio.php');
-  }
+    $conexion->beginTransaction();
 
-?>
+    // =======================
+    // DATOS DEL USUARIO
+    // =======================
 
+    $dni               = trim($_POST["DNI"]);
+    $codigo            = trim($_POST["contrasena"]);
+    $nombre            = trim($_POST["nombre"]);
+    $apellido          = trim($_POST["apellido"]);
+    $fecha_nacimiento  = !empty($_POST["fecha_nacimiento"]) ? $_POST["fecha_nacimiento"] : null;
+    $telefono          = !empty($_POST["telefono"]) ? $_POST["telefono"] : null;
+
+    $sqlUsuario = "
+        INSERT INTO usuarios
+        (
+            dni,
+            nombre,
+            apellido,
+            fecha_nacimiento,
+            telefono,
+            codigo
+        )
+        VALUES
+        (
+            dni, nombre, apellido, fecha_nacimiento, telefono, codigo
+        )
+    ";
+
+    $stmtUsuario = $conexion->prepare($sqlUsuario);
+
+    $stmtUsuario->execute([
+        $dni,
+        $nombre,
+        $apellido,
+        $fecha_nacimiento,
+        $telefono,
+        $codigo
+    ]);
+
+    // Obtener el ID del usuario recién creado
+    $id_usuario = $conexion->lastInsertId();
+
+    // =======================
+    // GUARDAR VIVIENDAS
+    // =======================
+
+    if (!empty($_POST["vivienda"])) {
+
+        $sqlVivienda = "
+            INSERT INTO viviendas
+            (
+                id_usuario,
+                id_sector,
+                id_servicio,
+                numero_vivienda,
+                cuota,
+                estado
+            )
+            VALUES
+            (
+                id_usuario,id_sector, id_servicio, numero_vivienda, cuota, estado 
+            )
+        ";
+
+        $stmtVivienda = $conexion->prepare($sqlVivienda);
+
+        foreach ($_POST["vivienda"] as $v) {
+
+            $stmtVivienda->execute([
+                $id_usuario,
+                $v["sector"],
+                $v["servicio"],
+                $v["numero"],
+                $v["cuota"],
+                $v["estado"]
+            ]);
+        }
+    }
+
+    $conexion->commit();
+
+    header("Location: ../../index.php?modulo=usuario&mensaje=guardado");
+exit;
+
+
+} catch (PDOException $e) {
+
+    $conexion->rollBack();
+
+    die("Error al guardar: " . $e->getMessage());
+
+}

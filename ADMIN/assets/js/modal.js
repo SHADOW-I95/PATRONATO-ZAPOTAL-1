@@ -1,6 +1,7 @@
 const modal = document.getElementById("modal");
-const abrir = document.getElementById("abrir-modal");
 const cerrar = document.getElementById("cerrar-modal");
+const abrir = document.getElementById("abrir-modal");
+
 
 abrir.addEventListener("click", () => {
     modal.style.display = "flex";

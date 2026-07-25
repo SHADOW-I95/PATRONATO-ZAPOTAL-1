@@ -1,20 +1,5 @@
 :root {
-    --azul-oscuro: #16233a;
-    --azul-oscuro-2: #1c2e4a;
-    --azul: #2f6fed;
-    --azul-claro: #eaf1ff;
-    --gris-fondo: #f3f5f9;
-    --gris-borde: #e3e7ee;
-    --gris-texto: #5b6472;
-    --texto-oscuro: #1a2233;
-    --blanco: #ffffff;
-    --verde: #16a34a;
-    --verde-bg: #e7f7ed;
-    --rojo: #dc2626;
-    --rojo-bg: #fdecec;
-    --ambar: #d97706;
-    --ambar-bg: #fdf1de;
-
+   --azul-oscuro: #1d2b47;
 }
 
 
@@ -24,24 +9,21 @@
 .barra_superior{
     height: 60px;
     width: 100%;
-    background-color: #fff;
-    box-shadow: 5px 5px 40px #c3c2c2;
+    background-color: #ffff;
+    border-bottom: 1px solid #8385859c;
     align-items: center;
     justify-content:end;
     display: flex;
     z-index: 2;
 }
 
-.div_lateral{
-    border: 2px solid #000;
+.div_superior{
     border-radius: 5px;
     padding: 10px;
     margin-right: 15px;
     width: max-content;
     height: max-content;
 }
-
-
 
 /*==========================
 [       BARRA LATERAL      ]
@@ -54,7 +36,6 @@
     color: #cdd6e4;
     display: flex;
     flex-direction: column;
-    transition: margin-left var(--transicion);
 }
 
 .barraNavegacion{
@@ -62,16 +43,13 @@
   flex-direction: column;
 }
 .barraNavegacion a{ 
-    font-weight: 600;
-    font-size: 15.5px;
-    padding: 14px 0px;
+    padding: 14px 14px;
 }
-
-
 
 .iconos{
     display: flex;
     border-bottom: 2px solid #cdd6e4;
+    height: 57.9px;
 }
 
 .iconos img{ height: 50px;}

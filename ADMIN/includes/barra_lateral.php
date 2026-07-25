@@ -1,7 +1,7 @@
 <div class="barraLateral">
     <div class="iconos">
         <img src="./assets/img/LOGO.png">
-        <p>Patronato Pro-mejoramiento el <br>Zapotal</p>
+        <p>Patronato el Zapotal</p>
     </div>
 
     <nav class="barraNavegacion">
@@ -15,8 +15,6 @@
         <a href="?modulo=configuracion"> Configuracion</a>
     </nav>
 </div>
-
-
 
 
 
