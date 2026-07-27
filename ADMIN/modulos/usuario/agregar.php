@@ -18,7 +18,7 @@ try {
     // =======================
 
     $dni               = trim($_POST["DNI"]);
-    $codigo            = trim($_POST["contrasena"]);
+    $codigo            = trim($_POST["codigo"]);
     $nombre            = trim($_POST["nombre"]);
     $apellido          = trim($_POST["apellido"]);
     $fecha_nacimiento  = !empty($_POST["fecha_nacimiento"]) ? $_POST["fecha_nacimiento"] : null;
@@ -35,10 +35,7 @@ try {
             codigo
         )
         VALUES
-        (
-            dni, nombre, apellido, fecha_nacimiento, telefono, codigo
-        )
-    ";
+        (?, ?, ?, ?,? , ?)";
 
     $stmtUsuario = $conexion->prepare($sqlUsuario);
 
@@ -72,13 +69,14 @@ try {
             )
             VALUES
             (
-                id_usuario,id_sector, id_servicio, numero_vivienda, cuota, estado 
+                ?,?, ?, ?, ?, ? 
             )
         ";
 
         $stmtVivienda = $conexion->prepare($sqlVivienda);
 
         foreach ($_POST["vivienda"] as $v) {
+            
 
             $stmtVivienda->execute([
                 $id_usuario,

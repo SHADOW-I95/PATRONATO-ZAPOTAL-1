@@ -1,45 +1,58 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="seccion.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-<body>
-    <div class="contenedor">
+<?php
 
-        <div class="logo">
-            <img src="img/logo_-removebg-preview.png" alt="Logo">
-            <h2>PATRONATO<br>DE AGUA</h2>
-        </div>
+$conexion = mysqli_connect("localhost","root","","patronato");
 
-        <form class="formulario" method="post" action="validacion.php" id="formLogin">
-            <div>
-                <h1>Iniciar sesión</h1>
-                <p>Accede a tu cuenta para continuar.</p>
-            </div>
+if(!$conexion){
+    die("Error de conexión: " . mysqli_connect_error());
+}
 
-            <input type="text" placeholder="NOMBRE" name="nombre" id="nombre" required minlength="3">
-            <span class="error" id="errorNombre"></span>
+if(isset($_POST['enviar'])){
 
-            <input type="text" placeholder="DNI" name="dni" id="dni" required maxlength="20">
-            <span class="error" id="errorDni"></span>
+    $tipo = $_POST['tipo_reporte'];
+    $descripcion = $_POST['descripcion'];
 
-            <div class="password-box">
-                <input type="password" id="password" placeholder="CONTRASENA  ASIGNADO" name="contrasena" required minlength="2">
-                <span onclick="mostrarPassword()"><i class="fa-solid fa-eye"></i></span>
-            </div>
-            <span class="error" id="errorPassword"></span>
+    $sql = "INSERT INTO reportes (id_tipo_reporte, descripcion)
+            VALUES ('$tipo', '$descripcion')";
 
-            <span class="error" id="errorServidor"></span>
+    if(mysqli_query($conexion, $sql)){
+        echo "<script>
+                alert('Reporte enviado correctamente');
+              </script>";
+    }else{
+        echo "Error: " . mysqli_error($conexion);
+    }
+}
+?>
 
-            <button id="Ingresar" type="submit">Ingresar</button>
+<div class="contenedor">
 
-        </form>
-    </div>
+    <h2>Reportar Problema</h2>
 
-    <script src="seccion.js"></script>
-</body>
-</html>
+    <form method="POST">
+
+        <label>Tipo de Reporte</label>
+
+        <select name="tipo_reporte" required>
+            <option value="">Seleccione una opción</option>
+            <option value="1">Fuga de Agua</option>
+            <option value="2">Falta de Agua</option>
+            <option value="3">Baja Presión</option>
+            <option value="4">Daño de Tubería</option>
+            <option value="5">Otro</option>
+        </select>
+
+        <label>Descripción</label>
+
+        <textarea
+            name="descripcion"
+            rows="5"
+            placeholder="Describa el problema..."
+            required></textarea>
+
+        <button type="submit" name="enviar">
+            Enviar Reporte
+        </button>
+
+    </form>
+
+</div>

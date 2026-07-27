@@ -1,5 +1,7 @@
-<?php
 
+<?php
+require_once __DIR__ . "/../../config/conexion.php";
+$conexion = Connection();
 $sql_usuarios = "SELECT 
   usuarios.id_usuario,
   usuarios.dni,
@@ -7,6 +9,7 @@ $sql_usuarios = "SELECT
   usuarios.apellido,
   usuarios.telefono,
   usuarios.codigo,
+  TIMESTAMPDIFF(YEAR, usuarios.fecha_nacimiento, CURDATE()) AS edad,
   COUNT(viviendas.id_vivienda) AS cantidad_viviendas
   FROM usuarios 
   LEFT JOIN viviendas
@@ -57,8 +60,7 @@ $sql_usuarios = "SELECT
 
         <span class="cerrar" id="cerrar-modal">✕</span>
         <h4>+Nuevo usuario</h4>
-
-        <form action="/PATRONATO-ERICK/ADMIN/modulos/usuario/agregar.php" method="POST" class="formulario" id="form_usuario">
+        <form action="modulos/usuario/agregar.php" method="POST" class="formulario" id="form_usuario">
             <div class="informacion">
 
                 <div class="campo">
@@ -67,7 +69,7 @@ $sql_usuarios = "SELECT
                 </div>
                 <div class="campo">
                     <label>Código de acceso</label>
-                    <input type="text" name="contrasena" required maxlength="50"
+                    <input type="text" name="codigo" required maxlength="50"
                         placeholder="Código que se le entregará">
                 </div>
                 <div class="campo">
@@ -185,12 +187,18 @@ $sql_usuarios = "SELECT
                 <td><?= $u['dni'] ?></td>
                 <td><?= $u['nombre'] ?></td>
                 <td><?= $u['apellido'] ?></td>
+                <td><?= $u['edad'] ?></td>
                 <td><?= $u['telefono'] ?></td>
                 <td><?= $u['codigo'] ?></td>
                 <td><?= $u['cantidad_viviendas'] ?></td>
                 <td>
-                    <a href="">Editar</a>
-                    <a href="">Eliminar</a>
+                    <a class="" href="modulos/usuario/editar.php?id=<?= $u['id_usuario'] ?>">
+                        Editar
+                    </a>
+                    <a class="" href="modulos/usuario/eliminar.php?id=<?= $u['id_usuario'] ?>"
+                        onclick="return confirm('¿Desea eliminar este usuario?')">
+                        Eliminar
+                    </a>
                     <button class="btn_ver" data-id="<?= $u['id_usuario'] ?>">
                         Ver
                     </button>

@@ -9,8 +9,7 @@ document.querySelectorAll(".btn_ver").forEach(boton=>{
     boton.addEventListener("click",()=>{
 
         const id = boton.dataset.id;
-
-        fetch("/PATRONATO-ERICK/ADMIN/Usuario/ver.php?id="+id)
+        fetch("./modulos/usuario/ver.php?id="+id)
 
         .then(res=>res.text())
 

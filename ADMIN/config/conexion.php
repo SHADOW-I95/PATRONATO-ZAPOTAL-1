@@ -3,7 +3,7 @@
 function Connection()
 {
     $host = "localhost";
-    $dbname = "patronato_zapotal_1";
+    $dbname = "patronato-proyect";
     $user = "root";
     $pass = "";
 

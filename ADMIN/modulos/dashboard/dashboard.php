@@ -1,4 +1,5 @@
 <?php // Indica el inicio del código PHP.
+require_once __DIR__ . "/../../config/conexion.php";
 $conexion = connection();
 
 
