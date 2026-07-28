@@ -4,25 +4,33 @@ $conexion = Connection();
 $id = $_GET["id"];
 $sql = "
 SELECT
-u.id_usuario,
-u.dni,
-u.nombre,
-u.apellido,
-u.telefono,
-u.codigo,
-u.fecha_nacimiento,
-v.numero_vivienda,
-v.cuota,
-v.estado,
-s.nombre_sector,
-se.nombre_servicio
+    u.id_usuario,
+    u.dni,
+    u.nombre,
+    u.apellido,
+    u.telefono,
+    u.codigo,
+    u.fecha_nacimiento,
+    v.numero_vivienda,
+    v.cuota,
+    ep.nombre_estado_pago,
+    s.nombre_sector,
+    se.nombre_servicio
+
 FROM usuarios u
+
 LEFT JOIN viviendas v
-ON u.id_usuario = v.id_usuario
+    ON u.id_usuario = v.id_usuario
+
+LEFT JOIN estado_pago ep
+    ON v.id_estado_pago = ep.id_estado_pago
+
 LEFT JOIN sectores s
-ON v.id_sector = s.id_sector
+    ON v.id_sector = s.id_sector
+
 LEFT JOIN servicios se
-ON v.id_servicio = se.id_servicio
+    ON v.id_servicio = se.id_servicio
+
 WHERE u.id_usuario = ?
 ";
 $stmt = $conexion->prepare($sql);
@@ -56,7 +64,7 @@ if(!$datos){
 <td><?= $d["nombre_sector"] ?></td>
 <td><?= $d["nombre_servicio"] ?></td>
 <td>L <?= $d["cuota"] ?></td>
-<td><?= $d["estado"] ?></td>
+<td><?= $d["nombre_estado_pago"] ?></td>
 </tr>
 <?php endforeach; ?>
 </tbody>

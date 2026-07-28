@@ -39,26 +39,20 @@ if ($id_usuario_seleccionado) {
 }
 ?>
 
-
 <div class="modulo_header">
     <div class="encabezado">
-        <h1>Historial de Pagos</h1>
+        <h1>Historial de pagos de agua</h1>
     </div>
     <div class="opciones">
         <input type="text" placeholder="Nombre o DNI..." class="buscar">
-        <button class="btn_nuevo" id="abrir-modal">
-            + Registrar pago
-        </button>
     </div>
 </div>
 
+<div class="formulario-pago">
+    <h4>Registrar pago</h4>
 
-<div class="modal" id="modal">
-    <div class="modal-contenido">
-
-        <span class="cerrar" id="cerrar-modal">✕</span>
-        <h4>+Nuevo usuario</h4>
-      <form method="GET" class="formulario">
+    <!-- Paso 1: elegir usuario. Al enviar, recarga la página con ?id_usuario=X -->
+<form method="GET" class="formulario">
     <input type="hidden" name="modulo" value="agua">
 
     <div class="campo">
@@ -117,6 +111,6 @@ if ($id_usuario_seleccionado) {
 
         <?php endif; ?>
     <?php endif; ?>
-
-    </div>
 </div>
+
+<!-- Aquí después ponemos la tabla de historial de pagos -->

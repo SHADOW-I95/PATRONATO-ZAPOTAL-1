@@ -1,4 +1,3 @@
-
 <?php
 require_once __DIR__ . "/../../config/conexion.php";
 $conexion = Connection();
@@ -38,6 +37,15 @@ $sql_usuarios = "SELECT
   $stmt_servicios->execute();
   $servicios = 
   $stmt_servicios->fetchAll();
+
+  $sql_estado_pago =
+  "SELECT id_estado_pago,
+  nombre_estado_pago
+  FROM estado_pago";
+  $stmt_estado_pago = $conexion->prepare($sql_estado_pago);
+  $stmt_estado_pago->execute();
+  $estado_pago =
+  $stmt_estado_pago->fetchAll();
   
 ?>
 
@@ -69,8 +77,7 @@ $sql_usuarios = "SELECT
                 </div>
                 <div class="campo">
                     <label>Código de acceso</label>
-                    <input type="text" name="codigo" required maxlength="50"
-                        placeholder="Código que se le entregará">
+                    <input type="text" name="codigo" required maxlength="50" placeholder="Código que se le entregará">
                 </div>
                 <div class="campo">
                     <label>Nombre </label>
@@ -126,9 +133,12 @@ $sql_usuarios = "SELECT
                     <div class="campo">
                         <label>Estado</label>
                         <select name="vivienda[0][estado]">
-                            <option value="Pagado">Pagado</option>
-                            <option value="Pendiente">Pendiente</option>
-                            <option value="Mora">Mora</option>
+                            <option value="">Selecion…</option>
+                            <?php foreach ($estado_pago as $estado):?>
+                            <option value="<?= $estado['id_estado_pago']?>">
+                                <?= htmlspecialchars($estado['nombre_estado_pago'])?>
+                            </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
@@ -279,9 +289,13 @@ btnAgregar.addEventListener("click", () => {
         <div class="campo">
             <label>Estado</label>
             <select name="vivienda[${indice}][estado]">
-                <option value="pagado">Pagado</option>
-                <option value="pendiente">Pendiente</option>
-                <option value="mora">Mora</option>
+               <option value="">Selecion…</option>
+                <?php foreach ($estado_pago as $estado):?>
+                    <option value="<?= $estado['id_estado_pago']?>">
+                    <?= htmlspecialchars($estado['nombre_estado_pago'])?>
+                    </option>
+                <?php endforeach; ?>
+
             </select>
         </div>
 

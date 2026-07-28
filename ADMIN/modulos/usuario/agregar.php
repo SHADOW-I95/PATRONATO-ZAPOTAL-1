@@ -65,7 +65,7 @@ try {
                 id_servicio,
                 numero_vivienda,
                 cuota,
-                estado
+                id_estado_pago
             )
             VALUES
             (
