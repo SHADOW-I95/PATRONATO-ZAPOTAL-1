@@ -32,3 +32,4 @@ cerrarVer.addEventListener("click",()=>{
     contenidoVer.innerHTML="";
 
 });
+

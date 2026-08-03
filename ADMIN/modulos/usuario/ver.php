@@ -1,71 +1,88 @@
 <?php
-require_once("../../config/conexion.php");
+require_once __DIR__ . "/../../config/conexion.php";
+require_once __DIR__ . "/../agua/helpers_agua.php";
 $conexion = Connection();
-$id = $_GET["id"];
-$sql = "
-SELECT
-    u.id_usuario,
-    u.dni,
-    u.nombre,
-    u.apellido,
-    u.telefono,
-    u.codigo,
-    u.fecha_nacimiento,
-    v.numero_vivienda,
-    v.cuota,
-    ep.nombre_estado_pago,
-    s.nombre_sector,
-    se.nombre_servicio
 
-FROM usuarios u
+$id_usuario = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
-LEFT JOIN viviendas v
-    ON u.id_usuario = v.id_usuario
+if (!$id_usuario) {
+    echo "<p>Usuario no válido.</p>";
+    exit;
+}
 
-LEFT JOIN estado_pago ep
-    ON v.id_estado_pago = ep.id_estado_pago
+// Datos básicos del usuario
+$sql_usuario = "SELECT dni, nombre, apellido, telefono, codigo,
+                       TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) AS edad
+                FROM usuarios WHERE id_usuario = ?";
+$stmt_usuario = $conexion->prepare($sql_usuario);
+$stmt_usuario->execute([$id_usuario]);
+$usuario = $stmt_usuario->fetch();
 
-LEFT JOIN sectores s
-    ON v.id_sector = s.id_sector
+if (!$usuario) {
+    echo "<p>Usuario no encontrado.</p>";
+    exit;
+}
 
-LEFT JOIN servicios se
-    ON v.id_servicio = se.id_servicio
+// Viviendas del usuario, con su estado de pago recalculado
+$sql_viviendas = "SELECT v.id_vivienda, v.numero_vivienda, v.cuota,
+                         s.nombre_sector, se.nombre_servicio
+                  FROM viviendas v
+                  LEFT JOIN sectores s ON v.id_sector = s.id_sector
+                  LEFT JOIN servicios se ON v.id_servicio = se.id_servicio
+                  WHERE v.id_usuario = ?";
+$stmt_viviendas = $conexion->prepare($sql_viviendas);
+$stmt_viviendas->execute([$id_usuario]);
+$viviendas = $stmt_viviendas->fetchAll();
 
-WHERE u.id_usuario = ?
-";
-$stmt = $conexion->prepare($sql);
-$stmt->execute([$id]);
-$datos = $stmt->fetchAll();
-if(!$datos){
-    exit("Usuario no encontrado");
+function clase_badge($nombre_estado)
+{
+    if ($nombre_estado === 'Pagado') return 'badge-pagado';
+    if ($nombre_estado === 'Mora')   return 'badge-mora';
+    return 'badge-pendiente';
 }
 ?>
-<h3><?= $datos[0]["nombre"] ?> <?= $datos[0]["apellido"] ?></h3>
-<hr>
-<p><b>DNI:</b> <?= $datos[0]["dni"] ?></p>
-<p><b>Teléfono:</b> <?= $datos[0]["telefono"] ?></p>
-<p><b>Código:</b> <?= $datos[0]["codigo"] ?></p>
-<p><b>Fecha nacimiento:</b> <?= $datos[0]["fecha_nacimiento"] ?></p>
+
+<div class="informacion">
+    <div class="campo"><label>DNI</label><span><?= htmlspecialchars($usuario['dni']) ?></span></div>
+    <div class="campo"><label>Nombre</label><span><?= htmlspecialchars($usuario['nombre'] . ' ' . $usuario['apellido']) ?></span></div>
+    <div class="campo"><label>Edad</label><span><?= htmlspecialchars($usuario['edad'] ?? '—') ?></span></div>
+    <div class="campo"><label>Teléfono</label><span><?= htmlspecialchars($usuario['telefono'] ?? '—') ?></span></div>
+    <div class="campo"><label>Código</label><span><?= htmlspecialchars($usuario['codigo']) ?></span></div>
+</div>
+
 <h4>Viviendas</h4>
+
+<?php if (empty($viviendas)): ?>
+    <p>Este usuario no tiene viviendas registradas.</p>
+<?php else: ?>
 <table class="tabla_datos">
-<thead>
-<tr>
-<th>Casa</th>
-<th>Sector</th>
-<th>Servicio</th>
-<th>Cuota</th>
-<th>Estado</th>
-</tr>
-</thead>
-<tbody>
-<?php foreach($datos as $d): ?>
-<tr>
-<td><?= $d["numero_vivienda"] ?></td>
-<td><?= $d["nombre_sector"] ?></td>
-<td><?= $d["nombre_servicio"] ?></td>
-<td>L <?= $d["cuota"] ?></td>
-<td><?= $d["nombre_estado_pago"] ?></td>
-</tr>
-<?php endforeach; ?>
-</tbody>
+    <thead>
+        <tr>
+            <th>Vivienda</th>
+            <th>Sector</th>
+            <th>Servicio</th>
+            <th>Cuota (L)</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($viviendas as $v): ?>
+            <?php $estado = refrescar_estado_vivienda($conexion, (int) $v['id_vivienda']); ?>
+            <tr>
+                <td>#<?= htmlspecialchars($v['numero_vivienda']) ?></td>
+                <td><?= htmlspecialchars($v['nombre_sector'] ?? '—') ?></td>
+                <td><?= htmlspecialchars($v['nombre_servicio'] ?? '—') ?></td>
+                <td>L<?= number_format($v['cuota'], 2) ?></td>
+                <td><span class="badge <?= clase_badge($estado['nombre']) ?>"><?= $estado['nombre'] ?></span></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
 </table>
+<?php endif; ?>
+
+<style>
+.badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.badge-pagado    { background: #dcfce7; color: #166534; }
+.badge-pendiente { background: #fef3c7; color: #92400e; }
+.badge-mora      { background: #fee2e2; color: #991b1b; }
+</style>

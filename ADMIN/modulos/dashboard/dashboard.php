@@ -1,240 +1,213 @@
-<?php // Indica el inicio del código PHP.
+<?php
 require_once __DIR__ . "/../../config/conexion.php";
-$conexion = connection();
-
+require_once __DIR__ . "/../agua/helpers_agua.php"; // solo para usar ID_ESTADO_PAGADO / ID_ESTADO_MORA
+$conexion = Connection();
 
 // =======================
 // TOTAL RECAUDADO
 // =======================
-
-// Ejecuta una consulta SQL.
-// SUM(TOTAL_A_PAGAR) suma todos los pagos registrados en la tabla pagos_agua.
-$totalVentas = $conexion->query(
-    "SELECT SUM(TOTAL_A_PAGAR) AS total FROM pagos_agua"
-);
-
-// Obtiene el resultado de la consulta como un arreglo asociativo.
-$ventas = $totalVentas->fetch_assoc();
-
+$total_recaudado = $conexion->query("SELECT SUM(total) AS total FROM pagos_agua")->fetch()['total'] ?? 0;
 
 // =======================
-// TOTAL DE USUARIOS
+// USUARIOS REGISTRADOS
 // =======================
-
-// Ejecuta una consulta que cuenta todos los usuarios registrados.
-$clientesQuery = $conexion->query(
-    "SELECT COUNT(*) AS total FROM usuarios"
-);
-
-// Guarda el resultado de la consulta en un arreglo.
-$clientes = $clientesQuery->fetch_assoc();
-
+$total_usuarios = $conexion->query("SELECT COUNT(*) AS total FROM usuarios")->fetch()['total'] ?? 0;
 
 // =======================
-// USUARIOS ACTIVOS
+// VIVIENDAS PAGADAS / EN MORA
 // =======================
+$stmt_pagadas = $conexion->prepare("SELECT COUNT(*) AS total FROM viviendas WHERE id_estado_pago = ?");
+$stmt_pagadas->execute([ID_ESTADO_PAGADO]);
+$viviendas_pagadas = $stmt_pagadas->fetch()['total'] ?? 0;
 
-// Cuenta únicamente los usuarios cuyo estado sea ACTIVO.
-$activosQuery = $conexion->query(
-    "SELECT COUNT(*) AS total FROM usuarios WHERE ESTADO = 'ACTIVO'"
-);
-
-$activosQuery = $conexion->query(
-    "SELECT COUNT(*) AS total FROM usuarios WHERE ESTADO = 'INACTIVO'"
-);
-
-// Guarda el resultado en un arreglo.
-$activos = $activosQuery->fetch_assoc();
-
+$stmt_mora = $conexion->prepare("SELECT COUNT(*) AS total FROM viviendas WHERE id_estado_pago = ?");
+$stmt_mora->execute([ID_ESTADO_MORA]);
+$viviendas_mora = $stmt_mora->fetch()['total'] ?? 0;
 
 // =======================
-// DATOS PARA EL GRÁFICO POR SECTOR
+// VIVIENDAS POR SECTOR (para el gráfico)
 // =======================
+$sql_sector = "SELECT s.nombre_sector, COUNT(v.id_vivienda) AS cantidad
+               FROM viviendas v
+               LEFT JOIN sectores s ON v.id_sector = s.id_sector
+               GROUP BY s.nombre_sector";
+$filas_sector = $conexion->query($sql_sector)->fetchAll();
 
-// Consulta que agrupa los usuarios por sector.
-$sectorGrafico = $conexion->query("
+// De mayor a menor cantidad de viviendas (para el gráfico y la lista lateral)
+usort($filas_sector, fn($a, $b) => $b['cantidad'] - $a['cantidad']);
 
-    
-    SELECT SECTOR,
-
-    COUNT(*) AS cantidad
-
-  
-    FROM usuarios
-
-
-    GROUP BY SECTOR
-
-");
-
-// Arreglo donde se almacenarán los nombres de los sectores.
 $sectorLabels = [];
-
-// Arreglo donde se almacenarán las cantidades de usuarios.
-$sectorDatos = [];
-
-
-// Recorre cada fila obtenida de la consulta.
-while ($fila = $sectorGrafico->fetch_assoc()) {
-
-    // Guarda el nombre del sector.
-    $sectorLabels[] = $fila['SECTOR'];
-
-    // Guarda la cantidad de usuarios del sector.
-    $sectorDatos[] = $fila['cantidad'];
-
+$sectorDatos  = [];
+foreach ($filas_sector as $fila) {
+    $sectorLabels[] = $fila['nombre_sector'] ?? 'Sin sector';
+    $sectorDatos[]  = (int) $fila['cantidad'];
 }
 
-
 // =======================
-// DATOS PARA EL GRÁFICO POR MES
+// RECAUDADO POR MES (para el gráfico)
 // =======================
+$sql_mes = "SELECT DATE_FORMAT(fecha_pago_agua, '%Y-%m') AS periodo, SUM(total) AS total
+            FROM pagos_agua
+            WHERE fecha_pago_agua IS NOT NULL
+            GROUP BY periodo
+            ORDER BY periodo";
+$filas_mes = $conexion->query($sql_mes)->fetchAll();
 
-// Consulta que obtiene el total recaudado por cada mes.
-$mesGrafico = $conexion->query("
+$nombres_meses = [1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio',
+                   7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'];
 
-
-    SELECT MES,
-
-    SUM(TOTAL_A_PAGAR) AS total
-
-    FROM pagos_agua
-
-    GROUP BY MES
-
-");
-
-// Arreglo donde se guardarán los nombres de los meses.
 $mesLabels = [];
-
-// Arreglo donde se guardarán los montos recaudados.
-$mesDatos = [];
-
-
-// Recorre todos los registros obtenidos.
-while ($fila = $mesGrafico->fetch_assoc()) {
-
-    // Guarda el nombre del mes.
-    $mesLabels[] = $fila['MES'];
-
-    // Guarda el total de dinero del mes.
-    $mesDatos[] = $fila['total'];
-
+$mesDatos  = [];
+foreach ($filas_mes as $fila) {
+    [$anio, $mes] = explode('-', $fila['periodo']);
+    $mesLabels[] = $nombres_meses[(int) $mes] . ' ' . $anio;
+    $mesDatos[]  = (float) $fila['total'];
 }
-
 
 // =======================
 // ÚLTIMOS PAGOS
 // =======================
-
-// Consulta para obtener los últimos 20 pagos registrados.
-$resultado = $conexion->query("
-
-    
-    SELECT
-        NO_PAGO,
-        NOMBRE,
-        SECTOR,
-        NO_CASA,
-        MES,
-        FECHA_DE_PAGO,
-        TOTAL_A_PAGAR
-
-  
-    FROM pagos_agua
-
-    
-    ORDER BY FECHA_DE_PAGO DESC
-    LIMIT 20
-
-");
-   
-
+$sql_ultimos = "SELECT pa.numero_recibo, CONCAT(u.nombre, ' ', u.apellido) AS nombre_usuario,
+                       s.nombre_sector, v.numero_vivienda, pa.fecha_pago_agua, pa.total
+                FROM pagos_agua pa
+                INNER JOIN usuarios u ON pa.id_usuario = u.id_usuario
+                INNER JOIN viviendas v ON pa.id_vivienda = v.id_vivienda
+                LEFT JOIN sectores s ON v.id_sector = s.id_sector
+                ORDER BY pa.fecha_pago_agua DESC, pa.id_pago_agua DESC
+                LIMIT 20";
+$ultimos_pagos = $conexion->query($sql_ultimos)->fetchAll();
 ?>
 
 <!-- =======================
      CONTENEDOR PRINCIPAL
 ======================== -->
-
-<!-- Contenedor general del dashboard -->
 <div class="padre_contenido">
 
-        <!-- Contenedor de las tarjetas -->
-        <div class="cards">
+    <!-- Tarjetas -->
+    <div class="cards">
 
-            <!-- Tarjeta Total Recaudado -->
-            <div class="card">
-
-                <!-- Título -->
-                <h3>Total Recaudado</h3>
-
-                <!-- Muestra el dinero total con dos decimales -->
-                <p>$<?php echo number_format($ventas['total'] ?? 0, 2); ?></p>
-
-            </div>
-
-            <!-- Tarjeta Usuarios Registrados -->
-            <div class="card">
-
-                <!-- Título -->
-                <h3>Usuarios Registrados</h3>
-
-                <!-- Muestra la cantidad de usuarios -->
-                <p><?php echo $clientes['total'] ?? 0; ?></p>
-
-            </div>
-
-            <!-- Tarjeta Usuarios Activos -->
-            <div class="card">
-
-                <!-- Título -->
-                <h3>Usuarios Activos</h3>
-
-                <!-- Muestra la cantidad de usuarios activos -->
-                <p><?php echo $activos['total'] ?? 0; ?></p>
-
-            </div>
-
-             <div class="card">
-
-                <!-- Título -->
-                <h3>Usuarios inactivos</h3>
-
-                <!-- Muestra la cantidad de usuarios activos -->
-                <p><?php echo $activos['total'] ?? 0; ?></p>
-
-            </div>
-
-
+        <div class="card">
+            <h3>Total Recaudado</h3>
+            <p>L<?= number_format($total_recaudado, 2) ?></p>
         </div>
 
-        <!-- Contenedor de los gráficos -->
-        <div class="charts">
-
-            <!-- Área del gráfico -->
-            <div class="chart">
-
-                <!-- Canvas donde Chart.js dibujará el gráfico -->
-                <canvas id="sectorChart"></canvas>
-
-            </div>
-
+        <div class="card">
+            <h3>Usuarios Registrados</h3>
+            <p><?= $total_usuarios ?></p>
         </div>
+
+        <div class="card">
+            <h3>Viviendas Pagadas</h3>
+            <p><?= $viviendas_pagadas ?></p>
+        </div>
+
+        <div class="card">
+            <h3>Viviendas en Mora</h3>
+            <p><?= $viviendas_mora ?></p>
+        </div>
+
+    </div>
+
+    <!-- Gráficos -->
+    <div class="charts">
+
+        <div class="chart chart-sector">
+            <canvas id="sectorChart"></canvas>
+            <div class="lista-sectores">
+                <?php foreach ($filas_sector as $fila): ?>
+                <div class="sector-item">
+                    <span class="sector-nombre"><?= htmlspecialchars($fila['nombre_sector'] ?? 'Sin sector') ?></span>
+                    <span class="sector-cantidad"><?= (int) $fila['cantidad'] ?></span>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="chart">
+            <canvas id="mesChart" style="width:100%; height:100%;"></canvas>
+        </div>
+
+    </div>
+
+    <!-- Últimos pagos -->
+    <div class="seccion">
+        <h3>Últimos pagos</h3>
+        <table class="tabla_datos">
+            <thead>
+                <tr>
+                    <th>Recibo</th>
+                    <th>Usuario</th>
+                    <th>Sector</th>
+                    <th>Vivienda</th>
+                    <th>Fecha</th>
+                    <th>Total (L)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (empty($ultimos_pagos)): ?>
+                <tr><td colspan="6">Todavía no hay pagos registrados.</td></tr>
+                <?php else: ?>
+                    <?php foreach ($ultimos_pagos as $pago): ?>
+                    <tr>
+                        <td><?= $pago['numero_recibo'] ?></td>
+                        <td><?= htmlspecialchars($pago['nombre_usuario']) ?></td>
+                        <td><?= htmlspecialchars($pago['nombre_sector'] ?? '—') ?></td>
+                        <td>#<?= htmlspecialchars($pago['numero_vivienda']) ?></td>
+                        <td><?= $pago['fecha_pago_agua'] ?></td>
+                        <td>L<?= number_format($pago['total'], 2) ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 
 </div>
 
+
+<!-- Chart.js: si ya lo cargas en index.php, puedes quitar esta línea -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
+const sectorLabels = <?= json_encode($sectorLabels) ?>;
+const sectorDatos  = <?= json_encode($sectorDatos) ?>;
+const mesLabels    = <?= json_encode($mesLabels) ?>;
+const mesDatos     = <?= json_encode($mesDatos) ?>;
 
-// Convierte el arreglo PHP de sectores en un arreglo de JavaScript.
-const sectorLabels = <?php echo json_encode($sectorLabels); ?>;
+new Chart(document.getElementById("sectorChart"), {
+    type: "pie",
+    data: {
+        labels: sectorLabels,
+        datasets: [{
+            data: sectorDatos,
+            backgroundColor: ["#60a5fa", "#34d399", "#fbbf24", "#f87171", "#a78bfa", "#f472b6"]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
 
-// Convierte las cantidades por sector a JavaScript.
-const sectorDatos = <?php echo json_encode($sectorDatos); ?>;
-
-// Convierte los nombres de los meses a JavaScript.
-const mesLabels = <?php echo json_encode($mesLabels); ?>;
-
-// Convierte los totales por mes a JavaScript.
-const mesDatos = <?php echo json_encode($mesDatos); ?>;
-
+new Chart(document.getElementById("mesChart"), {
+    type: "line",
+    data: {
+        labels: mesLabels,
+        datasets: [{
+            label: "Recaudado (L)",
+            data: mesDatos,
+            borderColor: "#34d399",
+            backgroundColor: "rgba(52, 211, 153, 0.15)",
+            fill: true,
+            tension: 0.3,
+            pointBackgroundColor: "#34d399",
+            pointRadius: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { y: { beginAtZero: true } }
+    }
+});
 </script>
