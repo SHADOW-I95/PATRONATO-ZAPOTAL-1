@@ -173,7 +173,7 @@ $sql_usuarios = "SELECT
 
 <!--==================================TABLA PRICNIPAL DE USUARIO==================================================-->
 
-<div class="div-table">
+<div class="seccion">
     <table class="tabla_datos">
 
         <thead class="thead">
@@ -202,14 +202,14 @@ $sql_usuarios = "SELECT
                 <td><?= $u['codigo'] ?></td>
                 <td><?= $u['cantidad_viviendas'] ?></td>
                 <td>
-                    <a class="" href="modulos/usuario/editar.php?id=<?= $u['id_usuario'] ?>">
+                    <a class="btn-editar" href="modulos/usuario/editar.php?id=<?= $u['id_usuario'] ?>">
                         Editar
                     </a>
-                    <a class="" href="modulos/usuario/eliminar.php?id=<?= $u['id_usuario'] ?>"
+                    <a class="btn-eliminar" href="modulos/usuario/eliminar.php?id=<?= $u['id_usuario'] ?>"
                         onclick="return confirm('¿Desea eliminar este usuario?')">
                         Eliminar
                     </a>
-                    <button class="btn_ver" data-id="<?= $u['id_usuario'] ?>">
+                    <button class="btn-ver btn_ver" data-id="<?= $u['id_usuario'] ?>">
                         Ver
                     </button>
                 </td>

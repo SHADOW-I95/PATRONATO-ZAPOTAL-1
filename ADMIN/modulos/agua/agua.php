@@ -106,9 +106,9 @@ function clase_badge($nombre_estado)
 <div class="aviso-exito">
     <span>Pago registrado correctamente.</span>
     <?php foreach ($recibos_nuevos as $recibo): ?>
-        <a href="modulos/agua/factura.php?recibo=<?= $recibo ?>" target="_blank" class="btn-factura">
-            Imprimir factura #<?= sprintf('%06d', $recibo) ?>
-        </a>
+    <a href="modulos/agua/factura.php?recibo=<?= $recibo ?>" target="_blank" class="btn-factura">
+        Imprimir factura #<?= sprintf('%06d', $recibo) ?>
+    </a>
     <?php endforeach; ?>
 </div>
 <?php endif; ?>
@@ -119,8 +119,13 @@ function clase_badge($nombre_estado)
     <table class="tabla_datos">
         <thead>
             <tr>
-                <th>#</th><th>Vivienda</th><th>Usuario</th><th>Sector</th>
-                <th>Cuota (L)</th><th>Último mes pagado</th><th>Estado</th>
+                <th>#</th>
+                <th>Vivienda</th>
+                <th>Usuario</th>
+                <th>Sector</th>
+                <th>Cuota (L)</th>
+                <th>Último mes pagado</th>
+                <th>Estado</th>
             </tr>
         </thead>
         <tbody>
@@ -133,12 +138,15 @@ function clase_badge($nombre_estado)
                 <td class="col-monto">L<?= number_format($viv['cuota'], 2) ?></td>
                 <td>
                     <?php if ($viv['estado']['ultimo_pago']): ?>
-                        <?= $nombres_meses[$viv['estado']['ultimo_pago']['mes']] ?> <?= $viv['estado']['ultimo_pago']['anio'] ?>
+                    <?= $nombres_meses[$viv['estado']['ultimo_pago']['mes']] ?>
+                    <?= $viv['estado']['ultimo_pago']['anio'] ?>
                     <?php else: ?>
-                        Sin pagos
+                    Sin pagos
                     <?php endif; ?>
                 </td>
-                <td><span class="badge <?= clase_badge($viv['estado']['nombre']) ?>"><?= $viv['estado']['nombre'] ?></span></td>
+                <td><span
+                        class="badge <?= clase_badge($viv['estado']['nombre']) ?>"><?= $viv['estado']['nombre'] ?></span>
+                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
@@ -151,8 +159,14 @@ function clase_badge($nombre_estado)
     <table class="tabla_datos">
         <thead>
             <tr>
-                <th>#</th><th>Recibo</th><th>Usuario</th><th>Vivienda</th>
-                <th>Sector</th><th>Fecha</th><th>Total (L)</th><th>Acciones</th>
+                <th>#</th>
+                <th>Recibo</th>
+                <th>Usuario</th>
+                <th>Vivienda</th>
+                <th>Sector</th>
+                <th>Fecha</th>
+                <th>Total (L)</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -166,12 +180,12 @@ function clase_badge($nombre_estado)
                 <td><?= $pago['fecha_pago_agua'] ?></td>
                 <td class="col-monto">L<?= number_format($pago['total'], 2) ?></td>
                 <td class="col-acciones">
-                    <button type="button" class="btn-detalle"
-                            data-recibo="<?= $pago['numero_recibo'] ?>"
-                            data-detalle='<?= htmlspecialchars(json_encode($detalle_por_pago[$pago['id_pago_agua']] ?? []), ENT_QUOTES) ?>'>
+                    <button type="button" class="btn-detalle" data-recibo="<?= $pago['numero_recibo'] ?>"
+                        data-detalle='<?= htmlspecialchars(json_encode($detalle_por_pago[$pago['id_pago_agua']] ?? []), ENT_QUOTES) ?>'>
                         Ver detalle
                     </button>
-                    <a class="btn-factura" href="modulos/agua/factura.php?recibo=<?= $pago['numero_recibo'] ?>" target="_blank">
+                    <a class="btn-factura" href="modulos/agua/factura.php?recibo=<?= $pago['numero_recibo'] ?>"
+                        target="_blank">
                         Imprimir factura
                     </a>
                 </td>
@@ -195,7 +209,8 @@ function clase_badge($nombre_estado)
                     <select name="id_usuario" required>
                         <option value="">Selecciona…</option>
                         <?php foreach ($usuarios as $u): ?>
-                        <option value="<?= $u['id_usuario'] ?>" <?= $id_usuario_seleccionado == $u['id_usuario'] ? 'selected' : '' ?>>
+                        <option value="<?= $u['id_usuario'] ?>"
+                            <?= $id_usuario_seleccionado == $u['id_usuario'] ? 'selected' : '' ?>>
                             <?= htmlspecialchars($u['nombre_completo']) ?> (<?= htmlspecialchars($u['dni']) ?>)
                         </option>
                         <?php endforeach; ?>
@@ -217,20 +232,25 @@ function clase_badge($nombre_estado)
                                 <strong>#<?= htmlspecialchars($v['numero_vivienda']) ?></strong>
                                 — <?= htmlspecialchars($v['nombre_sector'] ?? 'Sin sector') ?>
                             </label>
-                            <span class="badge <?= clase_badge($v['estado']['nombre']) ?>"><?= $v['estado']['nombre'] ?></span>
+                            <span
+                                class="badge <?= clase_badge($v['estado']['nombre']) ?>"><?= $v['estado']['nombre'] ?></span>
                         </div>
                         <div class="vivienda">
                             <div class="campo">
                                 <label>Meses a pagar</label>
-                                <input type="number" min="1" max="24" value="1" name="pagos[<?= $v['id_vivienda'] ?>][meses]" class="input-meses">
+                                <input type="number" min="1" max="24" value="1"
+                                    name="pagos[<?= $v['id_vivienda'] ?>][meses]" class="input-meses">
                             </div>
                             <div class="campo">
                                 <label>Mes inicial</label>
-                                <input type="month" name="pagos[<?= $v['id_vivienda'] ?>][mes_inicial]" class="input-mes-inicial" value="<?= date('Y-m') ?>">
+                                <input type="month" name="pagos[<?= $v['id_vivienda'] ?>][mes_inicial]"
+                                    class="input-mes-inicial" value="<?= date('Y-m') ?>">
                             </div>
                             <div class="campo">
                                 <label>Monto por mes (L)</label>
-                                <input type="number" step="0.01" min="0" name="pagos[<?= $v['id_vivienda'] ?>][monto_mensual]" class="input-monto-mensual" value="<?= htmlspecialchars($v['cuota']) ?>">
+                                <input type="number" step="0.01" min="0"
+                                    name="pagos[<?= $v['id_vivienda'] ?>][monto_mensual]" class="input-monto-mensual"
+                                    value="<?= htmlspecialchars($v['cuota']) ?>">
                             </div>
                             <div class="campo">
                                 <label>Total a pagar (L)</label>
@@ -260,7 +280,7 @@ function clase_badge($nombre_estado)
                 </div>
             </form>
             <?php elseif ($id_usuario_seleccionado): ?>
-                <p>Este usuario no tiene viviendas registradas.</p>
+            <p>Este usuario no tiene viviendas registradas.</p>
             <?php endif; ?>
         </div>
     </div>
@@ -273,56 +293,28 @@ function clase_badge($nombre_estado)
         <div class="formulario">
             <h4>Detalle del pago <span id="detalle-recibo"></span></h4>
             <table class="tabla_datos">
-                <thead><tr><th>Mes</th><th>Año</th><th>Monto (L)</th></tr></thead>
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Año</th>
+                        <th>Monto (L)</th>
+                    </tr>
+                </thead>
                 <tbody id="detalle-cuerpo"></tbody>
             </table>
         </div>
     </div>
 </div>
 
-<style>
-.seccion { background: #fff; border-radius: 10px; padding: 16px 18px; margin-top: 18px; }
-.seccion h3 { margin: 0 0 12px; font-size: 15px; color: #333; }
-
-.tabla_datos tbody tr:hover { background: #f7f8fa; }
-.col-monto { text-align: right; font-weight: 600; }
-.col-acciones { display: flex; gap: 8px; }
-
-.badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
-.badge-pagado    { background: #dcfce7; color: #166534; }
-.badge-pendiente { background: #fef3c7; color: #92400e; }
-.badge-mora      { background: #fee2e2; color: #991b1b; }
-
-.btn-detalle, .btn-factura {
-    border: 1px solid var(--borde);
-    background: #fff;
-    padding: 5px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 12.5px;
-}
-.btn-detalle:hover, .btn-factura:hover { background: #f1f1f1; }
-
-.tarjeta-vivienda { border: 1px solid var(--borde); border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; }
-.tarjeta-vivienda-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-
-.aviso-exito {
-    background: #dcfce7;
-    color: #166534;
-    border-radius: 8px;
-    padding: 10px 16px;
-    margin-top: 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-</style>
-
 <script>
 // Abrir / cerrar modales (el CSS del proyecto usa display:none/flex, no una clase)
-function abrirModal(modal) { modal.style.display = "flex"; }
-function cerrarModal(modal) { modal.style.display = "none"; }
+function abrirModal(modal) {
+    modal.style.display = "flex";
+}
+
+function cerrarModal(modal) {
+    modal.style.display = "none";
+}
 
 const modal = document.getElementById("modal");
 document.getElementById("abrir-modal").addEventListener("click", () => abrirModal(modal));
@@ -353,7 +345,9 @@ document.getElementById("cerrar-modal-detalle").addEventListener("click", () => 
 
 document.querySelectorAll(".btn-detalle").forEach((btn) => {
     btn.addEventListener("click", () => {
-        const nombresMes = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        const nombresMes = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+            "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        ];
         const detalle = JSON.parse(btn.getAttribute("data-detalle") || "[]");
 
         document.getElementById("detalle-recibo").textContent = "#" + btn.getAttribute("data-recibo");
@@ -362,7 +356,8 @@ document.querySelectorAll(".btn-detalle").forEach((btn) => {
         cuerpo.innerHTML = "";
         detalle.forEach((fila) => {
             const tr = document.createElement("tr");
-            tr.innerHTML = `<td>${nombresMes[parseInt(fila.mes, 10)] || fila.mes}</td><td>${fila.anio}</td><td>L${parseFloat(fila.monto).toFixed(2)}</td>`;
+            tr.innerHTML =
+                `<td>${nombresMes[parseInt(fila.mes, 10)] || fila.mes}</td><td>${fila.anio}</td><td>L${parseFloat(fila.monto).toFixed(2)}</td>`;
             cuerpo.appendChild(tr);
         });
 

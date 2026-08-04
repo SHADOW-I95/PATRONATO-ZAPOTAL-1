@@ -28,45 +28,35 @@ $usuario=$stmt->fetch(PDO::FETCH_ASSOC);
 <form action="actualizar.php" method="POST">
 
 
-<input type="hidden" 
-name="id_usuario"
-value="<?= $usuario['id_usuario'] ?>">
+    <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
 
 
 
-<label>DNI</label>
+    <label>DNI</label>
 
-<input 
-name="dni"
-value="<?= $usuario['dni'] ?>">
+    <input name="dni" value="<?= $usuario['dni'] ?>">
 
 
 
-<label>Nombre</label>
+    <label>Nombre</label>
 
-<input 
-name="nombre"
-value="<?= $usuario['nombre'] ?>">
+    <input name="nombre" value="<?= $usuario['nombre'] ?>">
 
 
 
-<label>Apellido</label>
+    <label>Apellido</label>
 
-<input 
-name="apellido"
-value="<?= $usuario['apellido'] ?>">
+    <input name="apellido" value="<?= $usuario['apellido'] ?>">
 
 
 
-<label>Teléfono</label>
+    <label>Teléfono</label>
 
-<input 
-name="telefono"
-value="<?= $usuario['telefono'] ?>">
+    <input name="telefono" value="<?= $usuario['telefono'] ?>">
 
-<button>
-Guardar cambios
-</button>
+    <button>
+        Guardar cambios
+    </button>
 
 
 </form>

@@ -33,3 +33,5 @@ cerrarVer.addEventListener("click",()=>{
 
 });
 
+
+
