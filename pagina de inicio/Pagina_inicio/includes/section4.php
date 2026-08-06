@@ -16,27 +16,25 @@ if(isset($_POST['enviar'])){
 }
 ?>
 
-<div class="contenedor">
-    <h2>Reportar Problema</h2>
+<div class="div4">
+    <div class="contenedor">
+        <h2>Reportar Problema</h2>
 
-    <form method="POST">
-        <label>Tipo de Reporte</label>
-        <select name="tipo_reporte" required>
-            <option value="">Seleccione una opción</option>
-            <option value="1">Fuga de Agua</option>
-            <option value="2">Falta de Agua</option>
-            <option value="3">Baja Presión</option>
-            <option value="4">Daño de Tubería</option>
-            <option value="5">Otro</option>
-        </select>
- 
-        <label>Descripción</label>
-        <textarea
-            name="descripcion"
-            rows="5"
-            placeholder="Describa el problema..."
-            required></textarea>
+        <form method="POST">
+            <label>Tipo de Reporte</label>
+            <select name="tipo_reporte" required>
+                <option value="">Seleccione una opción</option>
+                <option value="1">Fuga de Agua</option>
+                <option value="2">Falta de Agua</option>
+                <option value="3">Baja Presión</option>
+                <option value="4">Daño de Tubería</option>
+                <option value="5">Otro</option>
+            </select>
 
-        <button type="submit" name="enviar">Enviar Reporte</button>
-    </form>
+            <label>Descripción</label>
+            <textarea name="descripcion" rows="5" placeholder="Describa el problema..." required></textarea>
+
+            <button type="submit" name="enviar">Enviar Reporte</button>
+        </form>
+    </div>
 </div>
