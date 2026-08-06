@@ -43,9 +43,6 @@ $conexion = Connection();
           elseif ($modulo == 'reportes') {
            include './modulos/reportes/reportes.php';
           }
-          elseif ($modulo == 'facturas') {
-           include './modulos/facturas/facturas.php';
-          }
           elseif ($modulo == 'configuracion') {
            include './modulos/configuracion/configuracion.php';
           }
@@ -58,6 +55,7 @@ $conexion = Connection();
     <script src="./assets/js/usuario.js"></script>
     <script src="./assets/js/modal.js"></script>
     <script src="./assets/js/dashboard.js"></script>
+    <script src="./assets/js/ver.js"></script>
 
 
 </body>

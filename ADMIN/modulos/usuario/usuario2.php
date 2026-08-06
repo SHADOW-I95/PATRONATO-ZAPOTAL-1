@@ -146,7 +146,6 @@ $sql_usuarios = "SELECT
                 </div>
             </div>
 
-
             <div class="form-acciones">
                 <button type="button" id="agregar_vivienda" class="btn btn-terceareo">Agregar vivienda</button>
                 <button type="button" id="cancelar" class="btn-secundario">Cancelar</button>
@@ -160,12 +159,9 @@ $sql_usuarios = "SELECT
 <div class="modal" id="modal_ver">
     <div class="modal-contenido">
 
-        <span class="cerrar" id="cerrar_ver">✕</span>
-
+        <span class="cerrar" data-cerrar-modal>✕</span>
         <h3>Información del usuario</h3>
-
         <div id="contenido_ver">
-
         </div>
 
     </div>
@@ -321,50 +317,4 @@ btnCancelar.addEventListener("click", () => {
 
 });
 
-const modal = document.getElementById("modal");
-const cerrar = document.getElementById("cerrar-modal");
-const abrir = document.getElementById("abrir-modal");
-
-
-abrir.addEventListener("click", () => {
-    modal.style.display = "flex";
-});
-
-cerrar.addEventListener("click", () =>{
-    modal.style.display = "none";
-});
-
-window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-        modal.style.display = "none";
-    }
-});
-
-// ==================== Botón "Ver" del usuario ====================
-const modalVer = document.getElementById("modal_ver");
-const cerrarVer = document.getElementById("cerrar_ver");
-const contenidoVer = document.getElementById("contenido_ver");
-
-document.querySelectorAll(".btn_ver").forEach((boton) => {
-    boton.addEventListener("click", () => {
-        const idUsuario = boton.getAttribute("data-id");
-
-        fetch("modulos/usuario/ver.php?id=" + idUsuario)
-            .then((respuesta) => respuesta.text())
-            .then((html) => {
-                contenidoVer.innerHTML = html;
-                modalVer.style.display = "flex";
-            });
-    });
-});
-
-cerrarVer.addEventListener("click", () => {
-    modalVer.style.display = "none";
-});
-
-window.addEventListener("click", (e) => {
-    if (e.target === modalVer) {
-        modalVer.style.display = "none";
-    }
-});
 </script>

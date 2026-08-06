@@ -79,10 +79,3 @@ function clase_badge($nombre_estado)
     </tbody>
 </table>
 <?php endif; ?>
-
-<style>
-.badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
-.badge-pagado    { background: #dcfce7; color: #166534; }
-.badge-pendiente { background: #fef3c7; color: #92400e; }
-.badge-mora      { background: #fee2e2; color: #991b1b; }
-</style>
