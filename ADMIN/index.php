@@ -14,7 +14,7 @@ $conexion = Connection();
     <link rel="stylesheet" href="./assets/css/global.css" />
     <link rel="stylesheet" href="./assets/css/dashboard.css" />
     <link rel="stylesheet" href="./assets/css/reporte.css">
-    <link rel="stylesheet" href="./assets/css/Factura.css">
+    <link rel="stylesheet" href="./assets/css/factura.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 

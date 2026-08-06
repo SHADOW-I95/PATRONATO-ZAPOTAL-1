@@ -9,7 +9,7 @@ new Chart(document.getElementById("sectorChart"), {
         labels: sectorLabels,
         datasets: [{
             data: sectorDatos,
-            backgroundColor: ["#60a5fa", "#34d399", "#fbbf24", "#f87171", "#a78bfa", "#f472b6"]
+            backgroundColor: ["#3700ff", "#33ff00", "#fbbf24", "#ff0000", "#3f00fd", "#f472b6"]
         }]
     },
     options: {
