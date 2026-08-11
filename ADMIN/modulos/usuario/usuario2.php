@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . "/../../config/conexion.php";
 $conexion = Connection();
+
+// Trae cada usuario junto con la cantidad de viviendas que tiene (LEFT JOIN + COUNT)
 $sql_usuarios = "SELECT 
   usuarios.id_usuario,
   usuarios.dni,
@@ -20,6 +22,7 @@ $sql_usuarios = "SELECT
   $usuarios = 
   $stmt_usuario->fetchAll();
 
+  // Sectores, servicios y estados de pago: se usan para llenar los <select> del formulario
   $sql_sectores =
    "SELECT id_sector,
     nombre_sector
@@ -61,12 +64,13 @@ $sql_usuarios = "SELECT
     </div>
 </div>
 
-<!--===============================MODAL DE AGREGAR NUEVO USUARIO-SE ENCUENTRA EN PROCESO==================================================-->
+<!--===============================MODAL: NUEVO USUARIO==================================================-->
 
 <div class="modal" id="modal">
     <div class="modal-contenido">
 
-        <span class="cerrar" id="cerrar-modal">✕</span>
+        <!-- data-cerrar-modal: lo cierra modal.js, sin necesitar un id específico -->
+        <span class="cerrar" data-cerrar-modal>✕</span>
         <h4>+Nuevo usuario</h4>
         <form action="modulos/usuario/agregar.php" method="POST" class="formulario" id="form_usuario">
             <div class="informacion">
@@ -97,6 +101,7 @@ $sql_usuarios = "SELECT
                 </div>
             </div>
 
+            <!-- Vivienda inicial (índice 0). Las que se agreguen con el botón "Agregar vivienda" siguen este mismo patrón -->
             <div id="contenedor_viviendas">
                 <div class=" vivienda">
                     <div class="campo">
@@ -108,7 +113,7 @@ $sql_usuarios = "SELECT
                         <label>Sector </label>
                         <select name="vivienda[0][sector]" required>
                             <option value="">Selecciona…</option>
-                            <?php foreach ($sectores as $s): ?>
+                            <?php foreach ($sectores as $s): // Un <option> por cada sector de la base de datos ?>
                             <option value="<?= $s['id_sector'] ?>"><?= htmlspecialchars($s['nombre_sector']) ?></option>
                             <?php endforeach; ?>
                         </select>
@@ -118,7 +123,7 @@ $sql_usuarios = "SELECT
                         <label>tipo servicio</label>
                         <select name="vivienda[0][servicio]" required>
                             <option value="">Selecion…</option>
-                            <?php foreach ($servicios as $s):?>
+                            <?php foreach ($servicios as $s): // Un <option> por cada tipo de servicio ?>
                             <option value="<?= $s['id_servicio']?>"><?= htmlspecialchars($s['nombre_servicio'])?>
                             </option>
                             <?php endforeach; ?>
@@ -134,7 +139,7 @@ $sql_usuarios = "SELECT
                         <label>Estado</label>
                         <select name="vivienda[0][estado]">
                             <option value="">Selecion…</option>
-                            <?php foreach ($estado_pago as $estado):?>
+                            <?php foreach ($estado_pago as $estado): // Un <option> por cada estado (Pagado/Pendiente/Mora) ?>
                             <option value="<?= $estado['id_estado_pago']?>">
                                 <?= htmlspecialchars($estado['nombre_estado_pago'])?>
                             </option>
@@ -146,10 +151,9 @@ $sql_usuarios = "SELECT
                 </div>
             </div>
 
-
             <div class="form-acciones">
                 <button type="button" id="agregar_vivienda" class="btn btn-terceareo">Agregar vivienda</button>
-                <button type="button" id="cancelar" class="btn-secundario">Cancelar</button>
+                <button type="button" id="cancelar" class="btn-secundario" data-cerrar-modal>Cancelar</button>
                 <button type="submit" id="guardar_usuario" class="btn-primario">Guardar Usuario</button>
             </div>
         </form>
@@ -157,19 +161,38 @@ $sql_usuarios = "SELECT
     </div>
 </div>
 
+<!--===============================MODAL: VER USUARIO==================================================-->
+
 <div class="modal" id="modal_ver">
     <div class="modal-contenido">
 
-        <span class="cerrar" id="cerrar_ver">✕</span>
+        <span class="cerrar" data-cerrar-modal>✕</span>
 
         <h3>Información del usuario</h3>
 
+        <!-- Se llena con fetch desde usuario.js (modulos/usuario/ver.php) -->
         <div id="contenido_ver">
 
         </div>
 
     </div>
 </div>
+
+<!--===============================MODAL: EDITAR USUARIO==================================================-->
+
+<div class="modal" id="modal_editar">
+    <div class="modal-contenido">
+
+        <span class="cerrar" data-cerrar-modal>✕</span>
+
+        <!-- Se llena con fetch desde usuario.js (modulos/usuario/editar.php) -->
+        <div id="contenido_editar">
+
+        </div>
+
+    </div>
+</div>
+
 
 <!--==================================TABLA PRICNIPAL DE USUARIO==================================================-->
 
@@ -191,7 +214,7 @@ $sql_usuarios = "SELECT
         </thead>
 
         <tbody class="tbody">
-            <?php foreach ($usuarios as $u): ?>
+            <?php foreach ($usuarios as $u): // Una fila por cada usuario que trajo la consulta ?>
             <tr>
                 <td><?= $u['id_usuario'] ?></td>
                 <td><?= $u['dni'] ?></td>
@@ -202,14 +225,16 @@ $sql_usuarios = "SELECT
                 <td><?= $u['codigo'] ?></td>
                 <td><?= $u['cantidad_viviendas'] ?></td>
                 <td>
-                    <a class="btn-editar" href="modulos/usuario/editar.php?id=<?= $u['id_usuario'] ?>">
+                    <!-- data-id: usuario.js lo usa para saber a quién editar -->
+                    <button class="btn-editar" data-id="<?= $u['id_usuario'] ?>">
                         Editar
-                    </a>
+                    </button>
                     <a class="btn-eliminar" href="modulos/usuario/eliminar.php?id=<?= $u['id_usuario'] ?>"
                         onclick="return confirm('¿Desea eliminar este usuario?')">
                         Eliminar
                     </a>
-                    <button class="btn-ver btn_ver" data-id="<?= $u['id_usuario'] ?>">
+                    <!-- data-id: usuario.js lo usa para saber a quién mostrar -->
+                    <button class="btn-ver" data-id="<?= $u['id_usuario'] ?>">
                         Ver
                     </button>
                 </td>
@@ -228,8 +253,10 @@ $sql_usuarios = "SELECT
 const formulario = document.getElementById("form_usuario");
 const contenedor = document.getElementById("contenedor_viviendas");
 const btnAgregar = document.getElementById("agregar_vivienda");
-viviendaOriginal = contenedor.innerHTML;
-let indice = 1;
+viviendaOriginal = contenedor.innerHTML; // copia del HTML original, para poder restaurarlo al cancelar
+let indice = 1; // arranca en 1 porque la vivienda 0 ya viene en el HTML
+
+// Al presionar "Agregar vivienda", crea una fila nueva con su propio índice
 btnAgregar.addEventListener("click", () => {
 
     const vivienda = document.createElement("div");
@@ -253,7 +280,7 @@ btnAgregar.addEventListener("click", () => {
             <select name="vivienda[${indice}][sector]" required>
                 <option value="">Selecciona…</option>
 
-                <?php foreach ($sectores as $s): ?>
+                <?php foreach ($sectores as $s): // Mismas opciones que la vivienda 0, generadas por PHP ?>
                     <option value="<?= $s['id_sector'] ?>">
                         <?= htmlspecialchars($s['nombre_sector']) ?>
                     </option>
@@ -303,9 +330,10 @@ btnAgregar.addEventListener("click", () => {
 
     contenedor.appendChild(vivienda);
 
-    indice++;
+    indice++; // el siguiente "Agregar vivienda" usará el número que sigue
 });
 
+// Deja el formulario como estaba al abrirlo (quita las viviendas que se hayan agregado)
 function reiniciarFormulario() {
     formulario.reset();
     contenedor.innerHTML = viviendaOriginal;
@@ -314,57 +342,8 @@ function reiniciarFormulario() {
 
 const btnCancelar = document.getElementById("cancelar");
 
+// El cierre del modal ya lo hace data-cerrar-modal (modal.js); aquí solo se limpia el formulario
 btnCancelar.addEventListener("click", () => {
-    modal.style.display = "none";
-
     reiniciarFormulario();
-
-});
-
-const modal = document.getElementById("modal");
-const cerrar = document.getElementById("cerrar-modal");
-const abrir = document.getElementById("abrir-modal");
-
-
-abrir.addEventListener("click", () => {
-    modal.style.display = "flex";
-});
-
-cerrar.addEventListener("click", () =>{
-    modal.style.display = "none";
-});
-
-window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-        modal.style.display = "none";
-    }
-});
-
-// ==================== Botón "Ver" del usuario ====================
-const modalVer = document.getElementById("modal_ver");
-const cerrarVer = document.getElementById("cerrar_ver");
-const contenidoVer = document.getElementById("contenido_ver");
-
-document.querySelectorAll(".btn_ver").forEach((boton) => {
-    boton.addEventListener("click", () => {
-        const idUsuario = boton.getAttribute("data-id");
-
-        fetch("modulos/usuario/ver.php?id=" + idUsuario)
-            .then((respuesta) => respuesta.text())
-            .then((html) => {
-                contenidoVer.innerHTML = html;
-                modalVer.style.display = "flex";
-            });
-    });
-});
-
-cerrarVer.addEventListener("click", () => {
-    modalVer.style.display = "none";
-});
-
-window.addEventListener("click", (e) => {
-    if (e.target === modalVer) {
-        modalVer.style.display = "none";
-    }
 });
 </script>

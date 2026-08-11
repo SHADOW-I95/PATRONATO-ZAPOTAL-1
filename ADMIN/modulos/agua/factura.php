@@ -43,20 +43,23 @@ $nombres_meses = [1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 =>
     <title>Factura #<?= sprintf('%06d', $pago['numero_recibo']) ?></title>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; color: #000; margin: 0; padding: 30px; }
-        .factura { max-width: 650px; margin: 0 auto; border: 1px solid #333; padding: 25px; }
+        .factura { max-width: 650px; margin: 0 auto; border: 1px solid #333; padding: 20px; }
         .encabezado { display: flex; align-items: center; gap: 15px; border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 15px; }
         .encabezado img { width: 70px; height: 70px; object-fit: contain; }
         .encabezado h2 { margin: 0; font-size: 18px; }
         .encabezado p { margin: 2px 0; font-size: 12.5px; }
         .titulo-recibo { text-align: center; margin: 15px 0; }
         .titulo-recibo h3 { margin: 0; }
-        .datos { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        .datos { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
         .datos td { padding: 5px 8px; border: 1px solid #ccc; font-size: 13.5px; }
         .datos td:first-child { font-weight: 600; width: 40%; background: #f4f6fa; }
         table.meses { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
         table.meses th, table.meses td { border: 1px solid #ccc; padding: 6px 8px; font-size: 13px; text-align: left; }
         .total { text-align: right; font-size: 16px; font-weight: 700; margin-top: 10px; }
         .btn-imprimir { display: block; margin: 20px auto 0; padding: 10px 20px; }
+        .div-firma{width: 100%; height: 5px;}
+        .firma{display:flex; justify-content:center;}
+        .firma-p{font-weight: 700; text-align:center;}
         @media print {
             .btn-imprimir { display: none; }
             body { padding: 0; }
@@ -110,6 +113,11 @@ $nombres_meses = [1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 =>
         </table>
 
         <p class="total">Total pagado: L<?= number_format($pago['total'], 2) ?></p>
+
+        <div class="div-firma">
+            <span class="firma">______________________________</span>
+            <p class="firma-p">firma</p>
+        </div>
 
         <button class="btn-imprimir" onclick="window.print()">Imprimir factura</button>
     </div>

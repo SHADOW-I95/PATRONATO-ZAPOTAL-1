@@ -10,7 +10,6 @@
         <a href="?modulo=agua"> Agua</a>
         <a href="?modulo=cementerio"> Cementerio</a>
         <a href="?modulo=reportes"> Reportes</a>
-        <a href="?modulo=facturas"> Facturas</a>
         <hr>
         <a href="?modulo=configuracion"> Configuracion</a>
     </nav>

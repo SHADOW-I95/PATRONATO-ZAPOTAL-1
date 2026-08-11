@@ -14,7 +14,7 @@ $conexion = Connection();
     <link rel="stylesheet" href="./assets/css/global.css" />
     <link rel="stylesheet" href="./assets/css/dashboard.css" />
     <link rel="stylesheet" href="./assets/css/reporte.css">
-    <link rel="stylesheet" href="./assets/css/Factura.css">
+    <link rel="stylesheet" href="./assets/css/factura.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -43,9 +43,6 @@ $conexion = Connection();
           elseif ($modulo == 'reportes') {
            include './modulos/reportes/reportes.php';
           }
-          elseif ($modulo == 'facturas') {
-           include './modulos/facturas/facturas.php';
-          }
           elseif ($modulo == 'configuracion') {
            include './modulos/configuracion/configuracion.php';
           }
@@ -58,6 +55,7 @@ $conexion = Connection();
     <script src="./assets/js/usuario.js"></script>
     <script src="./assets/js/modal.js"></script>
     <script src="./assets/js/dashboard.js"></script>
+    <script src="./assets/js/ver.js"></script>
 
 
 </body>
