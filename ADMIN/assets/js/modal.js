@@ -1,52 +1,34 @@
-const modal = document.getElementById("modal");
-const cerrar = document.getElementById("cerrar-modal");
-const abrir = document.getElementById("abrir-modal");
-
-abrir.addEventListener("click", () => {
-  modal.style.display = "flex";
-});
-
-window.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    modal.style.diplay = "none";
-  }
-});
-
-
+// ==================== Cerrar modales (genérico) ====================
+// Cualquier elemento con data-cerrar-modal cierra el modal donde esté dentro,
+// sin importar si ese elemento ya existía en la página o se cargó después
+// (por ejemplo, el contenido de "Editar" que llega por fetch).
 document.addEventListener("click", (e) => {
+    // Busca hacia arriba desde lo que se clickeó, por si el clic fue en un ícono dentro del botón
     const boton = e.target.closest("[data-cerrar-modal]");
     if (!boton) return;
- 
+
+    // Encuentra el modal que envuelve a ese botón y lo oculta
     const modalCercano = boton.closest(".modal");
     if (modalCercano) {
         modalCercano.style.display = "none";
     }
 });
- 
-// ==================== Botón "Ver" del usuario ====================
-const modalVer = document.getElementById("modal_ver");
-const cerrarVer = document.getElementById("cerrar_ver");
-const contenidoVer = document.getElementById("contenido_ver");
 
-document.querySelectorAll(".btn_ver").forEach((boton) => {
-  boton.addEventListener("click", () => {
-    const idUsuario = boton.getAttribute("data-id");
-
-    fetch("modulos/usuario/ver.php?id=" + idUsuario)
-      .then((respuesta) => respuesta.text())
-      .then((html) => {
-        contenidoVer.innerHTML = html;
-        modalVer.style.display = "flex";
-      });
-  });
+// Cerrar al hacer clic en el fondo oscuro de cualquier modal (fuera del modal-contenido)
+document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("modal")) {
+        e.target.style.display = "none";
+    }
 });
 
-cerrarVer.addEventListener("click", () => {
-  modalVer.style.display = "none";
-});
+// ==================== Modal "Nuevo usuario": abrir ====================
+// (el mismo id="modal" / id="abrir-modal" se reutiliza en otros módulos,
+// por eso se valida que existan antes de usarlos)
+const modal = document.getElementById("modal");
+const abrir = document.getElementById("abrir-modal");
 
-window.addEventListener("click", (e) => {
-  if (e.target === modalVer) {
-    modalVer.style.display = "none";
-  }
-});
+if (modal && abrir) {
+    abrir.addEventListener("click", () => {
+        modal.style.display = "flex";
+    });
+}

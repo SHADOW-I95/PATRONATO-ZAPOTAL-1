@@ -34,6 +34,7 @@ $stmt_viviendas = $conexion->prepare($sql_viviendas);
 $stmt_viviendas->execute([$id_usuario]);
 $viviendas = $stmt_viviendas->fetchAll();
 
+// Traduce el nombre del estado a la clase CSS del badge correspondiente
 function clase_badge($nombre_estado)
 {
     if ($nombre_estado === 'Pagado') return 'badge-pagado';
@@ -41,6 +42,8 @@ function clase_badge($nombre_estado)
     return 'badge-pendiente';
 }
 ?>
+
+<h3>Información del usuario</h3>
 
 <div class="informacion">
     <div class="campo"><label>DNI</label><span><?= htmlspecialchars($usuario['dni']) ?></span></div>
@@ -67,7 +70,10 @@ function clase_badge($nombre_estado)
     </thead>
     <tbody>
         <?php foreach ($viviendas as $v): ?>
-            <?php $estado = refrescar_estado_vivienda($conexion, (int) $v['id_vivienda']); ?>
+            <?php
+            // Recalcula el estado en cada visita, así el "Ver" nunca muestra un dato viejo
+            $estado = refrescar_estado_vivienda($conexion, (int) $v['id_vivienda']);
+            ?>
             <tr>
                 <td>#<?= htmlspecialchars($v['numero_vivienda']) ?></td>
                 <td><?= htmlspecialchars($v['nombre_sector'] ?? '—') ?></td>
