@@ -1,11 +1,5 @@
 <?php
 
-$conexion = mysqli_connect("localhost","root","","patronato");
-
-if(!$conexion){
-    die("Error de conexión: " . mysqli_connect_error());
-}
-
 if(isset($_POST['enviar'])){
 
     $tipo = $_POST['tipo_reporte'];
@@ -15,9 +9,7 @@ if(isset($_POST['enviar'])){
             VALUES ('$tipo', '$descripcion')";
 
     if(mysqli_query($conexion, $sql)){
-        echo "<script>
-                alert('Reporte enviado correctamente');
-              </script>";
+        echo "<script>alert('Reporte guardado correctamente');</script>";
     }else{
         echo "Error: " . mysqli_error($conexion);
     }
@@ -25,13 +17,10 @@ if(isset($_POST['enviar'])){
 ?>
 
 <div class="contenedor">
-
     <h2>Reportar Problema</h2>
 
     <form method="POST">
-
         <label>Tipo de Reporte</label>
-
         <select name="tipo_reporte" required>
             <option value="">Seleccione una opción</option>
             <option value="1">Fuga de Agua</option>
@@ -40,19 +29,14 @@ if(isset($_POST['enviar'])){
             <option value="4">Daño de Tubería</option>
             <option value="5">Otro</option>
         </select>
-
+ 
         <label>Descripción</label>
-
         <textarea
             name="descripcion"
             rows="5"
             placeholder="Describa el problema..."
             required></textarea>
 
-        <button type="submit" name="enviar">
-            Enviar Reporte
-        </button>
-
+        <button type="submit" name="enviar">Enviar Reporte</button>
     </form>
-
 </div>

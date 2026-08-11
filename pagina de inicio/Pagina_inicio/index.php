@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/section1.css">
     <link rel="stylesheet" href="css/section2.css">
     <link rel="stylesheet" href="css/section3.css">
+    <link rel="stylesheet" href="css/section4.css">
     <link rel="stylesheet" href="css/footer.css">
 
     
@@ -21,6 +22,7 @@
   include 'includes/header.php';
   include 'includes/section1.php';
   include 'includes/section2.php';
+  include 'includes/section4.php';
   include 'includes/section3.php';
   ?>
 
