@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 ?>
@@ -27,9 +26,9 @@ session_start();
     <!--MENU NAV-->
 <nav class="menu" id="MENU">
         <ul>
-            <li class="nav-li"><a href="" onclick="cerrarMenu()">Quienes somos</a></li>
-            <li class="nav-li"><a href="" onclick="cerrarMenu()">Pagos</a></li>
-            <li class="nav-li"><a href="" onclick="cerrarMenu()">Ubicacion de oficinas</a></li>
-            <li class="nav-li"><a href="" onclick="cerrarMenu()">Reportar queja</a></li>
+            <li class="nav-li"><a href="#section2" onclick="cerrarMenu()" id="">Quienes somos</a></li>
+            <li class="nav-li"><a href="#" onclick="cerrarMenu()">Pagos</a></li>
+            <li class="nav-li"><a href="#section3" onclick="cerrarMenu()" id="">Ubicacion de oficinas</a></li>
+            <li class="nav-li"><a href="#section4" onclick="cerrarMenu()" id="">Reportar queja</a></li>
         </ul>
 </nav>

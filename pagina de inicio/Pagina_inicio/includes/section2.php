@@ -1,4 +1,4 @@
-<section class="section-2">
+<section class="section-2" id="section2">
     <div class="section-gap">
         <div class="full-section2-card1">
             <h2>¿Quienes somos?</h2>

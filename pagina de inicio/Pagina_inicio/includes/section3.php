@@ -1,4 +1,4 @@
-<section class="section-3"> <!-- Sección 3: Ubicación de oficinas -->
+<section class="section-3" id="section3"> <!-- Sección 3: Ubicación de oficinas -->
     <div class="sin-nombexd">
         <div class="section3-div1">
             <h2>Ubicacion de oficinas</h2>
