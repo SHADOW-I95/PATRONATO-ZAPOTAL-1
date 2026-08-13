@@ -2,7 +2,7 @@
     <div class="flex">
 
     <div class="footer-1">
-        <img src="./img/LOGO.png"">
+        <img src="./img/LOGO.png">
             <p>Comprometidos con el bieestar de nuestra comunidad</p>
 
             <a href="" class=" link-footer1">

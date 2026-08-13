@@ -1,4 +1,8 @@
 
+<?php
+session_start();
+?>
+
 <header class="header">
 
         <div class="header-div1">
