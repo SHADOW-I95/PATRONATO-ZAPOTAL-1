@@ -1,32 +1,11 @@
 /* ==========================================================================
    USUARIO.JS
-   Todo el JS de usuario.php + editar.php, dividido en partes:
-     0. Buscador de la tabla
+   Todo el JS de usuario.php + editar.php, dividido en tres partes:
      1. Modal "Nuevo usuario"
      2. Modal "Ver"
      3. Modal "Editar"
    Usa abrirModal()/cerrarModal() de modal.js — no las vuelve a definir.
    ========================================================================== */
-
-
-/* ==========================================================================
-   0. BUSCADOR DE LA TABLA
-   ========================================================================== */
-
-// Filtra las filas de la tabla en vivo, según lo que se escriba en el input .buscar.
-// No hace falta recargar la página ni pedir nada al servidor.
-const inputBuscarUsuario = document.querySelector(".buscar");
-
-if (inputBuscarUsuario) {
-    inputBuscarUsuario.addEventListener("input", () => {
-        const texto = inputBuscarUsuario.value.trim().toLowerCase();
-
-        document.querySelectorAll(".tabla_datos tbody tr").forEach((fila) => {
-            const coincide = fila.textContent.toLowerCase().includes(texto);
-            fila.style.display = coincide ? "" : "none";
-        });
-    });
-}
 
 
 /* ==========================================================================
@@ -45,6 +24,19 @@ const viviendaOriginalNuevo = contenedorNuevo.innerHTML;
 // Arranca en 1 porque la vivienda 0 ya viene escrita en el HTML de usuario.php
 let indiceNuevo = 1;
 
+// --- Quitar vivienda ---
+// Aquí es más simple que en "Editar": la vivienda todavía no existe en la base
+// de datos, así que "Quitar" solo la borra del formulario, nada más.
+function activarQuitarNuevo(fila) {
+    const btnQuitar = fila.querySelector(".btn-quitar-vivienda");
+    if (btnQuitar) {
+        btnQuitar.addEventListener("click", () => fila.remove());
+    }
+}
+
+// Activa "Quitar" en la vivienda inicial que ya viene escrita en el HTML
+contenedorNuevo.querySelectorAll(".vivienda-fila").forEach(activarQuitarNuevo);
+
 // --- Agregar vivienda ---
 // Clona la <template> (ya tiene las opciones de sector/servicio/estado renderizadas por PHP)
 // y le pone el índice y el número de vivienda que siguen.
@@ -56,6 +48,7 @@ btnAgregarNuevo.addEventListener("click", () => {
         .replaceAll("__NUMERO__", indiceNuevo + 1);
 
     contenedorNuevo.appendChild(fila);
+    activarQuitarNuevo(fila);
     indiceNuevo++;
 });
 
@@ -70,6 +63,8 @@ function reiniciarFormularioNuevo() {
     formularioNuevo.reset();
     contenedorNuevo.innerHTML = viviendaOriginalNuevo;
     indiceNuevo = 1;
+    // El innerHTML de arriba borra los eventos que tenía la fila original, hay que volver a activarlos
+    contenedorNuevo.querySelectorAll(".vivienda-fila").forEach(activarQuitarNuevo);
 }
 
 btnCancelarNuevo.addEventListener("click", () => {

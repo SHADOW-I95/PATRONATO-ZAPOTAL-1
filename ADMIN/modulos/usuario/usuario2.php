@@ -102,50 +102,54 @@ $sql_usuarios = "SELECT
 
             <!-- Vivienda inicial (índice 0). Las que se agreguen con "Agregar vivienda" usan la <template> de abajo -->
             <div id="contenedor_viviendas">
-                <div class=" vivienda">
-                    <div class="campo">
-                        <label>Vivienda </label>
-                        <input type="text" name="vivienda[0][numero]" placeholder="Numero de vivienda">
+                <div class="vivienda-fila">
+                    <div class="vivienda">
+                        <div class="campo">
+                            <label>Vivienda </label>
+                            <input type="text" name="vivienda[0][numero]" placeholder="Numero de vivienda">
+                        </div>
+
+                        <div class="campo">
+                            <label>Sector </label>
+                            <select name="vivienda[0][sector]" required>
+                                <option value="">Selecciona…</option>
+                                <?php foreach ($sectores as $s): ?>
+                                <option value="<?= $s['id_sector'] ?>"><?= htmlspecialchars($s['nombre_sector']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label>tipo servicio</label>
+                            <select name="vivienda[0][servicio]" required>
+                                <option value="">Selecion…</option>
+                                <?php foreach ($servicios as $s):?>
+                                <option value="<?= $s['id_servicio']?>"><?= htmlspecialchars($s['nombre_servicio'])?>
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label>Cuota mensual (L)</label>
+                            <input type="number" name="vivienda[0][cuota]">
+                        </div>
+
+                        <div class="campo">
+                            <label>Estado</label>
+                            <select name="vivienda[0][estado]">
+                                <option value="">Selecion…</option>
+                                <?php foreach ($estado_pago as $estado):?>
+                                <option value="<?= $estado['id_estado_pago']?>">
+                                    <?= htmlspecialchars($estado['nombre_estado_pago'])?>
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="campo">
-                        <label>Sector </label>
-                        <select name="vivienda[0][sector]" required>
-                            <option value="">Selecciona…</option>
-                            <?php foreach ($sectores as $s): ?>
-                            <option value="<?= $s['id_sector'] ?>"><?= htmlspecialchars($s['nombre_sector']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <div class="campo">
-                        <label>tipo servicio</label>
-                        <select name="vivienda[0][servicio]" required>
-                            <option value="">Selecion…</option>
-                            <?php foreach ($servicios as $s):?>
-                            <option value="<?= $s['id_servicio']?>"><?= htmlspecialchars($s['nombre_servicio'])?>
-                            </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <div class="campo">
-                        <label>Cuota mensual (L)</label>
-                        <input type="number" name="vivienda[0][cuota]">
-                    </div>
-
-                    <div class="campo">
-                        <label>Estado</label>
-                        <select name="vivienda[0][estado]">
-                            <option value="">Selecion…</option>
-                            <?php foreach ($estado_pago as $estado):?>
-                            <option value="<?= $estado['id_estado_pago']?>">
-                                <?= htmlspecialchars($estado['nombre_estado_pago'])?>
-                            </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
+                    <!-- usuario.js le agrega el evento: solo quita la fila del formulario (todavía no existe en la base de datos) -->
+                    <button type="button" class="btn-secundario btn-quitar-vivienda">Quitar vivienda</button>
                 </div>
             </div>
 
@@ -154,49 +158,53 @@ $sql_usuarios = "SELECT
                 Así el .js no necesita PHP dentro (las opciones ya vienen renderizadas aquí una sola vez).
             -->
             <template id="plantilla-vivienda-nuevo">
-                <div class="vivienda">
+                <div class="vivienda-fila">
                     <hr>
                     <h4>Vivienda __NUMERO__</h4>
 
-                    <div class="campo">
-                        <label>Vivienda</label>
-                        <input type="text" name="vivienda[__INDICE__][numero]" placeholder="Número de vivienda">
+                    <div class="vivienda">
+                        <div class="campo">
+                            <label>Vivienda</label>
+                            <input type="text" name="vivienda[__INDICE__][numero]" placeholder="Número de vivienda">
+                        </div>
+
+                        <div class="campo">
+                            <label>Sector</label>
+                            <select name="vivienda[__INDICE__][sector]" required>
+                                <option value="">Selecciona…</option>
+                                <?php foreach ($sectores as $s): ?>
+                                <option value="<?= $s['id_sector'] ?>"><?= htmlspecialchars($s['nombre_sector']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label>Tipo servicio</label>
+                            <select name="vivienda[__INDICE__][servicio]" required>
+                                <option value="">Selecciona…</option>
+                                <?php foreach ($servicios as $s): ?>
+                                <option value="<?= $s['id_servicio'] ?>"><?= htmlspecialchars($s['nombre_servicio']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label>Cuota mensual (L)</label>
+                            <input type="number" step="0.01" min="0" name="vivienda[__INDICE__][cuota]" value="0">
+                        </div>
+
+                        <div class="campo">
+                            <label>Estado</label>
+                            <select name="vivienda[__INDICE__][estado]">
+                                <option value="">Selecion…</option>
+                                <?php foreach ($estado_pago as $estado): ?>
+                                <option value="<?= $estado['id_estado_pago'] ?>"><?= htmlspecialchars($estado['nombre_estado_pago']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="campo">
-                        <label>Sector</label>
-                        <select name="vivienda[__INDICE__][sector]" required>
-                            <option value="">Selecciona…</option>
-                            <?php foreach ($sectores as $s): ?>
-                            <option value="<?= $s['id_sector'] ?>"><?= htmlspecialchars($s['nombre_sector']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <div class="campo">
-                        <label>Tipo servicio</label>
-                        <select name="vivienda[__INDICE__][servicio]" required>
-                            <option value="">Selecciona…</option>
-                            <?php foreach ($servicios as $s): ?>
-                            <option value="<?= $s['id_servicio'] ?>"><?= htmlspecialchars($s['nombre_servicio']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <div class="campo">
-                        <label>Cuota mensual (L)</label>
-                        <input type="number" step="0.01" min="0" name="vivienda[__INDICE__][cuota]" value="0">
-                    </div>
-
-                    <div class="campo">
-                        <label>Estado</label>
-                        <select name="vivienda[__INDICE__][estado]">
-                            <option value="">Selecion…</option>
-                            <?php foreach ($estado_pago as $estado): ?>
-                            <option value="<?= $estado['id_estado_pago'] ?>"><?= htmlspecialchars($estado['nombre_estado_pago']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                    <button type="button" class="btn-secundario btn-quitar-vivienda">Quitar vivienda</button>
                 </div>
             </template>
 
