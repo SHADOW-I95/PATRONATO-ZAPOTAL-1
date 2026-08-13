@@ -69,7 +69,6 @@ $sql_usuarios = "SELECT
 <div class="modal" id="modal">
     <div class="modal-contenido">
 
-        <!-- data-cerrar-modal: lo cierra modal.js, sin necesitar un id específico -->
         <span class="cerrar" data-cerrar-modal>✕</span>
         <h4>+Nuevo usuario</h4>
         <form action="modulos/usuario/agregar.php" method="POST" class="formulario" id="form_usuario">
@@ -101,7 +100,7 @@ $sql_usuarios = "SELECT
                 </div>
             </div>
 
-            <!-- Vivienda inicial (índice 0). Las que se agreguen con el botón "Agregar vivienda" siguen este mismo patrón -->
+            <!-- Vivienda inicial (índice 0). Las que se agreguen con "Agregar vivienda" usan la <template> de abajo -->
             <div id="contenedor_viviendas">
                 <div class=" vivienda">
                     <div class="campo">
@@ -113,7 +112,7 @@ $sql_usuarios = "SELECT
                         <label>Sector </label>
                         <select name="vivienda[0][sector]" required>
                             <option value="">Selecciona…</option>
-                            <?php foreach ($sectores as $s): // Un <option> por cada sector de la base de datos ?>
+                            <?php foreach ($sectores as $s): ?>
                             <option value="<?= $s['id_sector'] ?>"><?= htmlspecialchars($s['nombre_sector']) ?></option>
                             <?php endforeach; ?>
                         </select>
@@ -123,7 +122,7 @@ $sql_usuarios = "SELECT
                         <label>tipo servicio</label>
                         <select name="vivienda[0][servicio]" required>
                             <option value="">Selecion…</option>
-                            <?php foreach ($servicios as $s): // Un <option> por cada tipo de servicio ?>
+                            <?php foreach ($servicios as $s):?>
                             <option value="<?= $s['id_servicio']?>"><?= htmlspecialchars($s['nombre_servicio'])?>
                             </option>
                             <?php endforeach; ?>
@@ -139,7 +138,7 @@ $sql_usuarios = "SELECT
                         <label>Estado</label>
                         <select name="vivienda[0][estado]">
                             <option value="">Selecion…</option>
-                            <?php foreach ($estado_pago as $estado): // Un <option> por cada estado (Pagado/Pendiente/Mora) ?>
+                            <?php foreach ($estado_pago as $estado):?>
                             <option value="<?= $estado['id_estado_pago']?>">
                                 <?= htmlspecialchars($estado['nombre_estado_pago'])?>
                             </option>
@@ -147,9 +146,59 @@ $sql_usuarios = "SELECT
                         </select>
                     </div>
 
-
                 </div>
             </div>
+
+            <!--
+                Plantilla para "Agregar vivienda": no se muestra en pantalla, usuario.js solo la clona.
+                Así el .js no necesita PHP dentro (las opciones ya vienen renderizadas aquí una sola vez).
+            -->
+            <template id="plantilla-vivienda-nuevo">
+                <div class="vivienda">
+                    <hr>
+                    <h4>Vivienda __NUMERO__</h4>
+
+                    <div class="campo">
+                        <label>Vivienda</label>
+                        <input type="text" name="vivienda[__INDICE__][numero]" placeholder="Número de vivienda">
+                    </div>
+
+                    <div class="campo">
+                        <label>Sector</label>
+                        <select name="vivienda[__INDICE__][sector]" required>
+                            <option value="">Selecciona…</option>
+                            <?php foreach ($sectores as $s): ?>
+                            <option value="<?= $s['id_sector'] ?>"><?= htmlspecialchars($s['nombre_sector']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label>Tipo servicio</label>
+                        <select name="vivienda[__INDICE__][servicio]" required>
+                            <option value="">Selecciona…</option>
+                            <?php foreach ($servicios as $s): ?>
+                            <option value="<?= $s['id_servicio'] ?>"><?= htmlspecialchars($s['nombre_servicio']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label>Cuota mensual (L)</label>
+                        <input type="number" step="0.01" min="0" name="vivienda[__INDICE__][cuota]" value="0">
+                    </div>
+
+                    <div class="campo">
+                        <label>Estado</label>
+                        <select name="vivienda[__INDICE__][estado]">
+                            <option value="">Selecion…</option>
+                            <?php foreach ($estado_pago as $estado): ?>
+                            <option value="<?= $estado['id_estado_pago'] ?>"><?= htmlspecialchars($estado['nombre_estado_pago']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </template>
 
             <div class="form-acciones">
                 <button type="button" id="agregar_vivienda" class="btn btn-terceareo">Agregar vivienda</button>
@@ -214,7 +263,7 @@ $sql_usuarios = "SELECT
         </thead>
 
         <tbody class="tbody">
-            <?php foreach ($usuarios as $u): // Una fila por cada usuario que trajo la consulta ?>
+            <?php foreach ($usuarios as $u): ?>
             <tr>
                 <td><?= $u['id_usuario'] ?></td>
                 <td><?= $u['dni'] ?></td>
@@ -225,7 +274,6 @@ $sql_usuarios = "SELECT
                 <td><?= $u['codigo'] ?></td>
                 <td><?= $u['cantidad_viviendas'] ?></td>
                 <td>
-                    <!-- data-id: usuario.js lo usa para saber a quién editar -->
                     <button class="btn-editar" data-id="<?= $u['id_usuario'] ?>">
                         Editar
                     </button>
@@ -233,7 +281,6 @@ $sql_usuarios = "SELECT
                         onclick="return confirm('¿Desea eliminar este usuario?')">
                         Eliminar
                     </a>
-                    <!-- data-id: usuario.js lo usa para saber a quién mostrar -->
                     <button class="btn-ver" data-id="<?= $u['id_usuario'] ?>">
                         Ver
                     </button>
@@ -245,105 +292,3 @@ $sql_usuarios = "SELECT
 
     </table>
 </div>
-
-
-<!--==========================    ESTA WEAA ES DEL COSO PARA AGREGAR MAS VIVIENDAS YA QUE <?PHP?> NO SIRVE DENTRO DE JS ==============================================-->
-
-<script>
-const formulario = document.getElementById("form_usuario");
-const contenedor = document.getElementById("contenedor_viviendas");
-const btnAgregar = document.getElementById("agregar_vivienda");
-viviendaOriginal = contenedor.innerHTML; // copia del HTML original, para poder restaurarlo al cancelar
-let indice = 1; // arranca en 1 porque la vivienda 0 ya viene en el HTML
-
-// Al presionar "Agregar vivienda", crea una fila nueva con su propio índice
-btnAgregar.addEventListener("click", () => {
-
-    const vivienda = document.createElement("div");
-    vivienda.classList.add("vivienda");
-
-    vivienda.innerHTML = `
-
-        <hr>
-
-        <h4>Vivienda ${indice + 1}</h4>
-
-        <div class="campo">
-            <label>Vivienda</label>
-            <input type="text"
-                   name="vivienda[${indice}][numero]"
-                   placeholder="Número de vivienda">
-        </div>
-
-        <div class="campo">
-            <label>Sector</label>
-            <select name="vivienda[${indice}][sector]" required>
-                <option value="">Selecciona…</option>
-
-                <?php foreach ($sectores as $s): // Mismas opciones que la vivienda 0, generadas por PHP ?>
-                    <option value="<?= $s['id_sector'] ?>">
-                        <?= htmlspecialchars($s['nombre_sector']) ?>
-                    </option>
-                <?php endforeach; ?>
-
-            </select>
-        </div>
-
-        <div class="campo">
-            <label>Tipo servicio</label>
-            <select name="vivienda[${indice}][servicio]" required>
-
-                <option value="">Selecciona…</option>
-
-                <?php foreach ($servicios as $s): ?>
-                    <option value="<?= $s['id_servicio'] ?>">
-                        <?= htmlspecialchars($s['nombre_servicio']) ?>
-                    </option>
-                <?php endforeach; ?>
-
-            </select>
-        </div>
-
-        <div class="campo">
-            <label>Cuota mensual (L)</label>
-            <input type="number"
-                   step="0.01"
-                   min="0"
-                   name="vivienda[${indice}][cuota]"
-                   value="0">
-        </div>
-
-        <div class="campo">
-            <label>Estado</label>
-            <select name="vivienda[${indice}][estado]">
-               <option value="">Selecion…</option>
-                <?php foreach ($estado_pago as $estado):?>
-                    <option value="<?= $estado['id_estado_pago']?>">
-                    <?= htmlspecialchars($estado['nombre_estado_pago'])?>
-                    </option>
-                <?php endforeach; ?>
-
-            </select>
-        </div>
-
-    `;
-
-    contenedor.appendChild(vivienda);
-
-    indice++; // el siguiente "Agregar vivienda" usará el número que sigue
-});
-
-// Deja el formulario como estaba al abrirlo (quita las viviendas que se hayan agregado)
-function reiniciarFormulario() {
-    formulario.reset();
-    contenedor.innerHTML = viviendaOriginal;
-    indice = 1;
-}
-
-const btnCancelar = document.getElementById("cancelar");
-
-// El cierre del modal ya lo hace data-cerrar-modal (modal.js); aquí solo se limpia el formulario
-btnCancelar.addEventListener("click", () => {
-    reiniciarFormulario();
-});
-</script>

@@ -7,7 +7,6 @@
  *  - Último mes pagado = mes actual (o futuro)  -> Pagado
  *  - Debe exactamente 1 mes (el mes pasado)      -> Pendiente
  *  - Debe 2 meses o más                          -> Mora
- *  - Nunca ha pagado                             -> Pendiente
  */
 
 if (!defined('ID_ESTADO_PAGADO'))    define('ID_ESTADO_PAGADO', 3);

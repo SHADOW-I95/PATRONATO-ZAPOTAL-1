@@ -97,6 +97,15 @@ function clase_badge($nombre_estado)
     </div>
     <div class="opciones">
         <input type="text" placeholder="Nombre o DNI..." class="buscar">
+
+        <!-- Filtra la tabla de "Estado de viviendas" por Pagado/Pendiente/Mora -->
+        <select id="filtro-estado" class="filtro-estado">
+            <option value="">Todos los estados</option>
+            <option value="Pagado">Pagado</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Mora">Mora</option>
+        </select>
+
         <button class="btn_nuevo" id="abrir-modal">+ Registrar pago</button>
     </div>
 </div>
@@ -130,7 +139,8 @@ function clase_badge($nombre_estado)
         </thead>
         <tbody>
             <?php foreach ($todas_viviendas as $i => $viv): ?>
-            <tr>
+            <!-- data-estado: usado por agua.js para filtrar con el selector de arriba -->
+            <tr data-estado="<?= $viv['estado']['nombre'] ?>">
                 <td><?= $i + 1 ?></td>
                 <td>#<?= htmlspecialchars($viv['numero_vivienda']) ?></td>
                 <td><?= htmlspecialchars($viv['nombre_usuario'] ?? '—') ?></td>
@@ -198,7 +208,7 @@ function clase_badge($nombre_estado)
 <!-- Modal: Registrar pago -->
 <div class="modal" id="modal">
     <div class="modal-contenido">
-        <span class="cerrar" id="cerrar-modal">✕</span>
+        <span class="cerrar" data-cerrar-modal>✕</span>
         <div class="formulario">
             <h4>+ Registrar pago</h4>
 
@@ -289,7 +299,7 @@ function clase_badge($nombre_estado)
 <!-- Modal: Detalle de pago -->
 <div class="modal" id="modal-detalle">
     <div class="modal-contenido" style="width: 420px;">
-        <span class="cerrar" id="cerrar-modal-detalle">✕</span>
+        <span class="cerrar" data-cerrar-modal>✕</span>
         <div class="formulario">
             <h4>Detalle del pago <span id="detalle-recibo"></span></h4>
             <table class="tabla_datos">
@@ -305,63 +315,3 @@ function clase_badge($nombre_estado)
         </div>
     </div>
 </div>
-
-<script>
-// Abrir / cerrar modales (el CSS del proyecto usa display:none/flex, no una clase)
-function abrirModal(modal) {
-    modal.style.display = "flex";
-}
-
-function cerrarModal(modal) {
-    modal.style.display = "none";
-}
-
-const modal = document.getElementById("modal");
-document.getElementById("abrir-modal").addEventListener("click", () => abrirModal(modal));
-document.getElementById("cerrar-modal").addEventListener("click", () => cerrarModal(modal));
-
-// Si venimos de "Buscar viviendas" (la URL trae id_usuario), reabrimos el modal
-if (new URLSearchParams(window.location.search).get("id_usuario")) {
-    abrirModal(modal);
-}
-
-// Calcular el total de cada vivienda (meses x monto mensual)
-document.querySelectorAll(".tarjeta-vivienda").forEach((tarjeta) => {
-    const meses = tarjeta.querySelector(".input-meses");
-    const monto = tarjeta.querySelector(".input-monto-mensual");
-    const total = tarjeta.querySelector(".input-total");
-
-    function recalcular() {
-        total.value = ((parseFloat(meses.value) || 0) * (parseFloat(monto.value) || 0)).toFixed(2);
-    }
-    meses.addEventListener("input", recalcular);
-    monto.addEventListener("input", recalcular);
-    recalcular();
-});
-
-// Modal de detalle
-const modalDetalle = document.getElementById("modal-detalle");
-document.getElementById("cerrar-modal-detalle").addEventListener("click", () => cerrarModal(modalDetalle));
-
-document.querySelectorAll(".btn-detalle").forEach((btn) => {
-    btn.addEventListener("click", () => {
-        const nombresMes = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
-            "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-        ];
-        const detalle = JSON.parse(btn.getAttribute("data-detalle") || "[]");
-
-        document.getElementById("detalle-recibo").textContent = "#" + btn.getAttribute("data-recibo");
-
-        const cuerpo = document.getElementById("detalle-cuerpo");
-        cuerpo.innerHTML = "";
-        detalle.forEach((fila) => {
-            const tr = document.createElement("tr");
-            tr.innerHTML =
-                `<td>${nombresMes[parseInt(fila.mes, 10)] || fila.mes}</td><td>${fila.anio}</td><td>L${parseFloat(fila.monto).toFixed(2)}</td>`;
-            cuerpo.appendChild(tr);
-        });
-
-        abrirModal(modalDetalle);
-    });
-});
-</script>

@@ -71,7 +71,7 @@ $estado_pago = $conexion->query("SELECT id_estado_pago, nombre_estado_pago FROM 
     </div>
 
     <div id="editar_contenedor_viviendas">
-        <?php foreach ($viviendas as $i => $v): // Una fila por cada vivienda que ya tiene el usuario ?>
+        <?php foreach ($viviendas as $i => $v): ?>
         <div class="vivienda-fila">
             <hr>
             <!-- id real de la vivienda: si viene vacío al guardar, actualizar.php la trata como nueva -->
@@ -87,7 +87,7 @@ $estado_pago = $conexion->query("SELECT id_estado_pago, nombre_estado_pago FROM 
                     <label>Sector</label>
                     <select name="vivienda[<?= $i ?>][sector]" required>
                         <option value="">Selecciona…</option>
-                        <?php foreach ($sectores as $s): // deja "selected" el sector que ya tenía esta vivienda ?>
+                        <?php foreach ($sectores as $s): ?>
                         <option value="<?= $s['id_sector'] ?>" <?= $s['id_sector'] == $v['id_sector'] ? 'selected' : '' ?>>
                             <?= htmlspecialchars($s['nombre_sector']) ?>
                         </option>
