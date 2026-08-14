@@ -1,64 +1,63 @@
-
 .wrap {
-  background: transparent;
-  border-radius: 10px;
-  padding-top: 30px;
-  max-width:50%;
+  background: transparent; /* Fondo transparente para el contenedor principal */
+  border-radius: 10px; /* Bordes redondeados de 10px */
+  padding-top: 30px; /* Espacio superior interno */
+  max-width: 50%; /* Ancho máximo del contenedor: la mitad de la pantalla */
 }
 
 .track {
-  display: flex;
-  gap: 14px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding-bottom: 4px;
-  scrollbar-width: none;
+  display: flex; /* Activa flexbox para organizar los ítems en fila */
+  gap: 14px; /* Espacio entre cada ítem */
+  overflow-x: auto; /* Permite desplazamiento horizontal */
+  scroll-behavior: smooth; /* Desplazamiento suave al hacer scroll */
+  padding-bottom: 4px; /* Espacio inferior interno */
+  scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
 }
 
 .track::-webkit-scrollbar {
-  display: none;
+  display: none; /* Oculta la barra de desplazamiento en navegadores WebKit */
 }
 
 .item {
-  flex: 0 0 160px;
-  text-align: center;
-  border: 2px solid hsl(0, 0%, 13%);
-  border-radius: 20px;
-  justify-items: center;
+  flex: 0 0 160px; /* Cada ítem ocupa 160px de ancho fijo */
+  text-align: center; /* Centra el contenido dentro del ítem */
+  border: 2px solid hsl(0, 0%, 13%); /* Borde gris oscuro */
+  border-radius: 20px; /* Bordes redondeados de 20px */
+  justify-items: center; /* Centra elementos en la cuadrícula (aunque aquí es flex) */
 }
 
 .item img {
-  width: 160px;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 8px;
-  display: block;
+  width: 160px; /* Ancho fijo de la imagen */
+  height: 220px; /* Alto fijo de la imagen */
+  object-fit: cover; /* Ajusta la imagen recortando para llenar el espacio */
+  border-radius: 8px; /* Bordes redondeados de la imagen */
+  display: block; /* La imagen se muestra como bloque */
 }
 
 .item span {
-  display: block;
-  margin-top: 8px;
-  color: #000;
-  font-size: 13px;
+  display: block; /* El texto se muestra en bloque debajo de la imagen */
+  margin-top: 8px; /* Espacio superior respecto a la imagen */
+  color: #000; /* Texto negro */
+  font-size: 13px; /* Tamaño de fuente pequeño */
 }
 
 .btns {
-  display: flex;
-  gap: 12px;
-  margin-top: 16px;
-  justify-content: center;
+  display: flex; /* Contenedor de botones en fila */
+  gap: 12px; /* Espacio entre botones */
+  margin-top: 16px; /* Espacio superior respecto al track */
+  justify-content: center; /* Centra los botones horizontalmente */
 }
 
 .btns button {
-  background: #222;
-  color: #fff;
-  border: 1px solid #444;
-  padding: 6px 18px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 14px;
+  background: #222; /* Fondo gris oscuro */
+  color: #fff; /* Texto blanco */
+  border: 1px solid #444; /* Borde gris más claro */
+  padding: 6px 18px; /* Espaciado interno del botón */
+  border-radius: 20px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor tipo mano al pasar encima */
+  font-size: 14px; /* Tamaño de fuente */
 }
 
 .btns button:hover {
-  background: #333;
+  background: 
 }

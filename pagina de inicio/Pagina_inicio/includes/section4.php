@@ -1,13 +1,17 @@
 <?php
 
+// Verifica si se envió el formulario
 if(isset($_POST['enviar'])){
 
+    // Obtiene los valores del formulario
     $tipo = $_POST['tipo_reporte'];
     $descripcion = $_POST['descripcion'];
 
+    // Consulta SQL para insertar el reporte
     $sql = "INSERT INTO reportes (id_tipo_reporte, descripcion)
             VALUES ('$tipo', '$descripcion')";
 
+    // Ejecuta la consulta y muestra mensaje según el resultado
     if(mysqli_query($conexion, $sql)){
         echo "<script>alert('Reporte guardado correctamente');</script>";
     }else{
@@ -16,10 +20,12 @@ if(isset($_POST['enviar'])){
 }
 ?>
 
+<!-- Sección del formulario de reporte -->
 <div class="div4" id="section4">
     <div class="contenedor">
         <h2>Reportar Problema</h2>
 
+        <!-- Formulario para enviar reporte -->
         <form method="POST">
             <label>Tipo de Reporte</label>
             <select name="tipo_reporte" required>
