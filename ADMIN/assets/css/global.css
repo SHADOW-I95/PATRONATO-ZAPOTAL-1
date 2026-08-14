@@ -1,16 +1,27 @@
 :root {
-  --texto-osuro: #000;
-  --fondo: #f4f6fa;
+  --texto: #1e293b;
+  --texto-suave: #64748b;
+  --fondo: #f4f6fb;
   --modal-fondo: #f4f6fa;
-  --modulos_header-fondo: rgb(255, 255, 255);
-  --modulos_header-borde: 10px;
+  --modulos_header-fondo: #ffffff;
+  --modulos_header-borde: 12px;
   --botones: #f4f6fa;
-  --borde: #e5e7eb;
+  --borde: #e2e8f0;
+
+  --primario: #2563eb;
+  --primario-oscuro: #1d4ed8;
+  --secundario: #64748b;
+  --exito: #16a34a;
+  --peligro: #dc2626;
+
+  --radio: 10px;
+  --sombra: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --sombra-modal: 0 20px 40px rgba(0, 0, 0, 0.18);
 }
 
 * {
   box-sizing: border-box;
-  margin: 0%;
+  margin: 0;
 }
 a {
   text-decoration: none;
@@ -27,14 +38,12 @@ button {
 }
 
 body {
-  margin: 0%;
+  margin: 0;
   background: var(--fondo);
-  color: var(--texto-oscuro);
+  color: var(--texto);
   font-family: "Segoe UI", Roboto, Arial, sans-serif;
   font-size: 0.92em;
 }
-
-
 
 /*=====CONTENEDORES DEL INDEX.PHP=======*/
 
@@ -63,7 +72,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(2px);
   justify-content: center;
   align-items: center;
   z-index: 500;
@@ -74,24 +84,31 @@ body {
   max-width: 95%;
   max-height: 90vh;
   background: white;
-  border-radius: 10px;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-modal);
   display: flex;
   flex-direction: column;
 }
 
 .cerrar {
   display: flex;
-  top: 10px;
-  right: 15px;
-  font-size: 25px;
+  align-self: flex-end;
+  margin: 10px 15px 0 auto;
+  font-size: 22px;
+  color: var(--texto-suave);
   cursor: pointer;
+  transition: color 0.15s ease;
+}
+.cerrar:hover {
+  color: var(--texto);
 }
 .modal hr {
-  border: 0px;
-  color: inherit;
+  border: 0;
+  border-top: 1px solid var(--borde);
+  margin: 10px 0;
 }
 
-/*========= FRMULARIOS===========*/
+/*========= FORMULARIOS===========*/
 
 #contenido_ver {
   padding: 20px;
@@ -112,20 +129,19 @@ body {
   padding: 20px;
 }
 
-
 .formulario {
   overflow-y: auto;
   padding: 20px;
-  flex: 1 1 auto;   /* que ocupe el espacio restante dentro de .modal-contenido */
-  min-height: 0;    /* esto es lo que faltaba: permite que SÍ se encoja y aparezca el scroll */
+  flex: 1 1 auto; /* que ocupe el espacio restante dentro de .modal-contenido */
+  min-height: 0;  /* permite que sí se encoja y aparezca el scroll */
 }
 
 #contenido_editar {
-  padding: 20px;
+  padding: 10px;
   max-height: 95%;
   overflow: auto;
 }
- 
+
 .formulario_editar {
   overflow-y: visible;
   min-height: auto;
@@ -151,29 +167,82 @@ body {
 .campo label {
   font-size: 13px;
   font-weight: 600;
+  color: var(--texto-suave);
 }
 
-.campo input {
-  padding: 10px 12px;
-  border: 1px solid var(--borde);
-  border-radius: 8px;
-  font-size: 13.5px;
-  font-family: inherit;
-}
-
+.campo input,
 .campo select {
   padding: 10px 12px;
   border: 1px solid var(--borde);
   border-radius: 8px;
   font-size: 13.5px;
   font-family: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.campo input:focus,
+.campo select:focus {
+  outline: none;
+  border-color: var(--primario);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/*=========BOTONES===========*/
+/* No estaban definidos antes: .btn-primario / .btn-secundario / .btn-terceareo
+   se usan en varios formularios pero no tenían estilo propio. */
+
+.btn-primario,
+.btn-secundario,
+.btn-terceareo,
+.btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.btn-primario {
+  background: var(--primario);
+  color: white;
+}
+.btn-primario:hover {
+  background: var(--primario-oscuro);
+}
+
+.btn-secundario {
+  background: white;
+  border-color: var(--borde);
+  color: var(--texto);
+}
+.btn-secundario:hover {
+  background: #f1f5f9;
+}
+
+.btn-terceareo,
+.btn {
+  background: #eef2ff;
+  color: var(--primario-oscuro);
+  border-color: transparent;
+}
+.btn-terceareo:hover,
+.btn:hover {
+  background: #e0e7ff;
+}
+
+.btn-primario:active,
+.btn-secundario:active,
+.btn-terceareo:active {
+  transform: scale(0.98);
 }
 
 /*=========HEADER MODULOS===========*/
 .modulo_header {
   background-color: var(--modulos_header-fondo);
   border-radius: var(--modulos_header-borde);
-  padding: 10px;
+  box-shadow: var(--sombra);
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -181,13 +250,30 @@ body {
 
 .buscar {
   width: 40%;
-  padding: 9px;
-  border: 1px solid rgb(179, 179, 179);
-  border-radius: 6px;
+  padding: 9px 12px;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  font-size: 13.5px;
+}
+.buscar:focus {
+  outline: none;
+  border-color: var(--primario);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .btn_nuevo {
-  background-color: var(--botones);
+  background-color: var(--primario);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13.5px;
+  align-self: flex-start;
+  transition: background 0.15s ease;
+}
+.btn_nuevo:hover {
+  background-color: var(--primario-oscuro);
 }
 
 /*=========TABLAS===========*/
@@ -197,28 +283,40 @@ body {
   font-size: 13.5px;
 }
 
+.tabla_datos thead th {
+  text-align: left;
+  color: var(--texto-suave);
+  font-weight: 600;
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--borde);
+}
+
 .tabla_datos tr {
   text-align: center;
-  border-bottom: 2px solid #e3e3e3;
+  border-bottom: 1px solid var(--borde);
 }
 .tabla_datos td {
-  padding: 5px;
+  padding: 10px 8px;
 }
 
 .seccion {
   background: #fff;
-  border-radius: 10px;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
   padding: 16px 18px;
   margin-top: 18px;
 }
 .seccion h3 {
   margin: 0 0 12px;
   font-size: 15px;
-  color: #333;
+  color: var(--texto);
 }
 
 .tabla_datos tbody tr:hover {
-  background: #f7f8fa;
+  background: #f8fafc;
 }
 .col-monto {
   text-align: right;
@@ -227,8 +325,10 @@ body {
 .col-acciones {
   display: flex;
   gap: 8px;
+  justify-content: center;
 }
 
+/*=========BADGES DE ESTADO===========*/
 .badge {
   display: inline-block;
   padding: 3px 10px;
@@ -249,6 +349,7 @@ body {
   color: #991b1b;
 }
 
+/*=========BOTONES DE ACCIÓN EN TABLAS===========*/
 .btn-ver,
 .btn-eliminar,
 .btn-editar,
@@ -256,21 +357,37 @@ body {
 .btn-factura {
   border: 1px solid var(--borde);
   background: #fff;
-  padding: 5px 10px;
-  border-radius: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 12.5px;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
+.btn-ver:hover,
+.btn-editar:hover,
 .btn-detalle:hover,
 .btn-factura:hover {
-  background: #f1f1f1;
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+.btn-eliminar {
+  color: var(--peligro);
+  border-color: #fecaca;
+}
+.btn-eliminar:hover {
+  background: #fef2f2;
 }
 
+/*=========TARJETAS DE VIVIENDA (registrar pago)===========*/
 .tarjeta-vivienda {
   border: 1px solid var(--borde);
-  border-radius: 8px;
-  padding: 10px 14px;
+  border-radius: var(--radio);
+  padding: 12px 16px;
   margin-bottom: 10px;
+  transition: border-color 0.15s ease;
+}
+.tarjeta-vivienda:hover {
+  border-color: #cbd5e1;
 }
 .tarjeta-vivienda-header {
   display: flex;
@@ -279,11 +396,12 @@ body {
   margin-bottom: 6px;
 }
 
+/*=========AVISOS===========*/
 .aviso-exito {
   background: #dcfce7;
   color: #166534;
-  border-radius: 8px;
-  padding: 10px 16px;
+  border-radius: var(--radio);
+  padding: 12px 16px;
   margin-top: 14px;
   display: flex;
   align-items: center;
@@ -291,36 +409,23 @@ body {
   flex-wrap: wrap;
 }
 
-/*=========Ver===========*/
-.badge {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-}
-.badge-pagado {
-  background: #dcfce7;
-  color: #166534;
-}
-.badge-pendiente {
-  background: #fef3c7;
-  color: #92400e;
-}
-.badge-mora {
-  background: #fee2e2;
-  color: #991b1b;
-}
 /* ===========================
    MODAL EDITAR USUARIO
-   (usa .informacion, .vivienda, .campo y .modal que ya existen arriba;
-   esto es solo el espacio entre filas y el botón de quitar vivienda)
 =========================== */
-
 .vivienda-fila {
   margin-bottom: 10px;
 }
 
 .vivienda-fila .btn-quitar-vivienda {
   margin: 0 20px 10px;
+}
+
+/* Selector de estado (Pagado/Pendiente/Mora) junto al buscador en el módulo de agua */
+.filtro-estado {
+  padding: 9px 12px;
+  border: 1px solid rgb(179, 179, 179);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95em;
+  background: white;
 }

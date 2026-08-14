@@ -16,7 +16,7 @@ if(isset($_POST['enviar'])){
 }
 ?>
 
-<div class="div4">
+<div class="div4" id="section4">
     <div class="contenedor">
         <h2>Reportar Problema</h2>
 

@@ -21,6 +21,6 @@ function toggleMenu() {
 const SECION = document.getElementById("BTN-SECION"); /* Obtiene el elemento del botón de inicio de sesión por su ID */
 
 SECION.addEventListener("click", () => { /* Agrega un evento de clic al botón de inicio de sesión */
-    window.location.href = "../incio_seccion/seccion/seccion.html"; /* Redirige a la página de inicio de sesión */
+    window.location.href = "../incio_seccion/seccion/seccion.php"; /* Redirige a la página de inicio de sesión */
 });
 

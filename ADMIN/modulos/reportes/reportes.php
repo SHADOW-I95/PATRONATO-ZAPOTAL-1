@@ -206,6 +206,7 @@ $tipos_reporte = $stmt_tipos->fetchAll();
         </tbody>
 
     </table>
+<<<<<<< HEAD
 </div>
 
 <!--==========================  El filtro se envía solo (GET), sin necesidad de JS extra ============================================-->
@@ -217,3 +218,7 @@ selectTipo.addEventListener("change", () => {
     document.getElementById("form_filtros").submit();
 });
 </script>
+=======
+  </div>
+</div>
+>>>>>>> bd59ea2c44c6909fbd823b68846b4ff57d3e0fa7
