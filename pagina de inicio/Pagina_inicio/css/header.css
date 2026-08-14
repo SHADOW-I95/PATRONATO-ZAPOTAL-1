@@ -1,77 +1,74 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: #ffffff;
-  height: 10vh;
-  position: sticky;
-  top: 0;
-  left: 0;
-  width: auto;
-  z-index: 1000;
+  display: flex; /* Activa flexbox para organizar elementos en fila */
+  justify-content: space-between; /* Espacia los elementos a los extremos */
+  align-items: center; /* Centra verticalmente los elementos */
+  padding: 20px; /* Espaciado interno */
+  background-color: #ffffff; /* Fondo blanco */
+  height: 10vh; /* Altura del header: 10% de la ventana */
+  position: sticky; /* Se mantiene fijo al hacer scroll */
+  top: 0; /* Pegado arriba */
+  left: 0; /* Pegado a la izquierda */
+  width: auto; /* Ancho automático */
+  z-index: 1000; /* Se asegura de estar por encima de otros elementos */
 }
 
 .header-div1 {
-  display: flex;
-  width: 50%;
-  justify-content: space-evenly;
-  height: 100%;
+  display: flex; /* Contenedor en fila */
+  width: 50%; /* Ocupa la mitad del header */
+  justify-content: space-evenly; /* Distribuye elementos con espacio uniforme */
+  height: 100%; /* Ocupa toda la altura del header */
 }
 
 .header-div1 img {
-  height: 100%;
+  height: 100%; /* Imagen ocupa toda la altura disponible */
 }
 
 .title {
-  font-size: 5vh;
-  color: #000;
+  font-size: 5vh; /* Tamaño de fuente relativo a la altura de la ventana */
+  color: #000; /* Texto negro */
 }
 
 .header-div2 {
-  display: flex;
-  gap: 30px;
-  align-items: center;
+  display: flex; /* Contenedor en fila */
+  gap: 30px; /* Espacio entre elementos */
+  align-items: center; /* Centra verticalmente los elementos */
 }
 
 /* Botón iniciar sesión */
 .header-seccion {
-  width: 140px;
-  height: 5vh;
-  border: none;
-  border-radius: 5px;
-  color: #ffffff;
-  background-color: blue;
-  cursor: pointer;
+  width: 140px; /* Ancho fijo */
+  height: 5vh; /* Altura relativa */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  color: #ffffff; /* Texto blanco */
+  background-color: blue; /* Fondo azul */
+  cursor: pointer; /* Cursor tipo mano */
 }
-
 
 /* Botón de perfil cuando el usuario inicia sesión */
 .perfil-btn {
-  width: 45px;
+  width: 45px; /* Botón circular */
   height: 45px;
-  border-radius: 50%;
-  background-color: blue;
-  color: white;
-  display: flex;
+  border-radius: 50%; /* Forma circular */
+  background-color: blue; /* Fondo azul */
+  color: white; /* Texto blanco */
+  display: flex; /* Flexbox para centrar contenido */
   justify-content: center;
   align-items: center;
-  text-decoration: none;
-  font-size: 22px;
-  font-weight: bold;
-  cursor: pointer;
+  text-decoration: none; /* Quita subrayado si es enlace */
+  font-size: 22px; /* Tamaño de fuente */
+  font-weight: bold; /* Texto en negrita */
+  cursor: pointer; /* Cursor tipo mano */
 }
-
 
 /* Efecto al pasar el mouse */
 .perfil-btn:hover {
-  background-color: darkblue;
+  background-color: darkblue; /* Cambia a azul más oscuro */
 }
-
 
 /* Botón hamburguesa */
 .hamburguesa {
-  border: none;
-  background: transparent;
-  cursor: pointer;
+  border: none; /* Sin borde */
+  background: transparent; /* Fondo transparente */
+  cursor: pointer; /* Cursor tipo mano */
 }

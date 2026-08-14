@@ -1,6 +1,13 @@
 <header class="barra_superior">
-      <div class="div_lateral">
+    <!-- Contenedor principal del encabezado superior -->
+
+    <div class="div_lateral">
+        <!-- Sección lateral dentro del encabezado -->
+
         <img src="" alt="icnono de usuario" />
+        <!-- Imagen del ícono de usuario (src vacío por ahora, se debe colocar la ruta de la imagen) -->
+
         <span>adminsitrador</span>
-      </div>
+        <!-- Texto que muestra el rol o nombre del usuario -->
+    </div>
 </header>
