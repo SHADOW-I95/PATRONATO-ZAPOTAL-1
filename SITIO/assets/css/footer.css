@@ -2,12 +2,12 @@ footer {
     background-color: #fff; /* El pie de página tendrá fondo blanco */
 }
 
-.flex{
-    background-color: rgb(48, 35, 109) ;
-    display: flex;
-    height: 30vh;
-    border: 3px solid rgb(97, 97, 97);
-    border-radius: 30px;
+.flex {
+    background-color: rgb(48, 35, 109); /* fondo morado oscuro para el contenedor */
+    display: flex; /* activa flexbox para organizar elementos internos */
+    height: 30vh; /* altura relativa al 30% de la ventana */
+    border: 3px solid rgb(97, 97, 97); /* borde gris de 3px */
+    border-radius: 30px; /* esquinas redondeadas de 30px */
 }
 
 .flex {

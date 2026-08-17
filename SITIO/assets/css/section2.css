@@ -1,56 +1,45 @@
 /*====QUIENES SOMOS======*/
 
 .section-2 {
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  padding: 10%;
-  margin: 1px;
-  gap: 90px;
-  height: 115vh;
+  background-color: #ffffff; /* fondo blanco */
+  display: flex; /* usa flexbox */
+  flex-direction: column; /* organiza elementos en columna */
+  padding: 10%; /* espacio interno */
+  margin: 1px; /* pequeño margen externo */
+  gap: 90px; /* separación entre elementos */
+  height: 115vh; /* altura relativa al viewport */
 }
 
 .section-gap {
-  gap: 28px;
-  display: flex;
-  flex-direction: column;
+  gap: 28px; /* separación entre elementos internos */
+  display: flex; /* usa flexbox */
+  flex-direction: column; /* organiza en columna */
 }
 
 .full-section2-card1 span {
-  border: 2px solid hsl(108, 100%, 50%);
-  border-radius: 30px;
-  display: flex;
-  width: 45px;
+  border: 2px solid hsl(108, 100%, 50%); /* borde verde */
+  border-radius: 30px; /* esquinas redondeadas */
+  display: flex; /* usa flexbox */
+  width: 45px; /* ancho fijo */
 }
 
 .full-section2-card2 {
-  display: flex;
-  justify-content: center;
-  height: 60vh;
-  gap: 100px;
+  display: flex; /* usa flexbox */
+  justify-content: center; /* centra horizontalmente */
+  height: 60vh; /* altura relativa al viewport */
+  gap: 100px; /* separación amplia entre elementos */
 }
 
-.center-section2{
-  justify-items: center;
+.center-section2 {
+  justify-items: center; /* centra elementos en grid/flex */
 }
 
 .full-section2-img {
-  height: 50%;
-  
+  height: 50%; /* imagen ocupa la mitad de la altura disponible */
 }
 
 .cards-fondo-section2 {
-  display: flex;
-  justify-content: space-evenly;
-  height: 23vh;
-  gap: 20px;
-}
-.cards3-section2{
-  border: 2px solid #7575753c;
-  border-radius: 5px;
-  text-align: center;
-  width: 30%;
-  height: 100%;
-  padding: 2%;
-  
+  display: flex; /* usa flexbox */
+  justify-content: space-evenly; /* distribuye elementos con espacio uniforme */
+  height: 23vh; /* altura relativa al viewport */
 }

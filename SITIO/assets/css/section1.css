@@ -1,54 +1,54 @@
 .section-1 {
-  background-image: url(../img/fondo-lago.jpeg);
-  color: #fff;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  overflow: hidden;
-  width: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  background-image: url(../img/fondo-lago.jpeg); /* imagen de fondo */
+  color: #fff; /* color de texto blanco */
+  background-repeat: no-repeat; /* evita que se repita la imagen */
+  background-size: 100%; /* ajusta la imagen al ancho */
+  overflow: hidden; /* oculta contenido que sobresalga */
+  width: auto; /* ancho automático */
+  display: flex; /* usa flexbox */
+  flex-direction: column; /* organiza elementos en columna */
+  justify-content: space-evenly; /* distribuye espacio de forma uniforme */
 }
 
 .section-1 p {
-  font-size: 20px;
+  font-size: 20px; /* tamaño de fuente para párrafos */
 }
 
 .section-eslogan {
-  padding: 20px;
+  padding: 20px; /* espacio interno */
 }
 
 .section-eslogan p {
-  color: transparent;
-  -webkit-text-stroke: 1px #97f68e;
+  color: transparent; /* texto transparente */
+  -webkit-text-stroke: 1px #97f68e; /* contorno verde claro */
 }
 
 .section-eslogan h1 {
-  font-size: 90px;
-  color: #fff;
-  /* -webkit-text-stroke: 2px #fff;*/
+  font-size: 90px; /* tamaño grande para título */
+  color: #fff; /* color blanco */
+  /* -webkit-text-stroke: 2px #fff; */ /* contorno opcional comentado */
 }
 
 .section-eslogan h1 span {
-  color: #97f68e;
+  color: #97f68e; /* color verde claro para destacar */
 }
 
 .cards-fondo-1 {
-  display: flex;
-  justify-content: space-around;
-  background-color: #fff;
-  color: #000;
-  border-top: 0 solid transparent;
-  border-radius: 20px 20px 0 0;
-  height: 20vh;
+  display: flex; /* usa flexbox */
+  justify-content: space-around; /* distribuye elementos con espacio */
+  background-color: #fff; /* fondo blanco */
+  color: #000; /* texto negro */
+  border-top: 0 solid transparent; /* borde superior invisible */
+  border-radius: 20px 20px 0 0; /* esquinas superiores redondeadas */
+  height: 20vh; /* altura relativa al viewport */
 }
 
 .section-cards {
-  display: flex;
-  align-items: center;
-  gap: 25px;
+  display: flex; /* usa flexbox */
+  align-items: center; /* centra verticalmente */
+  gap: 25px; /* espacio entre elementos */
 }
 
 .section-cards img {
-  height: 50px;
+  height: 50px; /* altura fija para imágenes */
 }
