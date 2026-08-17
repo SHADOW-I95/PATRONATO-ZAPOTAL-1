@@ -51,6 +51,9 @@ require_once '../config/conexion.php';
                 elseif ($modulo == 'reportes') {
                     include './modulos/reportes/reportes.php';
                 }
+                elseif ($modulo == 'empleados') {
+                    include './modulos/empleados/empleados.php';
+                }
                 elseif ($modulo == 'configuracion') {
                     include './modulos/configuracion/configuracion.php';
                 }

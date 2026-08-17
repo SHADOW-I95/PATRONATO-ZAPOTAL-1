@@ -17,7 +17,8 @@
         <a href="?modulo=reportes"> Reportes</a> <!-- Enlace al módulo Reportes -->
 
         <hr> <!-- Línea divisoria para separar secciones -->
-
+        
+        <a href="?modulo=empleados">Empleados</a>
         <a href="?modulo=configuracion"> Configuracion</a> <!-- Enlace al módulo Configuración -->
     </nav>
 </div>

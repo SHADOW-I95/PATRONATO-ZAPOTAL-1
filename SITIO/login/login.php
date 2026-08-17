@@ -12,7 +12,7 @@
 
         <!-- Logo y título institucional -->
         <div class="logo">
-            <img src="/assets/img/LOGO.PNG" alt="Logo"> <!-- imagen del logo -->
+            <img src="../assets/img/LOGO.png" alt="Logo"> <!-- imagen del logo -->
             <h2>PATRONATO<br>DE AGUA</h2> <!-- título -->
         </div>
 
