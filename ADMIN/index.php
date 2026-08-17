@@ -17,9 +17,6 @@ require_once '../config/conexion.php';
     <link rel="stylesheet" href="./assets/css/dashboard.css" />
     <link rel="stylesheet" href="./assets/css/reporte.css">
     <link rel="stylesheet" href="./assets/css/factura.css">
-
-    <!-- Librería Chart.js para gráficos -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -66,8 +63,7 @@ require_once '../config/conexion.php';
     <script src="./assets/js/usuario.js"></script>
     <script src="./assets/js/reporte.js"></script>
     <script src="./assets/js/modal.js"></script>
-    <script src="./assets/js/dashboard.js"></script>
-    <script src="./assets/js/ver.js"></script>
+    <script src="./assets/js/agua.js"></script>
 
 </body>
 </html>

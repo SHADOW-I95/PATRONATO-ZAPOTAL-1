@@ -1,11 +1,8 @@
 <?php
+// Importa el archivo de conexión a la base de datos
 require_once __DIR__ . "/../../../config/conexion.php";
 
-// Importa el archivo de conexión a la base de datos
-require_once __DIR__ . "/../../config/conexion.php";
-
 // Crea la conexión usando la función Connection()
-
 $conexion = Connection();
 
 // Obtiene el número de recibo desde la URL y valida que sea un entero
