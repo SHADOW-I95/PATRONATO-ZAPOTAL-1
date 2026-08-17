@@ -27,7 +27,7 @@
   ?>
 
 
-  <script src="/assets/js/inicio.js"></script>
+  <script src="assets/inicio.js"></script>
 
 </body>
 </html>
