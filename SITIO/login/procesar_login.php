@@ -31,6 +31,24 @@ if ($nombre === '' || $dni === '' || $codigo === '') {
 
 $MENSAJE_GENERICO = "Nombre, DNI o código incorrectos";
 
+/**
+ * El formulario solo tiene un campo de "nombre", pero en la base de datos
+ * está separado en nombre + apellido. La persona puede escribir cualquiera
+ * de las dos formas (solo el nombre, o el nombre completo), así que se
+ * aceptan ambas en vez de comparar solo contra la columna "nombre".
+ */
+function coincideNombre(string $ingresado, string $nombreBD, string $apellidoBD): bool
+{
+    $ingresado = mb_strtolower(trim($ingresado));
+
+    $variantes = [
+        mb_strtolower(trim($nombreBD)),
+        mb_strtolower(trim($nombreBD . ' ' . $apellidoBD)),
+    ];
+
+    return in_array($ingresado, $variantes, true);
+}
+
 // Se busca primero en empleados: si una persona está registrada como empleado,
 // debe entrar al panel administrativo aunque por coincidencia también exista
 // como usuario común.
@@ -42,7 +60,7 @@ $stmt = $conexion->prepare(
 $stmt->execute([$dni, $codigo]);
 $empleado = $stmt->fetch();
 
-if ($empleado && strcasecmp($nombre, $empleado['nombre']) === 0) {
+if ($empleado && coincideNombre($nombre, $empleado['nombre'], $empleado['apellido'])) {
 
     session_regenerate_id(true);
 
@@ -66,7 +84,7 @@ $stmt = $conexion->prepare(
 $stmt->execute([$dni, $codigo]);
 $usuario = $stmt->fetch();
 
-if ($usuario && strcasecmp($nombre, $usuario['nombre']) === 0) {
+if ($usuario && coincideNombre($nombre, $usuario['nombre'], $usuario['apellido'])) {
 
     session_regenerate_id(true);
 

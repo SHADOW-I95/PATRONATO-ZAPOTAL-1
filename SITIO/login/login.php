@@ -11,7 +11,7 @@
     <div class="contenedor">
 
         <div class="logo">
-            <img src="./assets/img/LOGO.PNG" alt="Logo">
+            <img src="../assets/img/LOGO.png" alt="Logo">
             <h2>PATRONATO<br>DE AGUA</h2>
         </div>
 

@@ -50,3 +50,4 @@ function mostrarError(idSpan, mensaje) {
 function limpiarErrores() {
     document.querySelectorAll(".error").forEach(span => span.textContent = "");
 }
+
