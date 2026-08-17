@@ -8,7 +8,7 @@
 
     <div class="header-div2">
         <?php if (haySesion()): ?>
-            <a href="<?= esEmpleado() ? '../ADMIN/index.php' : 'perfil/perfil.php' ?>"
+            <a href="<?= esEmpleado() ? '../../ADMIN/index.php' : 'perfil/perfil.php' ?>"
                class="perfil-btn"
                title="<?= htmlspecialchars($_SESSION['nombre']) ?>">
                 <?= htmlspecialchars(strtoupper(substr($_SESSION['nombre'], 0, 1))) ?>

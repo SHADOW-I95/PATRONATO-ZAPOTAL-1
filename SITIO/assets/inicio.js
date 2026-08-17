@@ -24,3 +24,4 @@ SECION.addEventListener("click", () => { /* Agrega un evento de clic al botón d
     window.location.href = "../login/login.php"; /* Redirige a la página de inicio de sesión */
 });
 
+

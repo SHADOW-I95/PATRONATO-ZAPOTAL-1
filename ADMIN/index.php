@@ -1,8 +1,5 @@
 <?php
 require_once '../config/conexion.php';
-// Importa el archivo de conexión a la base de datos
-require_once './config/conexion.php';
-$conexion = Connection();
 
 ?>
 
