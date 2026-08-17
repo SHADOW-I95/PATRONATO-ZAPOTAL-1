@@ -18,9 +18,8 @@
                     consequuntur
                     earum cupiditate fugiat ipsam Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam,
                     eligendi
-                    ducimus maiores eos, aut alias obcaecati adipisci voluptatibus ex\\]\cepturi sint accusantium
-                    hic
-                    consequuntur]
+                    ducimus maiores eos, aut alias obcaecati adipisci voluptatibus excepturi sint accusantium hic
+                    consequuntur
                     dolores porro dignissimos dolore, nesciunt veniam fuga.
                 </p>
 

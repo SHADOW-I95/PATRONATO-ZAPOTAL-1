@@ -1,0 +1,100 @@
+/*===ubicacion-section3*/
+
+.section-3 {
+  min-height: 60vh; /*establece laaltura del elemento*/
+  padding: 5% 8%; /*spaciados internos para botones*/
+  background: linear-gradient(to bottom, #f8fbff, #ffffff); /*degradado suave de fondo*/
+}
+
+.section3-div2 {
+  display: flex; /*activa el diseño flexible para alinear los elementos*/
+  align-items: stretch; /*estira los elementos para que ocupen la misma altura*/
+  gap: 1.5rem; /*define los espacios entre los elementos de la fila*/
+  margin-top: 1.5rem; /*margen superior para separar de la seccion anterior*/
+}
+
+.section3-3 {
+  flex: 0 0 320px; /*define el tamaño para la tarjeta*/
+  background: #f6f9fd; /*color de fondo*/
+  padding: 1.4rem;/*espaciom interno de la tarjeta*/
+  border-radius: 14px; /*redondea las esquinas de las tarjetas*/
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06); /*sombra suave*/
+  box-sizing: border-box; /*incluye el padding en el mcalculo del ancho*/
+}
+
+.section3-tag {
+  display: inline-block;
+  background: #e8f2ff;
+  color: #0d4f8b;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  margin-bottom: 0.8rem;
+}
+
+.section3-3 h4 {
+  margin: 0 0 0.5rem;
+  color: #0d4f8b;
+}
+
+.section3-3 p {
+  margin: 0 0 0.7rem;
+  color: #505050;
+  line-height: 1.45;
+}
+
+.section3-3 span {
+  font-weight: 700;
+}
+
+.mapa {
+  flex: 1;
+  position: relative;
+  min-height: 420px;
+  overflow: hidden;
+  border-radius: 16px;
+  background:
+    linear-gradient(#eef6ff 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, #eef6ff 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(180deg, #f9fbff, #d7e9ff);
+  box-shadow:
+    inset 0 0 0 1px #dde8f7,
+    0 8px 18px rgba(13, 79, 139, 0.08);
+}
+
+.mapa::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 20% 25%,
+      rgba(255, 255, 255, 0.7) 0,
+      rgba(255, 255, 255, 0) 8%
+    ),
+    radial-gradient(
+      circle at 72% 18%,
+      rgba(255, 255, 255, 0.5) 0,
+      rgba(255, 255, 255, 0) 6%
+    ),
+    radial-gradient(
+      circle at 58% 68%,
+      rgba(255, 255, 255, 0.45) 0,
+      rgba(255, 255, 255, 0) 9%
+    );
+}
+
+@media (max-width: 768px) {
+  .section3-div2 {
+    flex-direction: column;
+  }
+
+  .section3-3 {
+    flex: 1;
+  }
+
+  .mapa {
+    min-height: 320px;
+  }
+}

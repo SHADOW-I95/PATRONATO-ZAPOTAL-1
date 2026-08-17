@@ -19,4 +19,5 @@
         <div class="mapa">
         <iframe src="https://www.google.com/maps/d/u/1/embed?mid=10VDExaT0Y16DcikGb8i01YF42cPr4Nk&ehbc=2E312F" width="640" height="480"></iframe>
         </div>
+    </div>
 </section>

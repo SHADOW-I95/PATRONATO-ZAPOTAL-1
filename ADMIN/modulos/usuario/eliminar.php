@@ -1,5 +1,5 @@
 <?php
-require_once "../../config/conexion.php";
+require_once "../../../config/conexion.php";
 
 $conexion = Connection();
 $id_usuario = (int)$_GET['id'];

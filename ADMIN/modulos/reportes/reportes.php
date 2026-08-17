@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../../config/conexion.php";
+require_once __DIR__ . "/../../../config/conexion.php";
 $conexion = Connection();
 
 // Filtros que llegan por GET (tipo de reporte y texto de búsqueda)
@@ -206,19 +206,5 @@ $tipos_reporte = $stmt_tipos->fetchAll();
         </tbody>
 
     </table>
-<<<<<<< HEAD
-</div>
-
-<!--==========================  El filtro se envía solo (GET), sin necesidad de JS extra ============================================-->
-
-<script>
-// Al cambiar el <select> de tipo, se envía el formulario de filtros automáticamente
-const selectTipo = document.querySelector('#form_filtros select[name="tipo"]');
-selectTipo.addEventListener("change", () => {
-    document.getElementById("form_filtros").submit();
-});
-</script>
-=======
   </div>
 </div>
->>>>>>> bd59ea2c44c6909fbd823b68846b4ff57d3e0fa7

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../../config/conexion.php";
+require_once __DIR__ . "/../../../config/conexion.php";
 $conexion = Connection();
 
 $id_usuario = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);

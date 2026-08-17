@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="seccion.css">
+    <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <div class="contenedor">
 
         <div class="logo">
-            <img src="img/logo_-removebg-preview.png" alt="Logo">
-            <h2>PATRONATO<br>DE AGUA</h2>
+            <img src="../assets/img.LOGO.PNG" alt="Logo">
+            <h2>PATRONATO<br></h2>
         </div>
 
-        <form class="formulario" method="post" action="validacion.php" id="formLogin">
+        <form class="formulario" method="post" action="procesar_login.php" id="formLogin">
             <div>
                 <h1>Iniciar sesión</h1>
                 <p>Accede a tu cuenta para continuar.</p>
@@ -28,7 +28,7 @@
             <span class="error" id="errorDni"></span>
 
             <div class="password-box">
-                <input type="password" id="password" placeholder="CONTRASENA  ASIGNADO" name="contrasena" required minlength="2">
+                <input type="password" id="password" placeholder="CODIGO DE ACCESO" name="contrasena" required minlength="2">
                 <span onclick="mostrarPassword()"><i class="fa-solid fa-eye"></i></span>
             </div>
             <span class="error" id="errorPassword"></span>
@@ -40,6 +40,6 @@
         </form>
     </div>
 
-    <script src="seccion.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>

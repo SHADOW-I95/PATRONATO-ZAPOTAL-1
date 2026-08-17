@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../../config/conexion.php";
+require_once __DIR__ . "/../../../config/conexion.php";
 $conexion = Connection();
 
 header('Content-Type: application/json; charset=utf-8');

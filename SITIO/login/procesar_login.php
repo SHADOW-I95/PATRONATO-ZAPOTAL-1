@@ -1,0 +1,87 @@
+<?php
+require_once __DIR__ . '/../../config/conexion.php';
+require_once __DIR__ . '/../../config/auth.php';
+
+$conexion = Connection();
+
+$nombre = trim($_POST['nombre'] ?? '');
+$dni    = trim($_POST['dni'] ?? '');
+$codigo = trim($_POST['contrasena'] ?? '');
+
+// Control simple de intentos fallidos (por sesión)
+if (!isset($_SESSION['intentos']))       $_SESSION['intentos'] = 0;
+if (!isset($_SESSION['ultimo_intento'])) $_SESSION['ultimo_intento'] = 0;
+
+$LIMITE_INTENTOS = 5;
+$TIEMPO_BLOQUEO  = 300; // 5 minutos
+
+if ($_SESSION['intentos'] >= $LIMITE_INTENTOS) {
+    $tiempoRestante = $TIEMPO_BLOQUEO - (time() - $_SESSION['ultimo_intento']);
+    if ($tiempoRestante > 0) {
+        $minutos = ceil($tiempoRestante / 60);
+        die("Demasiados intentos fallidos. Intenta de nuevo en {$minutos} minuto(s).");
+    }
+    $_SESSION['intentos'] = 0;
+}
+
+if ($nombre === '' || $dni === '' || $codigo === '') {
+    echo "Todos los campos son obligatorios";
+    exit;
+}
+
+$MENSAJE_GENERICO = "Nombre, DNI o código incorrectos";
+
+// Se busca primero en empleados: si una persona está registrada como empleado,
+// debe entrar al panel administrativo aunque por coincidencia también exista
+// como usuario común.
+$stmt = $conexion->prepare(
+    "SELECT id_empleado AS id, nombre, apellido, dni
+     FROM empleados
+     WHERE dni = ? AND codigo = ?"
+);
+$stmt->execute([$dni, $codigo]);
+$empleado = $stmt->fetch();
+
+if ($empleado && strcasecmp($nombre, $empleado['nombre']) === 0) {
+
+    session_regenerate_id(true);
+
+    $_SESSION['tipo']     = 'empleado';
+    $_SESSION['id']       = $empleado['id'];
+    $_SESSION['nombre']   = $empleado['nombre'];
+    $_SESSION['apellido'] = $empleado['apellido'];
+    $_SESSION['dni']      = $empleado['dni'];
+    $_SESSION['intentos'] = 0;
+
+    header("Location: ../../ADMIN/index.php");
+    exit;
+}
+
+// Si no es empleado, se busca como usuario común
+$stmt = $conexion->prepare(
+    "SELECT id_usuario AS id, nombre, apellido, dni
+     FROM usuarios
+     WHERE dni = ? AND codigo = ?"
+);
+$stmt->execute([$dni, $codigo]);
+$usuario = $stmt->fetch();
+
+if ($usuario && strcasecmp($nombre, $usuario['nombre']) === 0) {
+
+    session_regenerate_id(true);
+
+    $_SESSION['tipo']     = 'usuario';
+    $_SESSION['id']       = $usuario['id'];
+    $_SESSION['nombre']   = $usuario['nombre'];
+    $_SESSION['apellido'] = $usuario['apellido'];
+    $_SESSION['dni']      = $usuario['dni'];
+    $_SESSION['intentos'] = 0;
+
+    header("Location: ../perfil/perfil.php");
+    exit;
+}
+
+// No coincidió en ninguna de las dos tablas
+$_SESSION['intentos']++;
+$_SESSION['ultimo_intento'] = time();
+echo $MENSAJE_GENERICO;

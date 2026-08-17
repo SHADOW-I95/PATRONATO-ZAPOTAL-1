@@ -1,0 +1,574 @@
+============inico.js==========
+
+function toggleMenu() {
+            const btn     = document.getElementById('BTN_BURGER'); /* Obtiene el elemento del botón de menú por su ID */
+            const menu    = document.getElementById('MENU'); /* Obtiene el elemento del menú por su ID */
+            const overlay = document.getElementById('OVERLAY'); /* Obtiene el elemento del overlay por su ID */
+
+            const estaAbierto = menu.classList.toggle('abierto'); /* Cambia la clase 'abierto' del menú para mostrar u ocultar el menú */
+            btn.classList.toggle('activo', estaAbierto); /* Cambia la clase 'activo' del botón de menú según el estado del menú */
+            overlay.classList.toggle('visible', estaAbierto); /* Muestra u oculta el overlay según el estado del menú */
+            btn.setAttribute('aria-expanded', estaAbierto); /* Actualiza el atributo aria-expanded según el estado del menú */
+        }
+
+        function cerrarMenu() {
+            document.getElementById('BTN_BURGER').classList.remove('activo'); /* Elimina la clase 'activo' del botón de menú para indicar que no está activo */
+            document.getElementById('MENU').classList.remove('abierto'); /* Elimina la clase 'abierto' del menú para cerrarlo */
+            document.getElementById('OVERLAY').classList.remove('visible'); /* Elimina la clase 'visible' del overlay para ocultarlo */
+            document.getElementById('BTN_BURGER').setAttribute('aria-expanded', false); /* Actualiza el atributo aria-expanded a false cuando se cierra el menú */
+        }
+
+
+
+const SECION = document.getElementById("BTN-SECION"); /* Obtiene el elemento del botón de inicio de sesión por su ID */
+
+SECION.addEventListener("click", () => { /* Agrega un evento de clic al botón de inicio de sesión */
+    window.location.href = "../incio_seccion/seccion/seccion.php"; /* Redirige a la página de inicio de sesión */
+});
+
+
+   =================section1.php================  
+    
+    <section class="section-1">
+
+        <div class="section-eslogan">
+            <!--ESLOGAN DEL PATRONATO-->
+            <h1>
+                Trabajamos por un <br><span>Mejor servicio</span> <br> para nuestra <br> comunidad
+            </h1>
+            <p>comprometidos con el bienestar de todos <br> asegurando un sericio eficiente y sostenible</p>
+        </div>
+
+
+        <!--recuadros bajo el eslogan-->
+        <div class="cards-fondo-1">
+            <div class="section-cards">
+                <img src="./assets/img/ayudar.png" alt="decorativo">
+                <div>
+                    <h4>Servicios confiables</h4>
+                    <p>agua para todos</p>
+                </div>
+            </div>
+
+            <div class="section-cards">
+                <img src="./assets/img/servicio-al-cliente.png" alt="decorativo">
+                <div>
+                    <h4>Atencion rapida</h4>
+                    <p>respuesta eficiente</p>
+                </div>
+            </div>
+
+            <div class="section-cards">
+                <img src="./assets/img/transparencia.png" alt="decorativo">
+                <div>
+                    <h4>Trasparencia</h4>
+                    <p>gestion responsable</p>
+                </div>
+            </div>
+
+            <div class="section-cards">
+                <img src="./assets/img/responsabilidad-social.png" alt="decorativo">
+                <div>
+                    <h4>Compromiso</h4>
+                    <p>con nuestra comunidad</p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    
+
+========section3.php========
+
+
+<section class="section-3" id="section3"> <!-- Sección 3: Ubicación de oficinas -->
+    <div class="sin-nombexd">
+        <div class="section3-div1">
+            <h2>Ubicacion de oficinas</h2>
+        </div>
+    </div>
+
+    <div class="section3-div2">
+        <div class="section3-3">
+            <span class="section3-tag">Oficina principal</span> <!-- Etiqueta que indica que esta es la oficina principal -->
+            <h4>Horario de atencion</h4>  <!-- Etiqueta para el horario de atención -->
+            <p>Lunes a viernes <br> 8:00AM - 5:00PM</p> 
+            <p>Sabado <br>8:00AM - 12:00PM</p>
+            <p>Domingo <br>Solo caso de emergencia</p>
+            <p><span>Telefono</span> 67060660</p> <!-- Etiqueta para el número de teléfono -->
+        </div>
+
+        <!-- Mapa de ubicación -->
+        <div class="mapa">
+        <iframe src="https://www.google.com/maps/d/u/1/embed?mid=10VDExaT0Y16DcikGb8i01YF42cPr4Nk&ehbc=2E312F" width="640" height="480"></iframe>
+        </div>
+</section>
+
+=========section.4===================
+
+<?php
+
+if(isset($_POST['enviar'])){
+
+    $tipo = $_POST['tipo_reporte'];
+    $descripcion = $_POST['descripcion'];
+
+    $sql = "INSERT INTO reportes (id_tipo_reporte, descripcion)
+            VALUES ('$tipo', '$descripcion')";
+
+    if(mysqli_query($conexion, $sql)){
+        echo "<script>alert('Reporte guardado correctamente');</script>";
+    }else{
+        echo "Error: " . mysqli_error($conexion);
+    }
+}
+?>
+
+<div class="div4" id="section4">
+    <div class="contenedor">
+        <h2>Reportar Problema</h2>
+
+        <form method="POST">
+            <label>Tipo de Reporte</label>
+            <select name="tipo_reporte" required>
+                <option value="">Seleccione una opción</option>
+                <option value="1">Fuga de Agua</option>
+                <option value="2">Falta de Agua</option>
+                <option value="3">Baja Presión</option>
+                <option value="4">Daño de Tubería</option>
+                <option value="5">Otro</option>
+            </select>
+
+            <label>Descripción</label>
+            <textarea name="descripcion" rows="5" placeholder="Describa el problema..." required></textarea>
+
+            <button type="submit" name="enviar">Enviar Reporte</button>
+        </form>
+    </div>
+</div>
+
+========burger.css=======
+
+/* ── BOTÓN HAMBURGUESA ── */
+.hamburguesa {
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+  
+}
+
+.hamburguesa:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hamburguesa.activo {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hamburguesa span {
+  display: block;
+  width: 35px;
+  height: 3px;
+  background: #000;
+  border-radius: 2px;
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease;
+}
+
+/* Animación X al abrir */
+.hamburguesa.activo span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburguesa.activo span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburguesa.activo span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/*MENÚ NAV */
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background: #1a2744;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 24px 0;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 2000;
+}
+
+.menu.abierto {
+  transform: translateX(0);
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-li a {
+  display: block;
+  padding: 14px 24px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 14px;
+  transition:
+    color 0.2s,
+    background 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.nav-li a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  border-left-color: #fff;
+}
+
+/* ── OVERLAY ── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 998;
+}
+
+.overlay.visible {
+  display: block;
+}
+
+
+
+=========footer.css==========
+
+
+
+footer{
+ background-color: #fff;
+}
+
+.flex{
+    background-color: rgb(48, 35, 109) ;
+    display: flex;
+    height: 30vh;
+    border: 3px solid rgb(97, 97, 97);
+    border-radius: 30px;
+}
+
+
+
+
+===========galeria.css===================
+.wrap {
+  background: transparent;
+  border-radius: 10px;
+  padding-top: 30px;
+  max-width:50%;
+}
+
+.track {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  flex: 0 0 160px;
+  text-align: center;
+  border: 2px solid hsl(0, 0%, 13%);
+  border-radius: 20px;
+  justify-items: center;
+}
+
+.item img {
+  width: 160px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.item span {
+  display: block;
+  margin-top: 8px;
+  color: #000;
+  font-size: 13px;
+}
+
+.btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: center;
+}
+
+.btns button {
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 6px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btns button:hover {
+  background: #333;
+}
+
+
+============header.css=======
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  height: 10vh;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: auto;
+  z-index: 1000;
+}
+
+.header-div1 {
+  display: flex;
+  width: 50%;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.header-div1 img {
+  height: 100%;
+}
+
+.title {
+  font-size: 5vh;
+  color: #000;
+}
+
+.header-div2 {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+/* Botón iniciar sesión */
+.header-seccion {
+  width: 140px;
+  height: 5vh;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: blue;
+  cursor: pointer;
+}
+
+
+/* Botón de perfil cuando el usuario inicia sesión */
+.perfil-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: blue;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/* Efecto al pasar el mouse */
+.perfil-btn:hover {
+  background-color: darkblue;
+}
+
+
+/* Botón hamburguesa */
+.hamburguesa {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+========inicio.css========
+
+* {
+  margin: 0%;
+  padding: 0%;
+}
+
+body {
+  background-color: rgba(169, 169, 169, 0.39);
+  font-family: "inter", sans-serif;
+}
+
+======section2.css==========
+
+
+/*====QUIENES SOMOS======*/
+
+.section-2 {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 10%;
+  margin: 1px;
+  gap: 90px;
+  height: 115vh;
+}
+
+.section-gap {
+  gap: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.full-section2-card1 span {
+  border: 2px solid hsl(108, 100%, 50%);
+  border-radius: 30px;
+  display: flex;
+  width: 45px;
+}
+
+.full-section2-card2 {
+  display: flex;
+  justify-content: center;
+  height: 60vh;
+  gap: 100px;
+}
+
+.center-section2{
+  justify-items: center;
+}
+
+.full-section2-img {
+  height: 50%;
+  
+}
+
+.cards-fondo-section2 {
+  display: flex;
+  justify-content: space-evenly;
+  height: 23vh;
+  gap: 20px;
+}
+.cards3-section2{
+  border: 2px solid #7575753c;
+  border-radius: 5px;
+  text-align: center;
+  width: 30%;
+  height: 100%;
+  padding: 2%;
+  
+}
+
+
+===========section4.css==========
+
+
+.div4{
+  min-height: 60vh; /*establece laaltura del elemento*/
+  padding: 5% 8%; /*spaciados internos para botones*/
+  background: linear-gradient(to bottom, #f8fbff, #ffffff);
+}
+
+.contenedor{
+    width: 350px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    margin: 20px auto;
+}
+
+.contenedor h2{
+    text-align: center;
+    color: #2563eb;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.contenedor label{
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.contenedor select,
+.contenedor textarea{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.contenedor select:focus,
+.contenedor textarea:focus{
+    outline: none;
+    border-color: #2563eb;
+}
+
+.contenedor textarea{
+    resize: vertical;
+    min-height: 100px;
+}
+
+.contenedor button{
+    width: 100%;
+    padding: 12px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contenedor button:hover{
+    background: #1d4ed8;
+}
+
+te confirmo todos los cambios que quieres hacer me parecen exelentes, solo te digo que en el codigo deberia de dejar que se use numeros y letras porque al momento de registar un usuario no me deja poner letras solo numero, esto deberiamos cambiarlo del modal de registrar usuario pero te lo digo ahorita por si es necesario saberlo para los cambios de ahorita, y tengo la duda si primero no deberia de buscar en la tabla de empleados y luego en la de usuaro, si no haslo como tu dices y prosigue a continuar, si necesitas algo mas dime

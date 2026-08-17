@@ -1,4 +1,4 @@
-function mostrarPassword() {
+ffunction mostrarPassword() {
     const password = document.getElementById("password");
     const icono = document.querySelector(".password-box i");
     const esPassword = password.type === "password";
@@ -18,7 +18,7 @@ formulario.addEventListener("submit", (e) => {
 
     const nombre = document.getElementById("nombre");
     const dni = document.getElementById("dni");
-    const password = document.getElementById("password"); // antes decía "codigo" (bug)
+    const password = document.getElementById("password");
 
     limpiarErrores();
 
@@ -32,8 +32,8 @@ formulario.addEventListener("submit", (e) => {
         valido = false;
     }
 
-    if (password.value.length < 4) {
-        mostrarError("errorPassword", "Ingrese la contraseña asignado");
+    if (password.value.length < 2) {
+        mostrarError("errorPassword", "Ingrese el código de acceso asignado");
         valido = false;
     }
 

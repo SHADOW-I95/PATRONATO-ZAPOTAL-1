@@ -1,4 +1,4 @@
-    <section class="section-1">
+ <section class="section-1">
 
         <div class="section-eslogan">
             <!--ESLOGAN DEL PATRONATO-->
@@ -46,4 +46,3 @@
         </div>
 
     </section>
-    
