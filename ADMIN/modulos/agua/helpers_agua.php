@@ -9,16 +9,22 @@
  *  - Debe 2 meses o más                          -> Mora
  */
 
+// Definición de constantes para los estados de pago
 if (!defined('ID_ESTADO_PAGADO'))    define('ID_ESTADO_PAGADO', 3);
 if (!defined('ID_ESTADO_MORA'))      define('ID_ESTADO_MORA', 4);
 if (!defined('ID_ESTADO_PENDIENTE')) define('ID_ESTADO_PENDIENTE', 5);
 
+/**
+ * Función que calcula el estado de pago de una vivienda
+ */
 function calcular_estado_vivienda(PDO $conexion, int $id_vivienda, ?string $mesReferencia = null): array
 {
+    // Si no se pasa un mes de referencia, se usa el mes actual
     $mesReferencia = $mesReferencia ?? date('Y-m');
     [$anioActual, $mesActual] = array_map('intval', explode('-', $mesReferencia));
-    $totalActual = ($anioActual * 12) + $mesActual;
+    $totalActual = ($anioActual * 12) + $mesActual; // Convierte año/mes en número total para comparar
 
+    // Consulta para obtener el último mes pagado de la vivienda
     $sql = "SELECT dpa.anio, dpa.mes
             FROM detalle_pago_agua dpa
             INNER JOIN pagos_agua pa ON pa.id_pago_agua = dpa.id_pago_agua
@@ -29,6 +35,7 @@ function calcular_estado_vivienda(PDO $conexion, int $id_vivienda, ?string $mesR
     $stmt->execute([$id_vivienda]);
     $ultimo = $stmt->fetch();
 
+    // Si no hay pagos registrados, se marca como pendiente
     if (!$ultimo) {
         return [
             'id_estado_pago' => ID_ESTADO_PENDIENTE,
@@ -38,9 +45,11 @@ function calcular_estado_vivienda(PDO $conexion, int $id_vivienda, ?string $mesR
         ];
     }
 
+    // Convierte el último pago en número total para comparar
     $totalUltimo = ((int) $ultimo['anio'] * 12) + (int) $ultimo['mes'];
-    $diferencia  = $totalActual - $totalUltimo;
+    $diferencia  = $totalActual - $totalUltimo; // Diferencia entre mes actual y último pago
 
+    // Determina el estado según la diferencia
     if ($diferencia <= 0) {
         $id_estado = ID_ESTADO_PAGADO;
         $nombre    = 'Pagado';
@@ -52,6 +61,7 @@ function calcular_estado_vivienda(PDO $conexion, int $id_vivienda, ?string $mesR
         $nombre    = 'Mora';
     }
 
+    // Retorna el estado calculado
     return [
         'id_estado_pago' => $id_estado,
         'nombre'         => $nombre,
@@ -60,6 +70,9 @@ function calcular_estado_vivienda(PDO $conexion, int $id_vivienda, ?string $mesR
     ];
 }
 
+/**
+ * Función que actualiza el estado de pago en la tabla viviendas
+ */
 function actualizar_estado_vivienda(PDO $conexion, int $id_vivienda, int $id_estado_pago): void
 {
     $stmt = $conexion->prepare(
@@ -68,6 +81,10 @@ function actualizar_estado_vivienda(PDO $conexion, int $id_vivienda, int $id_est
     $stmt->execute([$id_estado_pago, $id_vivienda, $id_estado_pago]);
 }
 
+/**
+ * Función que refresca el estado de pago de una vivienda:
+ * calcula el estado y lo actualiza en la base de datos
+ */
 function refrescar_estado_vivienda(PDO $conexion, int $id_vivienda, ?string $mesReferencia = null): array
 {
     $estado = calcular_estado_vivienda($conexion, $id_vivienda, $mesReferencia);

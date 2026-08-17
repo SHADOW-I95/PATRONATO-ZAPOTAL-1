@@ -9,8 +9,11 @@ if (!empty($_GET['tipo'])) {
 }
 if (!empty($_GET['buscar'])) {
     $where[] = "(reportes.descripcion_reporte LIKE :buscar 
-                OR reportes.id_usuario LIKE :buscar 
-                OR reportes.id_reporte LIKE :buscar)";
+                OR reportes.id_reporte LIKE :buscar 
+                OR reportes.id_usuario IN (
+                    SELECT id_usuario FROM usuarios 
+                    WHERE nombre LIKE :buscar OR apellido LIKE :buscar
+                ))";
 }
 
 // Trae cada reporte con sus datos en crudo (sin JOIN)
@@ -62,6 +65,7 @@ $tipos_reporte = $stmt_tipos->fetchAll();
     </div>
     <div class="opciones">
         <form method="GET" action="" class="filtros" id="form_filtros">
+            <input type="hidden" name="modulo" value="reportes">
             <input type="text" name="buscar" placeholder="Buscar reporte..." class="buscar"
                 value="<?= htmlspecialchars($_GET['buscar'] ?? '') ?>">
 
@@ -206,5 +210,19 @@ $tipos_reporte = $stmt_tipos->fetchAll();
         </tbody>
 
     </table>
+<<<<<<< HEAD
   </div>
 </div>
+=======
+</div>
+
+<!--==========================  El filtro se envía solo (GET), sin necesidad de JS extra ============================================-->
+
+<script>
+// Al cambiar el <select> de tipo, se envía el formulario de filtros automáticamente
+const selectTipo = document.querySelector('#form_filtros select[name="tipo"]');
+selectTipo.addEventListener("change", () => {
+    document.getElementById("form_filtros").submit();
+});
+</script>
+>>>>>>> 35d11e045d4aa1041ab2f2eb7ca48e68d60b7247
