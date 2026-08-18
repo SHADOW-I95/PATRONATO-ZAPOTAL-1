@@ -61,11 +61,7 @@ $stmt = $conexion->prepare(
 $stmt->execute([$dni, $codigo]);
 $empleado = $stmt->fetch();
 
-
-if ($empleado && strcasecmp($nombre, $empleado['nombre']) === 0) {
-
 if ($empleado && coincideNombre($nombre, $empleado['nombre'], $empleado['apellido'])) {
-
 
     session_regenerate_id(true);
 
@@ -89,12 +85,17 @@ $stmt = $conexion->prepare(
 $stmt->execute([$dni, $codigo]);
 $usuario = $stmt->fetch();
 
+<<<<<<< HEAD
 
 if ($usuario && strcasecmp($nombre, $usuario['nombre']) === 0) {
 
 if ($usuario && coincideNombre($nombre, $usuario['nombre'], $usuario['apellido'])) {
 
 
+=======
+if ($usuario && coincideNombre($nombre, $usuario['nombre'], $usuario['apellido'])) {
+
+>>>>>>> ce83ab2eaefb3296e7ac8911e531a7748d8078e7
     session_regenerate_id(true);
 
     $_SESSION['tipo']     = 'usuario';
