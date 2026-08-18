@@ -1,19 +1,19 @@
 <?php
-require_once __DIR__ . '/../../config/conexion.php';
-require_once __DIR__ . '/../../config/auth.php';
+require_once __DIR__ . '/../../config/conexion.php'; // conexión a la base de datos
+require_once __DIR__ . '/../../config/auth.php';     // autenticación de usuarios
 
 $conexion = Connection();
 
-$nombre = trim($_POST['nombre'] ?? '');
-$dni    = trim($_POST['dni'] ?? '');
-$codigo = trim($_POST['contrasena'] ?? '');
+$nombre = trim($_POST['nombre'] ?? '');   // nombre ingresado
+$dni    = trim($_POST['dni'] ?? '');      // DNI ingresado
+$codigo = trim($_POST['contrasena'] ?? ''); // código de acceso
 
 // Control simple de intentos fallidos (por sesión)
 if (!isset($_SESSION['intentos']))       $_SESSION['intentos'] = 0;
 if (!isset($_SESSION['ultimo_intento'])) $_SESSION['ultimo_intento'] = 0;
 
-$LIMITE_INTENTOS = 5;
-$TIEMPO_BLOQUEO  = 300; // 5 minutos
+$LIMITE_INTENTOS = 5;       // máximo intentos permitidos
+$TIEMPO_BLOQUEO  = 300;     // tiempo de bloqueo en segundos (5 minutos)
 
 if ($_SESSION['intentos'] >= $LIMITE_INTENTOS) {
     $tiempoRestante = $TIEMPO_BLOQUEO - (time() - $_SESSION['ultimo_intento']);
@@ -21,9 +21,10 @@ if ($_SESSION['intentos'] >= $LIMITE_INTENTOS) {
         $minutos = ceil($tiempoRestante / 60);
         die("Demasiados intentos fallidos. Intenta de nuevo en {$minutos} minuto(s).");
     }
-    $_SESSION['intentos'] = 0;
+    $_SESSION['intentos'] = 0; // reinicia intentos si ya pasó el bloqueo
 }
 
+// Validación de campos vacíos
 if ($nombre === '' || $dni === '' || $codigo === '') {
     echo "Todos los campos son obligatorios";
     exit;
@@ -60,8 +61,12 @@ $stmt = $conexion->prepare(
 $stmt->execute([$dni, $codigo]);
 $empleado = $stmt->fetch();
 
+<<<<<<< HEAD
+if ($empleado && strcasecmp($nombre, $empleado['nombre']) === 0) {
+=======
 if ($empleado && coincideNombre($nombre, $empleado['nombre'], $empleado['apellido'])) {
 
+>>>>>>> 5952cdfd06a2f3f27782926164061171dc55e063
     session_regenerate_id(true);
 
     $_SESSION['tipo']     = 'empleado';
@@ -71,7 +76,7 @@ if ($empleado && coincideNombre($nombre, $empleado['nombre'], $empleado['apellid
     $_SESSION['dni']      = $empleado['dni'];
     $_SESSION['intentos'] = 0;
 
-    header("Location: ../../ADMIN/index.php");
+    header("Location: ../../ADMIN/index.php"); // redirige al panel administrativo
     exit;
 }
 
@@ -84,8 +89,12 @@ $stmt = $conexion->prepare(
 $stmt->execute([$dni, $codigo]);
 $usuario = $stmt->fetch();
 
+<<<<<<< HEAD
+if ($usuario && strcasecmp($nombre, $usuario['nombre']) === 0) {
+=======
 if ($usuario && coincideNombre($nombre, $usuario['nombre'], $usuario['apellido'])) {
 
+>>>>>>> 5952cdfd06a2f3f27782926164061171dc55e063
     session_regenerate_id(true);
 
     $_SESSION['tipo']     = 'usuario';
@@ -95,11 +104,11 @@ if ($usuario && coincideNombre($nombre, $usuario['nombre'], $usuario['apellido']
     $_SESSION['dni']      = $usuario['dni'];
     $_SESSION['intentos'] = 0;
 
-    header("Location: ../perfil/perfil.php");
+    header("Location: ../perfil/perfil.php"); // redirige al perfil de usuario
     exit;
 }
 
-// No coincidió en ninguna de las dos tablas
+// Si no coincide en ninguna tabla, aumenta intentos y muestra error
 $_SESSION['intentos']++;
 $_SESSION['ultimo_intento'] = time();
 echo $MENSAJE_GENERICO;

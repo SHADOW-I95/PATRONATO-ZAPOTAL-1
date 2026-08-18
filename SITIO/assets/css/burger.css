@@ -1,110 +1,109 @@
 /* ── BOTÓN HAMBURGUESA ── */
 .hamburguesa {
-  width: 50px;
-  height: 50px;
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 10px;
+  width: 50px; /* ancho del botón */
+  height: 50px; /* alto del botón */
+  background: transparent; /* fondo transparente */
+  border: 1.5px solid rgba(255, 255, 255, 0.3); /* borde semitransparente */
+  border-radius: 8px; /* esquinas redondeadas */
+  cursor: pointer; /* cambia el cursor al pasar encima */
+  display: flex; /* usa flexbox */
+  flex-direction: column; /* organiza las barras en columna */
+  align-items: center; /* centra horizontalmente */
+  justify-content: center; /* centra verticalmente */
+  gap: 5px; /* espacio entre las barras */
+  padding: 10px; /* espacio interno */
   transition:
-    border-color 0.2s,
-    background 0.2s;
-  
+    border-color 0.2s, /* transición suave en color del borde */
+    background 0.2s; /* transición suave en fondo */
 }
 
 .hamburguesa:hover {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.08);
+  border-color: #fff; /* borde blanco al pasar el mouse */
+  background: rgba(255, 255, 255, 0.08); /* fondo ligeramente visible */
 }
 
 .hamburguesa.activo {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff; /* borde blanco cuando está activo */
+  background: rgba(255, 255, 255, 0.1); /* fondo más marcado */
 }
 
 .hamburguesa span {
-  display: block;
-  width: 35px;
-  height: 3px;
-  background: #000;
-  border-radius: 2px;
+  display: block; /* cada barra es un bloque */
+  width: 35px; /* ancho de cada barra */
+  height: 3px; /* grosor de cada barra */
+  background: #000; /* color negro */
+  border-radius: 2px; /* esquinas redondeadas */
   transition:
-    transform 0.25s ease,
-    opacity 0.2s ease;
+    transform 0.25s ease, /* animación de movimiento/rotación */
+    opacity 0.2s ease; /* animación de opacidad */
 }
 
 /* Animación X al abrir */
 .hamburguesa.activo span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(7px) rotate(45deg); /* primera barra baja y rota */
 }
 
 .hamburguesa.activo span:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
+  opacity: 0; /* segunda barra desaparece */
+  transform: scaleX(0); /* se reduce horizontalmente */
 }
 
 .hamburguesa.activo span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-7px) rotate(-45deg); /* tercera barra sube y rota */
 }
 
 /*MENÚ NAV */
 .menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 260px;
-  height: 100vh;
-  background: #1a2744;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 24px 0;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-  z-index: 2000;
+  position: fixed; /* menú fijo en pantalla */
+  top: 0; /* alineado arriba */
+  left: 0; /* alineado a la izquierda */
+  width: 260px; /* ancho del menú */
+  height: 100vh; /* ocupa toda la altura de la ventana */
+  background: #1a2744; /* color de fondo */
+  border-right: 1px solid rgba(255, 255, 255, 0.1); /* borde lateral derecho */
+  padding: 24px 0; /* espacio interno vertical */
+  transform: translateX(-100%); /* oculto fuera de la pantalla */
+  transition: transform 0.3s ease; /* animación al abrir/cerrar */
+  z-index: 2000; /* prioridad sobre otros elementos */
 }
 
 .menu.abierto {
-  transform: translateX(0);
+  transform: translateX(0); /* se muestra al activarse */
 }
 
 .menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  list-style: none; /* sin viñetas */
+  padding: 0; /* sin relleno */
+  margin: 0; /* sin márgenes */
 }
 
 .nav-li a {
-  display: block;
-  padding: 14px 24px;
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  font-size: 14px;
+  display: block; /* cada enlace ocupa toda la fila */
+  padding: 14px 24px; /* espacio interno */
+  color: rgba(255, 255, 255, 0.7); /* color de texto */
+  text-decoration: none; /* sin subrayado */
+  font-size: 14px; /* tamaño de fuente */
   transition:
-    color 0.2s,
-    background 0.2s;
-  border-left: 3px solid transparent;
+    color 0.2s, /* transición en color */
+    background 0.2s; /* transición en fondo */
+  border-left: 3px solid transparent; /* borde lateral izquierdo invisible */
 }
 
 .nav-li a:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.05);
-  border-left-color: #fff;
+  color: #fff; /* texto blanco al pasar el mouse */
+  background: rgba(255, 255, 255, 0.05); /* fondo tenue */
+  border-left-color: #fff; /* borde lateral blanco */
 }
 
 /* ── OVERLAY ── */
 .overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  z-index: 998;
+  display: none; /* oculto por defecto */
+  position: fixed; /* cubre toda la pantalla */
+  inset: 0; /* ocupa todo el viewport */
+  background: rgba(0, 0, 0, 0.45); /* fondo semitransparente oscuro */
+  z-index: 998; /* debajo del menú */
 }
 
 .overlay.visible {
-  display: block;
+  display: block; /* se muestra cuando está activo */
 }

@@ -1,74 +1,74 @@
-.div4{
-  min-height: 60vh; /*establece laaltura del elemento*/
-  padding: 5% 8%; /*spaciados internos para botones*/
-  background: linear-gradient(to bottom, #f8fbff, #ffffff);
+.div4 {
+  min-height: 60vh; /* establece la altura mínima del contenedor */
+  padding: 5% 8%; /* espaciado interno en porcentajes (arriba/abajo y lados) */
+  background: linear-gradient(to bottom, #f8fbff, #ffffff); /* fondo con degradado suave */
 }
 
-.contenedor{
-    width: 350px;
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    margin: 20px auto;
+.contenedor {
+    width: 350px; /* ancho fijo del formulario */
+    background: #ffffff; /* fondo blanco */
+    padding: 25px; /* espacio interno */
+    border-radius: 12px; /* esquinas redondeadas */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15); /* sombra para efecto de elevación */
+    margin: 20px auto; /* margen superior/inferior y centrado horizontal */
 }
 
-.contenedor h2{
-    text-align: center;
-    color: #2563eb;
-    margin-bottom: 20px;
-    font-size: 24px;
+.contenedor h2 {
+    text-align: center; /* título centrado */
+    color: #2563eb; /* color azul */
+    margin-bottom: 20px; /* espacio inferior */
+    font-size: 24px; /* tamaño de fuente */
 }
 
-.contenedor label{
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #333;
+.contenedor label {
+    display: block; /* cada etiqueta ocupa toda la línea */
+    margin-bottom: 8px; /* espacio inferior */
+    font-weight: bold; /* texto en negrita */
+    color: #333; /* color gris oscuro */
 }
 
 .contenedor select,
-.contenedor textarea{
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 14px;
+.contenedor textarea {
+    width: 100%; /* ocupa todo el ancho disponible */
+    padding: 10px; /* espacio interno */
+    margin-bottom: 15px; /* separación inferior */
+    border: 1px solid #d1d5db; /* borde gris claro */
+    border-radius: 6px; /* esquinas redondeadas */
+    font-size: 14px; /* tamaño de fuente */
 }
 
 .contenedor select:focus,
-.contenedor textarea:focus{
-    outline: none;
-    border-color: #2563eb;
+.contenedor textarea:focus {
+    outline: none; /* elimina el borde por defecto */
+    border-color: #2563eb; /* borde azul al enfocar */
 }
 
-.contenedor textarea{
-    resize: vertical;
-    min-height: 100px;
+.contenedor textarea {
+    resize: vertical; /* permite redimensionar solo en vertical */
+    min-height: 100px; /* altura mínima */
 }
 
-.contenedor button{
-    width: 100%;
-    padding: 12px;
-    background: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+.contenedor button {
+    width: 100%; /* ocupa todo el ancho */
+    padding: 12px; /* espacio interno */
+    background: #2563eb; /* fondo azul */
+    color: white; /* texto blanco */
+    border: none; /* sin borde */
+    border-radius: 6px; /* esquinas redondeadas */
+    font-size: 15px; /* tamaño de fuente */
+    font-weight: bold; /* texto en negrita */
+    cursor: pointer; /* cursor tipo mano */
+    transition: 0.3s; /* transición suave en hover */
 }
 
-.contenedor button:hover{
-    background: #1d4ed8;
+.contenedor button:hover {
+    background: #1d4ed8; /* azul más oscuro al pasar el mouse */
 }
 
 /* Nuevo: aviso cuando el reporte se guarda correctamente */
 .reporte-exito {
-    color: #16a34a;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 15px;
+    color: #16a34a; /* texto verde */
+    font-weight: 600; /* seminegrita */
+    text-align: center; /* centrado */
+    margin-bottom: 15px; /* espacio inferior */
 }

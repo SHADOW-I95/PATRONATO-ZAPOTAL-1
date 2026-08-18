@@ -1,106 +1,106 @@
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: Arial, sans-serif;
+    margin:0; /* elimina márgenes por defecto */
+    padding:0; /* elimina relleno por defecto */
+    box-sizing:border-box; /* incluye borde y padding en el cálculo de ancho/alto */
+    font-family: Arial, sans-serif; /* tipografía global */
 }
 
 body{
-    background:#06223a;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+    background:#06223a; /* fondo azul oscuro */
+    display:flex; /* usa flexbox */
+    justify-content:center; /* centra horizontalmente */
+    align-items:center; /* centra verticalmente */
+    height:100vh; /* ocupa toda la altura de la ventana */
 }
 
 .contenedor{
-    width:700px;
-    background:white;
-    border-radius:20px;
-    padding:30px;
-    position:relative;
+    width:700px; /* ancho fijo */
+    background:white; /* fondo blanco */
+    border-radius:20px; /* esquinas redondeadas */
+    padding:30px; /* espacio interno */
+    position:relative; /* posición relativa para elementos internos */
 }
 
 .logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:30px;
+    display:flex; /* logo y texto en fila */
+    align-items:center; /* centra verticalmente */
+    gap:10px; /* espacio entre logo y texto */
+    margin-bottom:30px; /* separación inferior */
 }
 
 .logo img{
-    width:60px;
+    width:60px; /* tamaño del logo */
 }
 
 .logo h2{
-    font-size:20px;
+    font-size:20px; /* tamaño del texto del logo */
 }
 
 .formulario{
-    text-align:center;
+    text-align:center; /* centra el contenido del formulario */
 }
 
 .formulario h1{
-    color:#45b649;
-    margin-bottom:10px;
+    color:#45b649; /* verde para el título */
+    margin-bottom:10px; /* espacio inferior */
 }
 
 .formulario p{
-    color:#555;
+    color:#555; /* gris para texto descriptivo */
     margin-bottom:20px;
 }
 
 input{
-    width:100%;
-    padding:12px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    border-radius:5px;
+    width:100%; /* ocupa todo el ancho */
+    padding:12px; /* espacio interno */
+    margin-bottom:15px; /* separación inferior */
+    border:1px solid #ccc; /* borde gris claro */
+    border-radius:5px; /* esquinas redondeadas */
 }
 
 input:focus{
-    outline:none;
-    border-color:#4CAF50;
-    box-shadow:0 0 0 2px rgba(76,175,80,0.2);
+    outline:none; /* elimina borde por defecto */
+    border-color:#4CAF50; /* borde verde al enfocar */
+    box-shadow:0 0 0 2px rgba(76,175,80,0.2); /* sombra verde suave */
 }
 
 .password-box{
-    position:relative;
+    position:relative; /* permite posicionar el ícono dentro */
 }
 
 .password-box span{
-    position:absolute;
-    right:15px;
-    top:12px;
-    cursor:pointer;
+    position:absolute; /* ícono flotante */
+    right:15px; /* alineado a la derecha */
+    top:12px; /* alineado verticalmente */
+    cursor:pointer; /* cursor tipo mano */
 }
 
 .error{
-    display:block;
-    color:#d32f2f;
-    font-size:13px;
-    text-align:left;
-    margin-top:-10px;
-    margin-bottom:10px;
-    min-height:16px;
+    display:block; /* ocupa toda la línea */
+    color:#d32f2f; /* rojo para errores */
+    font-size:13px; /* tamaño pequeño */
+    text-align:left; /* alineado a la izquierda */
+    margin-top:-10px; /* ajusta espacio superior */
+    margin-bottom:10px; /* separación inferior */
+    min-height:16px; /* asegura espacio aunque no haya texto */
 }
 
 .opciones{
-    display:flex;
-    justify-content:space-between;
+    display:flex; /* organiza enlaces en fila */
+    justify-content:space-between; /* distribuye a los extremos */
     margin-bottom:20px;
     font-size:14px;
 }
 
 .opciones a{
-    text-decoration:none;
-    color:#2a5db0;
+    text-decoration:none; /* sin subrayado */
+    color:#2a5db0; /* azul para enlaces */
 }
 
 button{
-    width:100%;
+    width:100%; /* ocupa todo el ancho */
     padding:12px;
-    background:#4CAF50;
+    background:#4CAF50; /* verde */
     border:none;
     color:white;
     font-size:18px;
@@ -109,21 +109,21 @@ button{
 }
 
 button:hover{
-    background:#3f9f42;
+    background:#3f9f42; /* verde más oscuro al pasar el mouse */
 }
 
 .registro{
-    margin-top:25px;
+    margin-top:25px; /* espacio superior */
 }
 
 .registro a{
     text-decoration:none;
-    color:#2a5db0;
+    color:#2a5db0; /* azul para enlace de registro */
 }
 
 @media (max-width: 750px){
     .contenedor{
-        width:90%;
+        width:90%; /* se adapta en pantallas pequeñas */
         padding:20px;
     }
 }

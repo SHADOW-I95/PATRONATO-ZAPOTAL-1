@@ -1,42 +1,49 @@
- <section class="section-1">
+<section class="section-1">
 
         <div class="section-eslogan">
-            <!--ESLOGAN DEL PATRONATO-->
+            <!-- ESLOGAN DEL PATRONATO -->
             <h1>
                 Trabajamos por un <br><span>Mejor servicio</span> <br> para nuestra <br> comunidad
             </h1>
-            <p>comprometidos con el bienestar de todos <br> asegurando un sericio eficiente y sostenible</p>
+            <p>
+                comprometidos con el bienestar de todos <br> 
+                asegurando un sericio eficiente y sostenible
+            </p>
         </div>
 
-
-        <!--recuadros bajo el eslogan-->
+        <!-- Recuadros bajo el eslogan -->
         <div class="cards-fondo-1">
+
+            <!-- Card 1 -->
             <div class="section-cards">
-                <img src="./assets/img/ayudar.png" alt="decorativo">
+                <img src="./assets/img/ayudar.png" alt="decorativo"> <!-- ícono de ayuda -->
                 <div>
                     <h4>Servicios confiables</h4>
                     <p>agua para todos</p>
                 </div>
             </div>
 
+            <!-- Card 2 -->
             <div class="section-cards">
-                <img src="./assets/img/servicio-al-cliente.png" alt="decorativo">
+                <img src="./assets/img/servicio-al-cliente.png" alt="decorativo"> <!-- ícono de atención -->
                 <div>
                     <h4>Atencion rapida</h4>
                     <p>respuesta eficiente</p>
                 </div>
             </div>
 
+            <!-- Card 3 -->
             <div class="section-cards">
-                <img src="./assets/img/transparencia.png" alt="decorativo">
+                <img src="./assets/img/transparencia.png" alt="decorativo"> <!-- ícono de transparencia -->
                 <div>
                     <h4>Trasparencia</h4>
                     <p>gestion responsable</p>
                 </div>
             </div>
 
+            <!-- Card 4 -->
             <div class="section-cards">
-                <img src="./assets/img/responsabilidad-social.png" alt="decorativo">
+                <img src="./assets/img/responsabilidad-social.png" alt="decorativo"> <!-- ícono de compromiso -->
                 <div>
                     <h4>Compromiso</h4>
                     <p>con nuestra comunidad</p>
@@ -45,4 +52,4 @@
 
         </div>
 
-    </section>
+</section>
