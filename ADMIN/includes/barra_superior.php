@@ -1,13 +1,18 @@
+<?php require_once __DIR__ . '/../../config/auth.php'; ?>
 <header class="barra_superior">
     <!-- Contenedor principal del encabezado superior -->
 
     <div class="div_lateral">
         <!-- Sección lateral dentro del encabezado -->
 
-        <img src="" alt="icnono de usuario" />
-        <!-- Imagen del ícono de usuario (src vacío por ahora, se debe colocar la ruta de la imagen) -->
+        <div class="icono_usuario">
+            <!-- Antes era una <img> con src vacío; con la inicial del nombre alcanza y no depende de subir una foto -->
+            <?= htmlspecialchars(strtoupper(substr($_SESSION['nombre'] ?? '?', 0, 1))) ?>
+        </div>
 
-        <span>adminsitrador</span>
-        <!-- Texto que muestra el rol o nombre del usuario -->
+        <span><?= htmlspecialchars(($_SESSION['nombre'] ?? '') . ' ' . ($_SESSION['apellido'] ?? '')) ?></span>
+        <!-- Nombre real del empleado que inició sesión -->
+
+        <a href="../../SITIO/login/cerrar_sesion.php" class="btn_cerrar_sesion">Cerrar sesión</a>
     </div>
 </header>

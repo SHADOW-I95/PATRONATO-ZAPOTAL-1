@@ -32,7 +32,27 @@ if ($nombre === '' || $dni === '' || $codigo === '') {
 
 $MENSAJE_GENERICO = "Nombre, DNI o código incorrectos";
 
-// Primero se busca en empleados (tienen prioridad sobre usuarios comunes)
+/**
+ * El formulario solo tiene un campo de "nombre", pero en la base de datos
+ * está separado en nombre + apellido. La persona puede escribir cualquiera
+ * de las dos formas (solo el nombre, o el nombre completo), así que se
+ * aceptan ambas en vez de comparar solo contra la columna "nombre".
+ */
+function coincideNombre(string $ingresado, string $nombreBD, string $apellidoBD): bool
+{
+    $ingresado = mb_strtolower(trim($ingresado));
+
+    $variantes = [
+        mb_strtolower(trim($nombreBD)),
+        mb_strtolower(trim($nombreBD . ' ' . $apellidoBD)),
+    ];
+
+    return in_array($ingresado, $variantes, true);
+}
+
+// Se busca primero en empleados: si una persona está registrada como empleado,
+// debe entrar al panel administrativo aunque por coincidencia también exista
+// como usuario común.
 $stmt = $conexion->prepare(
     "SELECT id_empleado AS id, nombre, apellido, dni
      FROM empleados
@@ -41,7 +61,12 @@ $stmt = $conexion->prepare(
 $stmt->execute([$dni, $codigo]);
 $empleado = $stmt->fetch();
 
+<<<<<<< HEAD
 if ($empleado && strcasecmp($nombre, $empleado['nombre']) === 0) {
+=======
+if ($empleado && coincideNombre($nombre, $empleado['nombre'], $empleado['apellido'])) {
+
+>>>>>>> 5952cdfd06a2f3f27782926164061171dc55e063
     session_regenerate_id(true);
 
     $_SESSION['tipo']     = 'empleado';
@@ -64,7 +89,12 @@ $stmt = $conexion->prepare(
 $stmt->execute([$dni, $codigo]);
 $usuario = $stmt->fetch();
 
+<<<<<<< HEAD
 if ($usuario && strcasecmp($nombre, $usuario['nombre']) === 0) {
+=======
+if ($usuario && coincideNombre($nombre, $usuario['nombre'], $usuario['apellido'])) {
+
+>>>>>>> 5952cdfd06a2f3f27782926164061171dc55e063
     session_regenerate_id(true);
 
     $_SESSION['tipo']     = 'usuario';

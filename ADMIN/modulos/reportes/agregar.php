@@ -1,7 +1,5 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
-// Importa el archivo de conexión a la base de datos
-require_once __DIR__ . "/../../config/conexion.php";
 $conexion = Connection();
 
 // Verifica que la petición sea POST, si no lo es redirige al módulo de reportes

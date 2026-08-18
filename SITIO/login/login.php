@@ -12,8 +12,8 @@
 
         <!-- Logo y título institucional -->
         <div class="logo">
-            <img src="../assets/img/LOGO.png" alt="Logo"> <!-- imagen del logo -->
-            <h2>PATRONATO<br>DE AGUA</h2> <!-- título -->
+            <img src="../assets/img/LOGO.png" alt="Logo">
+            <h2>PATRONATO<br>DE AGUA</h2>
         </div>
 
         <!-- Formulario de inicio de sesión -->
