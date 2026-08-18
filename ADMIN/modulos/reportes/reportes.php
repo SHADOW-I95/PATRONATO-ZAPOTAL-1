@@ -16,13 +16,17 @@ if (!empty($_GET['buscar'])) {
                 ))";
 }
 
-// Trae cada reporte con sus datos en crudo (sin JOIN)
+// Trae cada reporte junto con el nombre del usuario y el texto del tipo de reporte
 $sql_reportes = "SELECT 
-  id_reporte,
-  id_usuario,
-  id_tipo_reporte,
-  descripcion_reporte
-  FROM reportes";
+  reportes.id_reporte,
+  reportes.id_usuario,
+  CONCAT(usuarios.nombre, ' ', usuarios.apellido) AS nombre_usuario,
+  reportes.id_tipo_reporte,
+  tipo_reporte.tipo_reporte,
+  reportes.descripcion_reporte
+  FROM reportes
+  INNER JOIN usuarios ON reportes.id_usuario = usuarios.id_usuario
+  INNER JOIN tipo_reporte ON reportes.id_tipo_reporte = tipo_reporte.id_tipo_reporte";
 
 if (count($where) > 0) {
     $sql_reportes .= " WHERE " . implode(" AND ", $where);
@@ -176,8 +180,8 @@ $tipos_reporte = $stmt_tipos->fetchAll();
         <thead class="thead">
             <tr>
                 <th>id_reporte</th>
-                <th>id_usuario</th>
-                <th>id_tipo_reporte</th>
+                <th>Usuario</th>
+                <th>Tipo de reporte</th>
                 <th>descripcion_reporte</th>
                 <th>ACCIONES</th>
             </tr>
@@ -187,8 +191,8 @@ $tipos_reporte = $stmt_tipos->fetchAll();
             <?php foreach ($reportes as $r): // Una fila por cada reporte que trajo la consulta ?>
             <tr>
                 <td><?= $r['id_reporte'] ?></td>
-                <td><?= $r['id_usuario'] ?></td>
-                <td><?= htmlspecialchars($r['id_tipo_reporte']) ?></td>
+                <td><?= htmlspecialchars($r['nombre_usuario']) ?></td>
+                <td><?= htmlspecialchars($r['tipo_reporte']) ?></td>
                 <td><?= htmlspecialchars($r['descripcion_reporte']) ?></td>
                 <td>
                     <!-- data-id: reporte.js lo usa para saber a cuál editar -->
