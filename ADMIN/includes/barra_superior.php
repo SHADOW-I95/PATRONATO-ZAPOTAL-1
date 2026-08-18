@@ -13,6 +13,6 @@
         <span><?= htmlspecialchars(($_SESSION['nombre'] ?? '') . ' ' . ($_SESSION['apellido'] ?? '')) ?></span>
         <!-- Nombre real del empleado que inició sesión -->
 
-        <a href="../../SITIO/login/cerrar_sesion.php" class="btn_cerrar_sesion">Cerrar sesión</a>
+        <a href="../SITIO/login/cerrar_sesion.php" class="btn_cerrar_sesion">Cerrar sesión</a>
     </div>
 </header>

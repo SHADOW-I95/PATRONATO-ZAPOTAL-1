@@ -4,5 +4,5 @@ require_once __DIR__ . '/../../config/auth.php'; // incluye el sistema de autent
 session_unset();   // elimina todas las variables de sesión
 session_destroy(); // destruye la sesión actual
 
-header("Location: ./index.php");
+header("Location: ../index.php");
 exit;
