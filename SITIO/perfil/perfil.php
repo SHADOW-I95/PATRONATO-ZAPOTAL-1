@@ -37,14 +37,13 @@ function clase_badge_perfil($nombre_estado)
 <meta charset="UTF-8">
 <title>Mi Perfil - Patronato de Agua</title>
 <link rel="stylesheet" href="perfil.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
 <div class="sidebar">
   <div class="sidebar-logo">
     <i class="fa-solid fa-droplet"></i>
-    <span>PATRONATO<br>DE AGUA</span>
+    <span>PATRONATO<br> El zapotal</span>
   </div>
 
   <p class="sidebar-titulo">MENU PRINCIPAL</p>
@@ -52,7 +51,7 @@ function clase_badge_perfil($nombre_estado)
   <a href="../index.php"><i class="fa-solid fa-house"></i> Inicio</a>
   <a href="perfil.php" class="activo"><i class="fa-solid fa-user"></i> Mi Perfil</a>
   <a href="../index.php#section4"><i class="fa-solid fa-triangle-exclamation"></i> Reportar problema</a>
-  <a href="../login/cerrar_sesion.php"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+  <a href="login/cerrar_sesion.php"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
 </div>
 
 <div class="contenido">
