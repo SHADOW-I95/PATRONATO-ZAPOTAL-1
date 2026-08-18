@@ -13,6 +13,7 @@
         <a href="?modulo=dashboard"> Dashboard</a> <!-- Enlace al módulo Dashboard -->
         <a href="?modulo=usuario"> Usuarios</a> <!-- Enlace al módulo Usuarios -->
         <a href="?modulo=agua"> Agua</a> <!-- Enlace al módulo Agua -->
+        <a href="?modulo=mapa">Mapa</a>
         <a href="?modulo=cementerio"> Cementerio</a> <!-- Enlace al módulo Cementerio -->
         <a href="?modulo=reportes"> Reportes</a> <!-- Enlace al módulo Reportes -->
 

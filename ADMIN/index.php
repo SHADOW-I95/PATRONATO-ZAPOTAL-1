@@ -42,6 +42,9 @@ require_once '../config/conexion.php';
                 elseif ($modulo == 'agua') {
                     include './modulos/agua/agua.php';
                 }
+                elseif ($modulo == 'mapa') {
+                    include './modulos/reportes/reportes.php';
+                }
                 elseif ($modulo == 'cementerio') {
                     include './modulos/cementerio/cementerio.php';
                 }
