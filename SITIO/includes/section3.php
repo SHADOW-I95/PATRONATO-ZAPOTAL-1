@@ -15,9 +15,9 @@
             <p><span>Telefono</span> 67060660</p> <!-- Etiqueta para el número de teléfono -->
         </div>
 
-        <!-- Mapa de ubicación -->
-        <div class="mapa">
-        <iframe src="https://www.google.com/maps/d/u/1/embed?mid=10VDExaT0Y16DcikGb8i01YF42cPr4Nk&ehbc=2E312F" width="640" height="480"></iframe>
-        </div>
+        <!-- Mapa de ubicación: Leaflet + OpenStreetMap (sin Google My Maps).
+             Solo muestra la ubicación general de la oficina; no expone
+             viviendas, propietarios ni ningún dato privado. -->
+        <div class="mapa" id="mapa-publico"></div>
     </div>
 </section>

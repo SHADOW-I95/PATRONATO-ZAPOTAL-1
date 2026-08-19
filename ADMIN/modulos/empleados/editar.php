@@ -1,5 +1,16 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/auth.php";
+
+// Al resto del módulo (empleados.php, ver.php, actualizar.php, eliminar.php)
+// ya se le validaba esAdministrador(); a este formulario le faltaba, y sin
+// esto cualquier empleado con sesión iniciada podía pedir este archivo
+// directamente y ver/editar los datos de otros empleados.
+if (!esAdministrador()) {
+    echo '<p>No tienes permisos para editar empleados.</p>';
+    exit;
+}
+
 $conexion = Connection();
 
 $id_empleado = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
