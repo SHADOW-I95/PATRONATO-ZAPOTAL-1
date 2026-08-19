@@ -28,6 +28,7 @@
 
 
   <script src="assets/inicio.js"></script>
+  <script src="assets/mapa_publico.js"></script>
 
 </body>
 </html>
