@@ -39,7 +39,7 @@ $ultimos_pagos = $conexion->query($sql_ultimos)->fetchAll();
 ?>
 
 <div class="dashboard-header">
-    <h1>Dashboard</h1>
+    <h1>Panel Administrativo</h1>
     <p class="dashboard-subtexto">Resumen general del Patronato Pro-Mejoramiento El Zapotal</p>
 </div>
 
