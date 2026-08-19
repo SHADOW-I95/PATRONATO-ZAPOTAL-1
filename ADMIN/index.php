@@ -66,6 +66,7 @@ require_once '../config/conexion.php';
     <script src="./assets/js/reporte.js"></script>
     <script src="./assets/js/modal.js"></script>
     <script src="./assets/js/agua.js"></script>
+    <script src="./assets/js/empleados.js"></script>
 
 </body>
 </html>
