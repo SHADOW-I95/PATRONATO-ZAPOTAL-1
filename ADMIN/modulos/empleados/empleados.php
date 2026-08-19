@@ -1,21 +1,34 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/auth.php";
+
+if (!esAdministrador()) {
+    echo '<p>No tienes permisos para acceder a este módulo. Solo el Administrador puede gestionar empleados.</p>';
+    exit;
+}
+
 $conexion = Connection();
 
 // Lista de empleados, con su edad calculada igual que en el módulo de usuarios
 $sql_empleados = "SELECT
-  id_empleado,
-  dni,
-  nombre,
-  apellido,
-  telefono,
-  codigo,
-  TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) AS edad
-  FROM empleados
-  ORDER BY nombre";
+  e.id_empleado,
+  e.dni,
+  e.nombre, 
+  e.apellido,
+  e.telefono,
+  e.codigo,
+  e.id_rol,
+  r.nombre_rol,
+  TIMESTAMPDIFF(YEAR, e.fecha_nacimiento, CURDATE()) AS edad
+  FROM empleados e
+  LEFT JOIN roles r ON e.id_rol = r.id_roles
+  ORDER BY e.nombre";
 $stmt_empleados = $conexion->prepare($sql_empleados);
 $stmt_empleados->execute();
 $empleados = $stmt_empleados->fetchAll();
+
+// Roles disponibles para el <select> del formulario (Empleado / Administrador)
+$roles = $conexion->query("SELECT id_roles, nombre_rol FROM roles WHERE id_roles IN (2, 3)")->fetchAll();
 ?>
 
 <div class="modulo_header">
@@ -63,6 +76,16 @@ $empleados = $stmt_empleados->fetchAll();
                 <div class="campo">
                     <label>Teléfono</label>
                     <input type="text" name="telefono" maxlength="30">
+                </div>
+                <div class="campo">
+                    <label>Rol</label>
+                    <select name="id_rol" required>
+                        <?php foreach ($roles as $r): ?>
+                        <option value="<?= $r['id_roles'] ?>" <?= $r['id_roles'] == 2 ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($r['nombre_rol']) ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
             </div>
 
@@ -117,6 +140,7 @@ $empleados = $stmt_empleados->fetchAll();
                 <th>EDAD</th>
                 <th>TELEFONO</th>
                 <th>CODIGO</th>
+                <th>ROL</th>
                 <th>ACCIONES</th>
             </tr>
         </thead>
@@ -131,6 +155,11 @@ $empleados = $stmt_empleados->fetchAll();
                 <td><?= htmlspecialchars($e['edad'] ?? '—') ?></td>
                 <td><?= htmlspecialchars($e['telefono'] ?? '—') ?></td>
                 <td><?= htmlspecialchars($e['codigo']) ?></td>
+                <td>
+                    <span class="badge <?= $e['id_rol'] == 3 ? 'badge-pagado' : 'badge-pendiente' ?>">
+                        <?= htmlspecialchars($e['nombre_rol'] ?? '—') ?>
+                    </span>
+                </td>
                 <td>
                     <button class="btn-editar" data-id="<?= $e['id_empleado'] ?>">
                         Editar

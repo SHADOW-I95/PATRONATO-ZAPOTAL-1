@@ -43,6 +43,7 @@
 
             <!-- Botón de envío -->
             <button id="Ingresar" type="submit">Ingresar</button>
+            <a class="salirbtn" href="../index.php">Salir</a>
         </form>
     </div>
 

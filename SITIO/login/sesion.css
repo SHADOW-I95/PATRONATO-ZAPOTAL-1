@@ -98,7 +98,6 @@ input:focus{
 }
 
 button{
-    width:100%; /* ocupa todo el ancho */
     padding:12px;
     background:#4CAF50; /* verde */
     border:none;
@@ -106,6 +105,18 @@ button{
     font-size:18px;
     border-radius:5px;
     cursor:pointer;
+}
+
+.salirbtn{
+    padding:12px;
+    background:#4CAF50; /* verde */
+    border:none;
+    color:white;
+    font-size:18px;
+    border-radius:5px;
+    cursor:pointer;
+    text-decoration: none;
+
 }
 
 button:hover{

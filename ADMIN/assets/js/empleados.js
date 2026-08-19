@@ -25,26 +25,30 @@ const textoDeCadaErrorEmpleado = {
     dni_duplicado: "Ya existe un empleado registrado con ese número de identidad.",
     codigo_duplicado: "Ese código de acceso ya está en uso por otro empleado.",
     dato_duplicado: "Alguno de los datos ingresados ya existe.",
+    sin_otro_administrador: "No puedes quitarle el rol de Administrador: no quedaría ningún otro.",
+    sin_permiso: "No tienes permisos para hacer esto.",
     error_guardando: "Ocurrió un error al guardar. Intenta de nuevo."
 };
 
-formularioNuevoEmpleado.addEventListener("submit", (e) => {
-    e.preventDefault();
+if (formularioNuevoEmpleado) {
+    formularioNuevoEmpleado.addEventListener("submit", (e) => {
+        e.preventDefault();
 
-    fetch(formularioNuevoEmpleado.action, {
-        method: "POST",
-        body: new FormData(formularioNuevoEmpleado)
-    })
-        .then((respuesta) => respuesta.json())
-        .then((datos) => {
-            if (datos.ok) {
-                alert("Empleado guardado correctamente.");
-                window.location.reload();
-            } else {
-                alert(textoDeCadaErrorEmpleado[datos.error] || "No se pudo guardar. Revisa los datos.");
-            }
-        });
-});
+        fetch(formularioNuevoEmpleado.action, {
+            method: "POST",
+            body: new FormData(formularioNuevoEmpleado)
+        })
+            .then((respuesta) => respuesta.json())
+            .then((datos) => {
+                if (datos.ok) {
+                    alert("Empleado guardado correctamente.");
+                    window.location.reload();
+                } else {
+                    alert(textoDeCadaErrorEmpleado[datos.error] || "No se pudo guardar. Revisa los datos.");
+                }
+            });
+    });
+}
 
 /* ==================== Modal "Ver" ==================== */
 const modalVerEmpleado = document.getElementById("modal_ver");

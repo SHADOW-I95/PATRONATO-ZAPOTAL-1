@@ -1,5 +1,13 @@
 <?php
 require_once '../config/conexion.php';
+//require_once '../config/auth.php';
+
+// Antes este archivo no verificaba nada: cualquiera que escribiera la URL
+// entraba al panel sin haber iniciado sesión.
+//if (!esEmpleado()) {
+  //  header('Location: ../SITIO/login/login.php');
+  //  exit;
+//}
 ?>
 
 <!doctype html>
@@ -41,9 +49,6 @@ require_once '../config/conexion.php';
                 elseif ($modulo == 'agua') {
                     include './modulos/agua/agua.php';
                 }
-                elseif ($modulo == 'mapa') {
-                    include './modulos/reportes/reportes.php';
-                }
                 elseif ($modulo == 'cementerio') {
                     include './modulos/cementerio/cementerio.php';
                 }
@@ -52,6 +57,9 @@ require_once '../config/conexion.php';
                 }
                 elseif ($modulo == 'empleados') {
                     include './modulos/empleados/empleados.php';
+                }
+                elseif ($modulo == 'mapa') {
+                    include './modulos/mapa/mapa.php';
                 }
                 elseif ($modulo == 'configuracion') {
                     include './modulos/configuracion/configuracion.php';
@@ -66,7 +74,7 @@ require_once '../config/conexion.php';
     <script src="./assets/js/reporte.js"></script>
     <script src="./assets/js/modal.js"></script>
     <script src="./assets/js/agua.js"></script>
-    <script src="./assets/js/empleados.js"></script>
+    <script src="./assets/js/empleado.js"></script>
 
 </body>
 </html>

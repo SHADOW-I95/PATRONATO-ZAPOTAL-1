@@ -1,8 +1,15 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/auth.php";
 $conexion = Connection();
 
 header('Content-Type: application/json; charset=utf-8');
+
+if (!esAdministrador()) {
+    http_response_code(403);
+    echo json_encode(["ok" => false, "error" => "sin_permiso"]);
+    exit;
+}
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     echo json_encode(["ok" => false, "error" => "metodo_invalido"]);
@@ -23,6 +30,11 @@ $apellido         = trim($_POST["apellido"] ?? '');
 $fecha_nacimiento = !empty($_POST["fecha_nacimiento"]) ? $_POST["fecha_nacimiento"] : null;
 $telefono         = !empty($_POST["telefono"]) ? $_POST["telefono"] : null;
 
+$id_rol = (int) ($_POST["id_rol"] ?? 2);
+if ($id_rol !== 3) {
+    $id_rol = 2;
+}
+
 // =======================
 // VALIDACIONES ANTES DE GUARDAR NADA
 // =======================
@@ -41,6 +53,17 @@ if ($stmtCodigo->fetchColumn() > 0) {
     exit;
 }
 
+// Si se le está quitando el rol de Administrador a este empleado, hay que
+// asegurarse de que quede al menos otro administrador en el sistema.
+if ($id_rol !== 3) {
+    $stmtOtrosAdmins = $conexion->prepare("SELECT COUNT(*) FROM empleados WHERE id_rol = 3 AND id_empleado != ?");
+    $stmtOtrosAdmins->execute([$id_empleado]);
+    if ($stmtOtrosAdmins->fetchColumn() == 0) {
+        echo json_encode(["ok" => false, "error" => "sin_otro_administrador"]);
+        exit;
+    }
+}
+
 // =======================
 // GUARDAR
 // =======================
@@ -53,11 +76,12 @@ try {
                 nombre = ?,
                 apellido = ?,
                 fecha_nacimiento = ?,
-                telefono = ?
+                telefono = ?,
+                id_rol = ?
             WHERE id_empleado = ?";
 
     $stmt = $conexion->prepare($sql);
-    $stmt->execute([$dni, $codigo, $nombre, $apellido, $fecha_nacimiento, $telefono, $id_empleado]);
+    $stmt->execute([$dni, $codigo, $nombre, $apellido, $fecha_nacimiento, $telefono, $id_rol, $id_empleado]);
 
     echo json_encode(["ok" => true]);
     exit;

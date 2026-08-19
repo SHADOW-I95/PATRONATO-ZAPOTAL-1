@@ -1,8 +1,15 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/auth.php";
 $conexion = Connection();
 
 header('Content-Type: application/json; charset=utf-8');
+
+if (!esAdministrador()) {
+    http_response_code(403);
+    echo json_encode(["ok" => false, "error" => "sin_permiso"]);
+    exit;
+}
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     echo json_encode(["ok" => false, "error" => "metodo_invalido"]);
@@ -15,6 +22,12 @@ $nombre           = trim($_POST["nombre"] ?? '');
 $apellido         = trim($_POST["apellido"] ?? '');
 $fecha_nacimiento = !empty($_POST["fecha_nacimiento"]) ? $_POST["fecha_nacimiento"] : null;
 $telefono         = !empty($_POST["telefono"]) ? $_POST["telefono"] : null;
+
+// Solo se aceptan 2 (Empleado) o 3 (Administrador); cualquier otra cosa cae en Empleado
+$id_rol = (int) ($_POST["id_rol"] ?? 2);
+if ($id_rol !== 3) {
+    $id_rol = 2;
+}
 
 // =======================
 // VALIDACIONES ANTES DE GUARDAR NADA
@@ -40,13 +53,11 @@ if ($stmtCodigo->fetchColumn() > 0) {
 
 try {
 
-    // id_rol = 2 ("Empleado"): este formulario es exclusivo para personal del
-    // patronato, no hay selector de rol porque por ahora solo existe este.
     $sql = "INSERT INTO empleados (id_rol, dni, nombre, apellido, fecha_nacimiento, telefono, codigo)
-            VALUES (2, ?, ?, ?, ?, ?, ?)";
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conexion->prepare($sql);
-    $stmt->execute([$dni, $nombre, $apellido, $fecha_nacimiento, $telefono, $codigo]);
+    $stmt->execute([$id_rol, $dni, $nombre, $apellido, $fecha_nacimiento, $telefono, $codigo]);
 
     echo json_encode(["ok" => true]);
     exit;
