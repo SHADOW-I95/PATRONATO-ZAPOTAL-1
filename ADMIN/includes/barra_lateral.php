@@ -1,4 +1,8 @@
-<?php require_once __DIR__ . '/../../config/auth.php'; ?>
+<?php
+require_once __DIR__ . '/../../config/auth.php';
+// Módulo actual, para resaltar en qué sección está parado el usuario
+$modulo_actual = $_GET['modulo'] ?? 'dashboard';
+?>
 <div class="barraLateral">
     <!-- Contenedor principal de toda la barra lateral -->
 
@@ -11,19 +15,20 @@
     <nav class="barraNavegacion">
         <!-- Menú de navegación principal -->
 
-        <a href="?modulo=dashboard">Panel</a> <!-- Enlace al módulo Dashboard -->
-        <a href="?modulo=usuario"> Usuarios</a> <!-- Enlace al módulo Usuarios -->
-        <a href="?modulo=agua"> Agua</a> <!-- Enlace al módulo Agua -->
-        <a href="?modulo=reportes"> Reportes</a> <!-- Enlace al módulo Reportes -->
-        <a href="?modulo=mapa"> Mapa</a> <!-- Enlace al módulo Mapa (empleados y administradores) -->
+        <a href="?modulo=dashboard" class="<?= $modulo_actual === 'dashboard' ? 'activo' : '' ?>">Panel</a>
+        <a href="?modulo=usuario" class="<?= $modulo_actual === 'usuario' ? 'activo' : '' ?>">Usuarios</a>
+        <a href="?modulo=agua" class="<?= $modulo_actual === 'agua' ? 'activo' : '' ?>">Agua</a>
+        <a href="?modulo=reportes" class="<?= $modulo_actual === 'reportes' ? 'activo' : '' ?>">Reportes</a>
+        <a href="?modulo=mapa" class="<?= $modulo_actual === 'mapa' ? 'activo' : '' ?>">Mapa</a>
+        <!-- Mapa: visible para empleados y administradores -->
 
         <hr> <!-- Línea divisoria para separar secciones -->
 
         <?php if (esAdministrador()): ?>
         <!-- Solo el Administrador ve y puede entrar al módulo de Empleados -->
-        <a href="?modulo=empleados">Empleados</a>
+        <a href="?modulo=empleados" class="<?= $modulo_actual === 'empleados' ? 'activo' : '' ?>">Empleados</a>
         <?php endif; ?>
 
-        <a href="?modulo=configuracion"> Configuracion</a> <!-- Enlace al módulo Configuración -->
+        <a href="?modulo=configuracion" class="<?= $modulo_actual === 'configuracion' ? 'activo' : '' ?>">Configuracion</a>
     </nav>
 </div>
