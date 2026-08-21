@@ -1,63 +1,70 @@
 .wrap {
-  background: transparent; /* Fondo transparente para el contenedor principal */
-  border-radius: 10px; /* Bordes redondeados de 10px */
-  padding-top: 30px; /* Espacio superior interno */
-  max-width: 50%; /* Ancho máximo del contenedor: la mitad de la pantalla */
+  background: transparent;
+  border-radius: 10px;
+  padding-top: 20px;
+  width: 100%;
 }
 
 .track {
-  display: flex; /* Activa flexbox para organizar los ítems en fila */
-  gap: 14px; /* Espacio entre cada ítem */
-  overflow-x: auto; /* Permite desplazamiento horizontal */
-  scroll-behavior: smooth; /* Desplazamiento suave al hacer scroll */
-  padding-bottom: 4px; /* Espacio inferior interno */
-  scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 4px 4px 10px 4px;
+  scrollbar-width: none;
 }
 
 .track::-webkit-scrollbar {
-  display: none; /* Oculta la barra de desplazamiento en navegadores WebKit */
+  display: none;
 }
 
 .item {
-  flex: 0 0 160px; /* Cada ítem ocupa 160px de ancho fijo */
-  text-align: center; /* Centra el contenido dentro del ítem */
-  border: 2px solid hsl(0, 0%, 13%); /* Borde gris oscuro */
-  border-radius: 20px; /* Bordes redondeados de 20px */
-  justify-items: center; /* Centra elementos en la cuadrícula (aunque aquí es flex) */
+  flex: 0 0 150px;
+  text-align: center;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 10px;
+  background: var(--blanco);
+  box-shadow: var(--sombra-sm);
 }
 
 .item img {
-  width: 160px; /* Ancho fijo de la imagen */
-  height: 220px; /* Alto fijo de la imagen */
-  object-fit: cover; /* Ajusta la imagen recortando para llenar el espacio */
-  border-radius: 8px; /* Bordes redondeados de la imagen */
-  display: block; /* La imagen se muestra como bloque */
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: var(--radio-sm);
+  display: block;
 }
 
 .item span {
-  display: block; /* El texto se muestra en bloque debajo de la imagen */
-  margin-top: 8px; /* Espacio superior respecto a la imagen */
-  color: #000; /* Texto negro */
-  font-size: 13px; /* Tamaño de fuente pequeño */
+  display: block;
+  margin-top: 10px;
+  color: var(--texto);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .btns {
-  display: flex; /* Contenedor de botones en fila */
-  gap: 12px; /* Espacio entre botones */
-  margin-top: 16px; /* Espacio superior respecto al track */
-  justify-content: center; /* Centra los botones horizontalmente */
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: center;
 }
 
 .btns button {
-  background: #222; /* Fondo gris oscuro */
-  color: #fff; /* Texto blanco */
-  border: 1px solid #444; /* Borde gris más claro */
-  padding: 6px 18px; /* Espaciado interno del botón */
-  border-radius: 20px; /* Bordes redondeados */
-  cursor: pointer; /* Cursor tipo mano al pasar encima */
-  font-size: 14px; /* Tamaño de fuente */
+  background: var(--blanco);
+  color: var(--primario);
+  border: 1px solid var(--primario);
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .btns button:hover {
-  background: #333;
+  background: var(--primario);
+  color: #fff;
 }

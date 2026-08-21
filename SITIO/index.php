@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/inicio.css">
     <link rel="stylesheet" href="assets/css/burger.css">
     <link rel="stylesheet" href="assets/css/header.css">
@@ -22,8 +23,9 @@
   include 'includes/header.php';
   include 'includes/section1.php';
   include 'includes/section2.php';
-  include 'includes/section4.php';
   include 'includes/section3.php';
+  include 'includes/section4.php';
+  include 'includes/footer.php';
   ?>
 
 

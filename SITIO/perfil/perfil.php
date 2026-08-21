@@ -35,15 +35,19 @@ function clase_badge_perfil($nombre_estado)
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Mi Perfil - Patronato de Agua</title>
+<title>Mi Perfil - Patronato el Zapotal</title>
+<link rel="stylesheet" href="../assets/css/variables.css">
 <link rel="stylesheet" href="perfil.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-<div class="sidebar">
+<div class="overlay-sidebar" id="OVERLAY_SIDEBAR" onclick="cerrarSidebar()"></div>
+
+<div class="sidebar" id="SIDEBAR">
   <div class="sidebar-logo">
     <i class="fa-solid fa-droplet"></i>
-    <span>PATRONATO<br> El zapotal</span>
+    <span>PATRONATO<br> El Zapotal</span>
   </div>
 
   <p class="sidebar-titulo">MENU PRINCIPAL</p>
@@ -51,12 +55,15 @@ function clase_badge_perfil($nombre_estado)
   <a href="../index.php"><i class="fa-solid fa-house"></i> Inicio</a>
   <a href="perfil.php" class="activo"><i class="fa-solid fa-user"></i> Mi Perfil</a>
   <a href="../index.php#section4"><i class="fa-solid fa-triangle-exclamation"></i> Reportar problema</a>
-  <a href="login/cerrar_sesion.php"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+  <a href="../login/cerrar_sesion.php"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
 </div>
 
 <div class="contenido">
 
   <div class="topbar">
+    <button class="btn-menu-movil" id="BTN_MENU_MOVIL" onclick="abrirSidebar()" aria-label="Abrir menú">
+      <i class="fa-solid fa-bars"></i>
+    </button>
     <div class="topbar-derecha">
       <div class="topbar-usuario">
         <div class="topbar-usuario-texto">
@@ -141,7 +148,94 @@ function clase_badge_perfil($nombre_estado)
     <?php endif; ?>
   </div>
 
+  <div class="seccion">
+    <h3><i class="fa-solid fa-key"></i> Cambiar mi código de acceso</h3>
+    <p class="seccion-ayuda">
+      Este es el código que usas junto a tu nombre y DNI para iniciar sesión.
+      Puedes cambiarlo por uno que te sea más fácil de recordar.
+    </p>
+
+    <form id="form_cambiar_codigo" class="form-codigo">
+      <div class="campo-codigo">
+        <label for="codigo_actual">Código actual</label>
+        <input type="text" id="codigo_actual" name="codigo_actual" required autocomplete="off">
+      </div>
+      <div class="campo-codigo">
+        <label for="codigo_nuevo">Código nuevo</label>
+        <input type="text" id="codigo_nuevo" name="codigo_nuevo" required minlength="4" maxlength="50" autocomplete="off">
+      </div>
+      <div class="campo-codigo">
+        <label for="codigo_nuevo_confirmar">Confirmar código nuevo</label>
+        <input type="text" id="codigo_nuevo_confirmar" name="codigo_nuevo_confirmar" required minlength="4" maxlength="50" autocomplete="off">
+      </div>
+
+      <button type="submit" class="btn-guardar-codigo">
+        <i class="fa-solid fa-floppy-disk"></i> Guardar código nuevo
+      </button>
+
+      <p id="mensaje_codigo" class="mensaje-codigo"></p>
+    </form>
+  </div>
+
 </div>
+
+<script>
+document.getElementById('form_cambiar_codigo').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const mensaje = document.getElementById('mensaje_codigo');
+  mensaje.className = 'mensaje-codigo';
+  mensaje.textContent = '';
+
+  const nuevo = document.getElementById('codigo_nuevo').value.trim();
+  const confirmar = document.getElementById('codigo_nuevo_confirmar').value.trim();
+
+  if (nuevo !== confirmar) {
+    mensaje.textContent = 'El código nuevo y la confirmación no coinciden.';
+    mensaje.classList.add('mensaje-error');
+    return;
+  }
+
+  fetch('cambiar_codigo.php', {
+    method: 'POST',
+    body: new FormData(this)
+  })
+    .then(r => r.json())
+    .then(datos => {
+      const textos = {
+        codigo_actual_incorrecto: 'El código actual no es correcto.',
+        codigo_muy_corto: 'El código nuevo debe tener al menos 4 caracteres.',
+        codigo_duplicado: 'Ese código ya lo está usando otra persona, elige otro.',
+        sesion_invalida: 'Tu sesión expiró, vuelve a iniciar sesión.',
+        error_guardando: 'Ocurrió un error al guardar. Intenta de nuevo.'
+      };
+
+      if (datos.ok) {
+        mensaje.textContent = 'Tu código se actualizó correctamente.';
+        mensaje.classList.add('mensaje-exito');
+        this.reset();
+      } else {
+        mensaje.textContent = textos[datos.error] || 'No se pudo guardar el código.';
+        mensaje.classList.add('mensaje-error');
+      }
+    })
+    .catch(() => {
+      mensaje.textContent = 'Error de conexión, intenta de nuevo.';
+      mensaje.classList.add('mensaje-error');
+    });
+});
+</script>
+
+<script>
+function abrirSidebar() {
+  document.getElementById('SIDEBAR').classList.add('abierto');
+  document.getElementById('OVERLAY_SIDEBAR').classList.add('visible');
+}
+function cerrarSidebar() {
+  document.getElementById('SIDEBAR').classList.remove('abierto');
+  document.getElementById('OVERLAY_SIDEBAR').classList.remove('visible');
+}
+</script>
 
 </body>
 </html>

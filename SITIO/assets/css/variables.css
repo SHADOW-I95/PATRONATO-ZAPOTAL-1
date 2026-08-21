@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Paleta y tokens de diseño compartidos por todo el sitio público (SITIO).
+   Mismos tonos que el panel ADMIN, para que la marca se vea consistente
+   en todo el sistema.
+   ========================================================================== */
+:root {
+  /* Color de marca */
+  --primario: #2563eb;
+  --primario-oscuro: #1d4ed8;
+  --primario-claro: #dbeafe;
+  --acento: #0ea5e9; /* celeste, para detalles relacionados con "agua" */
+
+  /* Texto y fondos neutros */
+  --texto: #1e293b;
+  --texto-suave: #64748b;
+  --fondo: #f4f6fb;
+  --borde: #e2e8f0;
+  --blanco: #ffffff;
+
+  /* Estados */
+  --exito: #16a34a;
+  --exito-fondo: #dcfce7;
+  --peligro: #dc2626;
+  --peligro-fondo: #fee2e2;
+  --advertencia: #d97706;
+  --advertencia-fondo: #fef3c7;
+
+  /* Geometría */
+  --radio-sm: 8px;
+  --radio: 14px;
+  --radio-lg: 22px;
+
+  /* Sombras */
+  --sombra-sm: 0 1px 4px rgba(15, 23, 42, 0.06);
+  --sombra: 0 4px 16px rgba(15, 23, 42, 0.08);
+  --sombra-lg: 0 20px 50px rgba(15, 23, 42, 0.18);
+
+  /* Tipografía */
+  --fuente: "Segoe UI", "Inter", system-ui, -apple-system, Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--fuente);
+  color: var(--texto);
+}
+
+/* Deja un pequeño respiro debajo del header sticky al saltar a una sección
+   por ancla (#section2, #section3, etc.) para que el título no quede
+   pegado justo detrás del header. */
+section[id] {
+  scroll-margin-top: 90px;
+}

@@ -33,9 +33,10 @@
 
 <!--MENU NAV-->
 <nav class="menu" id="MENU">
+    <span class="menu-titulo">Menú</span>
     <ul>
-        <li class="nav-li"><a href="#section2" onclick="cerrarMenu()">Quienes somos</a></li>
+        <li class="nav-li"><a href="#section2" onclick="cerrarMenu()">Quiénes somos</a></li>
+        <li class="nav-li"><a href="#section3" onclick="cerrarMenu()">Ubicación de oficinas</a></li>
         <li class="nav-li"><a href="#section4" onclick="cerrarMenu()">Reportar queja</a></li>
-        <li class="nav-li"><a href="#section3" onclick="cerrarMenu()">Ubicacion de oficinas</a></li>
     </ul>
 </nav>

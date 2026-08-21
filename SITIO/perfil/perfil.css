@@ -236,3 +236,143 @@ body{
 .badge-pagado    { background: #dcfce7; color: #166534; }
 .badge-pendiente { background: #fef3c7; color: #92400e; }
 .badge-mora      { background: #fee2e2; color: #991b1b; }
+/* ===== Cambiar código de acceso ===== */
+.seccion-ayuda {
+  color: #6b7280;
+  font-size: 13px;
+  margin: 0 0 18px 0;
+  max-width: 600px;
+}
+
+.form-codigo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  max-width: 700px;
+}
+
+.campo-codigo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 160px;
+}
+
+.campo-codigo label {
+  font-size: 12.5px;
+  color: #374151;
+  font-weight: 600;
+}
+
+.campo-codigo input {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.campo-codigo input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.btn-guardar-codigo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 11px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-guardar-codigo:hover {
+  background: #1d4ed8;
+}
+
+.mensaje-codigo {
+  width: 100%;
+  margin: 4px 0 0 0;
+  font-size: 13.5px;
+  min-height: 1em;
+}
+
+.mensaje-codigo.mensaje-exito {
+  color: #166534;
+}
+
+.mensaje-codigo.mensaje-error {
+  color: #991b1b;
+}
+
+/* ===== Responsivo: sidebar tipo "cajón" en móvil ===== */
+.btn-menu-movil {
+  display: none;
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  color: #1f2937;
+  cursor: pointer;
+}
+
+.overlay-sidebar {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  z-index: 1998;
+}
+.overlay-sidebar.visible {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 1999;
+  }
+  .sidebar.abierto {
+    transform: translateX(0);
+  }
+  .contenido {
+    margin-left: 0;
+    padding: 16px;
+  }
+  .btn-menu-movil {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .topbar {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 640px) {
+  .perfil-card {
+    padding: 20px;
+  }
+  .seccion {
+    padding: 18px;
+  }
+  .form-codigo {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .tabla_datos {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

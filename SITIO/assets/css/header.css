@@ -1,74 +1,114 @@
 .header {
-  display: flex; /* Activa flexbox para organizar elementos en fila */
-  justify-content: space-between; /* Espacia los elementos a los extremos */
-  align-items: center; /* Centra verticalmente los elementos */
-  padding: 20px; /* Espaciado interno */
-  background-color: #ffffff; /* Fondo blanco */
-  height: 10vh; /* Altura del header: 10% de la ventana */
-  position: sticky; /* Se mantiene fijo al hacer scroll */
-  top: 0; /* Pegado arriba */
-  left: 0; /* Pegado a la izquierda */
-  width: auto; /* Ancho automático */
-  z-index: 1000; /* Se asegura de estar por encima de otros elementos */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 5vw;
+  background-color: var(--blanco);
+  min-height: 76px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: var(--sombra-sm);
 }
 
 .header-div1 {
-  display: flex; /* Contenedor en fila */
-  width: 50%; /* Ocupa la mitad del header */
-  justify-content: space-evenly; /* Distribuye elementos con espacio uniforme */
-  height: 100%; /* Ocupa toda la altura del header */
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .header-div1 img {
-  height: 100%; /* Imagen ocupa toda la altura disponible */
+  height: 48px;
+  width: auto;
 }
 
 .title {
-  font-size: 5vh; /* Tamaño de fuente relativo a la altura de la ventana */
-  color: #000; /* Texto negro */
+  font-size: 18px;
+  line-height: 1.25;
+  color: var(--texto);
+  font-weight: 700;
+}
+
+.title-spam {
+  color: var(--primario);
 }
 
 .header-div2 {
-  display: flex; /* Contenedor en fila */
-  gap: 30px; /* Espacio entre elementos */
-  align-items: center; /* Centra verticalmente los elementos */
+  display: flex;
+  gap: 14px;
+  align-items: center;
 }
 
 /* Botón iniciar sesión */
 .header-seccion {
-  width: 140px; /* Ancho fijo */
-  height: 5vh; /* Altura relativa */
-  border: none; /* Sin borde */
-  border-radius: 5px; /* Bordes redondeados */
-  color: #ffffff; /* Texto blanco */
-  background-color: blue; /* Fondo azul */
-  cursor: pointer; /* Cursor tipo mano */
+  padding: 0 20px;
+  height: 42px;
+  border: none;
+  border-radius: var(--radio-sm);
+  color: var(--blanco);
+  background-color: var(--primario);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.header-seccion:hover {
+  background-color: var(--primario-oscuro);
+}
+
+.header-seccion:active {
+  transform: scale(0.97);
 }
 
 /* Botón de perfil cuando el usuario inicia sesión */
 .perfil-btn {
-  width: 45px; /* Botón circular */
-  height: 45px;
-  border-radius: 50%; /* Forma circular */
-  background-color: blue; /* Fondo azul */
-  color: white; /* Texto blanco */
-  display: flex; /* Flexbox para centrar contenido */
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--primario);
+  color: var(--blanco);
+  display: flex;
   justify-content: center;
   align-items: center;
-  text-decoration: none; /* Quita subrayado si es enlace */
-  font-size: 22px; /* Tamaño de fuente */
-  font-weight: bold; /* Texto en negrita */
-  cursor: pointer; /* Cursor tipo mano */
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
-/* Efecto al pasar el mouse */
 .perfil-btn:hover {
-  background-color: darkblue; /* Cambia a azul más oscuro */
+  background-color: var(--primario-oscuro);
+  transform: scale(1.05);
 }
 
-/* Botón hamburguesa */
+/* Botón hamburguesa: solo el ícono cambia de estilo aquí, la animación
+   de las 3 barras vive en burger.css */
 .hamburguesa {
-  border: none; /* Sin borde */
-  background: transparent; /* Fondo transparente */
-  cursor: pointer; /* Cursor tipo mano */
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: 12px 5vw;
+  }
+  .title {
+    font-size: 15px;
+  }
+  .header-div1 img {
+    height: 38px;
+  }
+  .header-seccion {
+    padding: 0 14px;
+    font-size: 13px;
+  }
 }

@@ -14,6 +14,8 @@ function mostrarPassword() {
 const formulario = document.getElementById("formLogin"); // obtiene el formulario
 
 formulario.addEventListener("submit", (e) => {
+    e.preventDefault(); // siempre evitamos el envío normal: lo hacemos por fetch
+
     let valido = true; // bandera de validación
 
     const nombre = document.getElementById("nombre"); // campo nombre
@@ -37,9 +39,39 @@ formulario.addEventListener("submit", (e) => {
         valido = false;
     }
 
-    if (!valido) {
-        e.preventDefault(); // evita envío si hay errores
-    }
+    if (!valido) return;
+
+    // Envío por fetch: así, si el login falla, el mensaje del servidor
+    // aparece directo en la tarjeta de login en vez de dejar al usuario
+    // en una página en blanco con texto sin estilo.
+    const boton = document.getElementById("Ingresar");
+    boton.disabled = true;
+    boton.textContent = "Ingresando...";
+
+    fetch(formulario.action, {
+        method: "POST",
+        body: new FormData(formulario),
+    })
+        .then((respuesta) => {
+            if (respuesta.redirected) {
+                // Login correcto: el servidor redirige a perfil.php o al ADMIN
+                window.location.href = respuesta.url;
+                return null;
+            }
+            return respuesta.text();
+        })
+        .then((texto) => {
+            if (texto !== null) {
+                mostrarError("errorServidor", texto);
+                boton.disabled = false;
+                boton.textContent = "Ingresar";
+            }
+        })
+        .catch(() => {
+            mostrarError("errorServidor", "Error de conexión. Intenta de nuevo.");
+            boton.disabled = false;
+            boton.textContent = "Ingresar";
+        });
 });
 
 function mostrarError(idSpan, mensaje) {
@@ -50,4 +82,3 @@ function mostrarError(idSpan, mensaje) {
 function limpiarErrores() {
     document.querySelectorAll(".error").forEach(span => span.textContent = "");
 }
-

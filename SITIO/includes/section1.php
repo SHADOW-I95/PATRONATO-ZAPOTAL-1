@@ -7,7 +7,7 @@
             </h1>
             <p>
                 comprometidos con el bienestar de todos <br> 
-                asegurando un sericio eficiente y sostenible
+                asegurando un servicio eficiente y sostenible
             </p>
         </div>
 
@@ -27,7 +27,7 @@
             <div class="section-cards">
                 <img src="./assets/img/servicio-al-cliente.png" alt="decorativo"> <!-- ícono de atención -->
                 <div>
-                    <h4>Atencion rapida</h4>
+                    <h4>Atención rápida</h4>
                     <p>respuesta eficiente</p>
                 </div>
             </div>
@@ -36,8 +36,8 @@
             <div class="section-cards">
                 <img src="./assets/img/transparencia.png" alt="decorativo"> <!-- ícono de transparencia -->
                 <div>
-                    <h4>Trasparencia</h4>
-                    <p>gestion responsable</p>
+                    <h4>Transparencia</h4>
+                    <p>gestión responsable</p>
                 </div>
             </div>
 

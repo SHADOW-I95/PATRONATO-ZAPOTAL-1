@@ -1,45 +1,87 @@
-/*====QUIENES SOMOS======*/
+/*==== QUIENES SOMOS ======*/
 
 .section-2 {
-  background-color: #ffffff; /* fondo blanco */
-  display: flex; /* usa flexbox */
-  flex-direction: column; /* organiza elementos en columna */
-  padding: 10%; /* espacio interno */
-  margin: 1px; /* pequeño margen externo */
-  gap: 90px; /* separación entre elementos */
-  height: 115vh; /* altura relativa al viewport */
+  background-color: var(--blanco);
+  display: flex;
+  flex-direction: column;
+  padding: 70px 6vw;
+  gap: 50px;
 }
 
 .section-gap {
-  gap: 28px; /* separación entre elementos internos */
-  display: flex; /* usa flexbox */
-  flex-direction: column; /* organiza en columna */
+  gap: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.full-section2-card1 h2 {
+  font-size: clamp(24px, 3vw, 32px);
 }
 
 .full-section2-card1 span {
-  border: 2px solid hsl(108, 100%, 50%); /* borde verde */
-  border-radius: 30px; /* esquinas redondeadas */
-  display: flex; /* usa flexbox */
-  width: 45px; /* ancho fijo */
+  border: 3px solid var(--acento);
+  border-radius: 30px;
+  display: block;
+  width: 60px;
+  margin-top: 8px;
 }
 
 .full-section2-card2 {
-  display: flex; /* usa flexbox */
-  justify-content: center; /* centra horizontalmente */
-  height: 60vh; /* altura relativa al viewport */
-  gap: 100px; /* separación amplia entre elementos */
+  display: flex;
+  justify-content: center;
 }
 
 .center-section2 {
-  justify-items: center; /* centra elementos en grid/flex */
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
 }
 
-.full-section2-img {
-  height: 50%; /* imagen ocupa la mitad de la altura disponible */
+.center-section2 > p {
+  color: var(--texto-suave);
+  line-height: 1.7;
+  font-size: 15px;
+  max-width: 700px;
+  margin: 0 auto 30px auto;
 }
 
+/* Tarjetas de misión, visión y valores */
 .cards-fondo-section2 {
-  display: flex; /* usa flexbox */
-  justify-content: space-evenly; /* distribuye elementos con espacio uniforme */
-  height: 23vh; /* altura relativa al viewport */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cards3-section2 {
+  flex: 1 1 220px;
+  max-width: 280px;
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 26px 22px;
+  text-align: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cards3-section2:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra);
+}
+
+.cards3-section2 img {
+  height: 44px;
+  margin-bottom: 12px;
+}
+
+.cards3-section2 h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--primario);
+}
+
+.cards3-section2 p {
+  font-size: 13.5px;
+  color: var(--texto-suave);
+  line-height: 1.5;
 }

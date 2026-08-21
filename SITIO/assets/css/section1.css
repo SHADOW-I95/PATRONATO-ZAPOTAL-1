@@ -1,54 +1,99 @@
 .section-1 {
-  background-image: url(../img/fondo-lago.jpeg); /* imagen de fondo */
-  color: #fff; /* color de texto blanco */
-  background-repeat: no-repeat; /* evita que se repita la imagen */
-  background-size: 100%; /* ajusta la imagen al ancho */
-  overflow: hidden; /* oculta contenido que sobresalga */
-  width: auto; /* ancho automático */
-  display: flex; /* usa flexbox */
-  flex-direction: column; /* organiza elementos en columna */
-  justify-content: space-evenly; /* distribuye espacio de forma uniforme */
-}
-
-.section-1 p {
-  font-size: 20px; /* tamaño de fuente para párrafos */
+  position: relative;
+  background-image:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.55) 0%, rgba(15, 23, 42, 0.35) 55%, rgba(15, 23, 42, 0.75) 100%),
+    url(../img/fondo-lago.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 88vh;
 }
 
 .section-eslogan {
-  padding: 20px; /* espacio interno */
-}
-
-.section-eslogan p {
-  color: transparent; /* texto transparente */
-  -webkit-text-stroke: 1px #97f68e; /* contorno verde claro */
+  padding: 60px 6vw 20px 6vw;
+  max-width: 900px;
 }
 
 .section-eslogan h1 {
-  font-size: 90px; /* tamaño grande para título */
-  color: #fff; /* color blanco */
-  /* -webkit-text-stroke: 2px #fff; */ /* contorno opcional comentado */
+  font-size: clamp(32px, 6vw, 64px);
+  line-height: 1.15;
+  color: #fff;
+  font-weight: 800;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
 }
 
 .section-eslogan h1 span {
-  color: #97f68e; /* color verde claro para destacar */
+  color: var(--acento);
 }
 
+.section-eslogan p {
+  /* Antes: texto transparente con contorno (invisible en Firefox y en
+     cualquier navegador sin soporte de -webkit-text-stroke). Ahora es
+     texto sólido y legible en cualquier navegador. */
+  color: #e2e8f0;
+  font-size: clamp(15px, 2vw, 20px);
+  margin-top: 18px;
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+/* Recuadros bajo el eslogan */
 .cards-fondo-1 {
-  display: flex; /* usa flexbox */
-  justify-content: space-around; /* distribuye elementos con espacio */
-  background-color: #fff; /* fondo blanco */
-  color: #000; /* texto negro */
-  border-top: 0 solid transparent; /* borde superior invisible */
-  border-radius: 20px 20px 0 0; /* esquinas superiores redondeadas */
-  height: 20vh; /* altura relativa al viewport */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+  background-color: #fff;
+  color: var(--texto);
+  border-radius: var(--radio-lg) var(--radio-lg) 0 0;
+  padding: 36px 5vw;
 }
 
 .section-cards {
-  display: flex; /* usa flexbox */
-  align-items: center; /* centra verticalmente */
-  gap: 25px; /* espacio entre elementos */
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 16px 20px;
+  flex: 1 1 220px;
+  max-width: 280px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.section-cards:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra);
 }
 
 .section-cards img {
-  height: 50px; /* altura fija para imágenes */
+  height: 42px;
+  width: 42px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.section-cards h4 {
+  font-size: 15px;
+  margin: 0 0 2px 0;
+}
+
+.section-cards p {
+  font-size: 13px;
+  color: var(--texto-suave);
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .section-1 {
+    min-height: 70vh;
+  }
+  .section-eslogan {
+    padding: 40px 6vw 10px 6vw;
+  }
 }

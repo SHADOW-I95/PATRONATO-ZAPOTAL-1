@@ -1,140 +1,257 @@
-*{
-    margin:0; /* elimina márgenes por defecto */
-    padding:0; /* elimina relleno por defecto */
-    box-sizing:border-box; /* incluye borde y padding en el cálculo de ancho/alto */
-    font-family: Arial, sans-serif; /* tipografía global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    background:#06223a; /* fondo azul oscuro */
-    display:flex; /* usa flexbox */
-    justify-content:center; /* centra horizontalmente */
-    align-items:center; /* centra verticalmente */
-    height:100vh; /* ocupa toda la altura de la ventana */
+body {
+    background: var(--primario-oscuro);
+    background: linear-gradient(135deg, var(--primario-oscuro), #0b1b3f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 24px;
 }
 
-.contenedor{
-    width:700px; /* ancho fijo */
-    background:white; /* fondo blanco */
-    border-radius:20px; /* esquinas redondeadas */
-    padding:30px; /* espacio interno */
-    position:relative; /* posición relativa para elementos internos */
+.contenedor {
+    width: 100%;
+    max-width: 880px;
+    background: var(--blanco);
+    border-radius: var(--radio-lg);
+    overflow: hidden;
+    box-shadow: var(--sombra-lg);
+    display: flex;
+    min-height: 560px;
 }
 
-.logo{
-    display:flex; /* logo y texto en fila */
-    align-items:center; /* centra verticalmente */
-    gap:10px; /* espacio entre logo y texto */
-    margin-bottom:30px; /* separación inferior */
+/* ===== Panel de marca (izquierda) ===== */
+.panel-marca {
+    flex: 1;
+    background:
+        linear-gradient(160deg, rgba(29, 78, 216, 0.92), rgba(11, 27, 63, 0.95)),
+        url(../assets/img/fondo-lago.jpeg);
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
 }
 
-.logo img{
-    width:60px; /* tamaño del logo */
+.panel-marca img {
+    width: 64px;
+    margin-bottom: 8px;
 }
 
-.logo h2{
-    font-size:20px; /* tamaño del texto del logo */
+.panel-marca h2 {
+    font-size: 22px;
+    line-height: 1.3;
 }
 
-.formulario{
-    text-align:center; /* centra el contenido del formulario */
+.panel-marca h2 span {
+    color: var(--acento);
 }
 
-.formulario h1{
-    color:#45b649; /* verde para el título */
-    margin-bottom:10px; /* espacio inferior */
+.panel-marca p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 320px;
+    margin-top: 8px;
 }
 
-.formulario p{
-    color:#555; /* gris para texto descriptivo */
-    margin-bottom:20px;
+/* ===== Panel de formulario (derecha) ===== */
+.panel-formulario {
+    flex: 1;
+    padding: 48px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
 }
 
-input{
-    width:100%; /* ocupa todo el ancho */
-    padding:12px; /* espacio interno */
-    margin-bottom:15px; /* separación inferior */
-    border:1px solid #ccc; /* borde gris claro */
-    border-radius:5px; /* esquinas redondeadas */
+.logo-movil {
+    display: none; /* solo aparece en móvil, ver media query */
 }
 
-input:focus{
-    outline:none; /* elimina borde por defecto */
-    border-color:#4CAF50; /* borde verde al enfocar */
-    box-shadow:0 0 0 2px rgba(76,175,80,0.2); /* sombra verde suave */
+.formulario h1 {
+    font-size: 26px;
+    color: var(--texto);
+    margin-bottom: 6px;
 }
 
-.password-box{
-    position:relative; /* permite posicionar el ícono dentro */
+.subtitulo {
+    color: var(--texto-suave);
+    font-size: 14px;
+    margin-bottom: 22px;
 }
 
-.password-box span{
-    position:absolute; /* ícono flotante */
-    right:15px; /* alineado a la derecha */
-    top:12px; /* alineado verticalmente */
-    cursor:pointer; /* cursor tipo mano */
+.formulario label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--texto-suave);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 
-.error{
-    display:block; /* ocupa toda la línea */
-    color:#d32f2f; /* rojo para errores */
-    font-size:13px; /* tamaño pequeño */
-    text-align:left; /* alineado a la izquierda */
-    margin-top:-10px; /* ajusta espacio superior */
-    margin-bottom:10px; /* separación inferior */
-    min-height:16px; /* asegura espacio aunque no haya texto */
+input {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    border: 1.5px solid var(--borde);
+    border-radius: var(--radio-sm);
+    font-size: 15px;
+    font-family: inherit;
 }
 
-.opciones{
-    display:flex; /* organiza enlaces en fila */
-    justify-content:space-between; /* distribuye a los extremos */
-    margin-bottom:20px;
-    font-size:14px;
+input:focus {
+    outline: none;
+    border-color: var(--primario);
+    box-shadow: 0 0 0 3px var(--primario-claro);
 }
 
-.opciones a{
-    text-decoration:none; /* sin subrayado */
-    color:#2a5db0; /* azul para enlaces */
+.password-box {
+    position: relative;
 }
 
-button{
-    padding:12px;
-    background:#4CAF50; /* verde */
-    border:none;
-    color:white;
-    font-size:18px;
-    border-radius:5px;
-    cursor:pointer;
+.password-box input {
+    padding-right: 44px;
 }
 
-.salirbtn{
-    padding:12px;
-    background:#4CAF50; /* verde */
-    border:none;
-    color:white;
-    font-size:18px;
-    border-radius:5px;
-    cursor:pointer;
+.password-box span {
+    position: absolute;
+    right: 14px;
+    top: 13px;
+    cursor: pointer;
+    color: var(--texto-suave);
+}
+
+.password-box span:hover {
+    color: var(--primario);
+}
+
+.error {
+    display: block;
+    color: var(--peligro);
+    font-size: 12.5px;
+    text-align: left;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    min-height: 15px;
+}
+
+/* Alerta de error del servidor: banner llamativo, no solo texto suelto */
+.alerta-error {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    background: var(--peligro-fondo);
+    color: var(--peligro);
+    border: 1px solid #fecaca;
+    border-radius: var(--radio-sm);
+    padding: 12px 14px;
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.alerta-error:not(:empty) {
+    display: flex;
+    animation: aparecer-alerta 0.25s ease;
+}
+
+.alerta-error::before {
+    content: "\26A0"; /* símbolo de alerta */
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+@keyframes aparecer-alerta {
+    0% { opacity: 0; transform: translateY(-6px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+    background: var(--primario);
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: var(--radio-sm);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    margin-top: 4px;
+}
+
+button:hover {
+    background: var(--primario-oscuro);
+}
+
+button:disabled {
+    background: var(--texto-suave);
+    cursor: not-allowed;
+}
+
+.salirbtn {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    color: var(--texto-suave);
+    font-size: 13.5px;
     text-decoration: none;
-
+    margin-top: 10px;
 }
 
-button:hover{
-    background:#3f9f42; /* verde más oscuro al pasar el mouse */
+.salirbtn:hover {
+    color: var(--primario);
+    text-decoration: underline;
 }
 
-.registro{
-    margin-top:25px; /* espacio superior */
+/* ===== Responsivo ===== */
+@media (max-width: 800px) {
+    .panel-marca {
+        display: none; /* en pantallas pequeñas solo importa el formulario */
+    }
+    .contenedor {
+        min-height: auto;
+        max-width: 440px;
+    }
+    .logo-movil {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 24px;
+    }
+    .logo-movil img {
+        width: 40px;
+    }
+    .logo-movil span {
+        font-weight: 800;
+        font-size: 14px;
+        color: var(--primario);
+        letter-spacing: 0.3px;
+    }
 }
 
-.registro a{
-    text-decoration:none;
-    color:#2a5db0; /* azul para enlace de registro */
-}
-
-@media (max-width: 750px){
-    .contenedor{
-        width:90%; /* se adapta en pantallas pequeñas */
-        padding:20px;
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+    }
+    .contenedor {
+        max-width: 100%;
+        min-height: 100vh;
+        border-radius: 0;
+    }
+    .panel-formulario {
+        padding: 32px 24px;
     }
 }
