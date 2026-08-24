@@ -1,15 +1,12 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
-require_once __DIR__ . "/../../../config/auth.php";
+require_once __DIR__ . "/../../../config/permisos.php";
+requerirPermiso('mapa');
 
-// Cualquier empleado (Empleado o Administrador) puede ver el mapa.
+// Cualquier rol con permiso al módulo Mapa puede VERLO.
 // Solo el Administrador puede registrar, editar o quitar ubicaciones
 // (esto también se valida de nuevo en guardar_ubicacion.php y
 // eliminar_ubicacion.php — nunca hay que confiar solo en ocultar botones).
-if (!esEmpleado()) {
-    echo '<p>No tienes permisos para acceder a este módulo.</p>';
-    exit;
-}
 
 $conexion = Connection();
 $puedeEditar = esAdministrador();

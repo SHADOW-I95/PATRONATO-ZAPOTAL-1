@@ -1,9 +1,10 @@
 <?php
-require_once __DIR__ . '/../../config/auth.php';
+require_once __DIR__ . '/../../config/permisos.php';
 // Módulo actual, para resaltar en qué sección está parado el usuario
 $modulo_actual = $_GET['modulo'] ?? 'dashboard';
+$modulos = modulosVisibles(); // solo los módulos que el rol actual puede ver
 ?>
-<div class="barraLateral">
+<div class="barraLateral" id="barraLateralAdmin">
     <!-- Contenedor principal de toda la barra lateral -->
 
     <div class="iconos">
@@ -13,20 +14,17 @@ $modulo_actual = $_GET['modulo'] ?? 'dashboard';
     </div>
 
     <nav class="barraNavegacion">
-        <!-- Menú de navegación principal -->
+        <!-- Menú de navegación principal: se arma según los permisos del rol -->
 
-        <a href="?modulo=dashboard" class="<?= $modulo_actual === 'dashboard' ? 'activo' : '' ?>">Panel</a>
-        <a href="?modulo=usuario" class="<?= $modulo_actual === 'usuario' ? 'activo' : '' ?>">Usuarios</a>
-        <a href="?modulo=agua" class="<?= $modulo_actual === 'agua' ? 'activo' : '' ?>">Agua</a>
-        <a href="?modulo=reportes" class="<?= $modulo_actual === 'reportes' ? 'activo' : '' ?>">Reportes</a>
-        <a href="?modulo=mapa" class="<?= $modulo_actual === 'mapa' ? 'activo' : '' ?>">Mapa</a>
-        <!-- Mapa: visible para empleados y administradores -->
-
-        <hr> <!-- Línea divisoria para separar secciones -->
+        <?php foreach ($modulos as $clave => $datos): ?>
+        <a href="<?= $datos['href'] ?>" class="<?= $modulo_actual === $clave ? 'activo' : '' ?>"><?= htmlspecialchars($datos['texto']) ?></a>
+        <?php endforeach; ?>
 
         <?php if (esAdministrador()): ?>
-        <!-- Solo el Administrador ve y puede entrar al módulo de Empleados -->
+        <hr> <!-- Línea divisoria: de aquí para abajo, solo Administrador -->
+
         <a href="?modulo=empleados" class="<?= $modulo_actual === 'empleados' ? 'activo' : '' ?>">Empleados</a>
+        <a href="?modulo=registro_empleado" class="<?= $modulo_actual === 'registro_empleado' ? 'activo' : '' ?>">Registro de empleado</a>
         <?php endif; ?>
 
         <a href="?modulo=configuracion" class="<?= $modulo_actual === 'configuracion' ? 'activo' : '' ?>">Configuracion</a>

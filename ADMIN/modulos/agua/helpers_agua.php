@@ -91,3 +91,82 @@ function refrescar_estado_vivienda(PDO $conexion, int $id_vivienda, ?string $mes
     actualizar_estado_vivienda($conexion, $id_vivienda, $estado['id_estado_pago']);
     return $estado;
 }
+
+/**
+ * Lista los meses pendientes de una vivienda (año + mes de cada uno),
+ * en orden desde el más antiguo. Se usa en la pantalla de pago del
+ * usuario para que elija cuántos meses completos quiere cubrir.
+ *
+ * Si la vivienda nunca ha pagado, se asume que solo debe el mes actual
+ * (no hay fecha de registro de la vivienda para saber desde cuándo
+ * debería estar pagando).
+ */
+function obtener_meses_pendientes(PDO $conexion, int $id_vivienda, int $limite = 24): array
+{
+    $estado = calcular_estado_vivienda($conexion, $id_vivienda);
+
+    $mesesPendientes = [];
+
+    if ($estado['ultimo_pago']) {
+        $anio = (int) $estado['ultimo_pago']['anio'];
+        $mes  = (int) $estado['ultimo_pago']['mes'] + 1;
+        if ($mes > 12) { $mes = 1; $anio++; }
+    } else {
+        // Nunca ha pagado: se asume que debe desde el mes actual
+        [$anio, $mes] = array_map('intval', explode('-', date('Y-m')));
+    }
+
+    $totalActual = ((int) date('Y') * 12) + (int) date('n');
+
+    while ((($anio * 12) + $mes) <= $totalActual && count($mesesPendientes) < $limite) {
+        $mesesPendientes[] = ['anio' => $anio, 'mes' => str_pad((string) $mes, 2, '0', STR_PAD_LEFT)];
+        $mes++;
+        if ($mes > 12) { $mes = 1; $anio++; }
+    }
+
+    return $mesesPendientes;
+}
+
+/**
+ * Cuota real a cobrar por una vivienda, ya con el descuento por edad
+ * aplicado si el dueño/a de la vivienda califica.
+ *
+ * Si la persona califica para varios descuentos a la vez (por ejemplo,
+ * dos reglas con edad_minima distinta), se aplica SOLO el de edad_minima
+ * más alta que cumpla — no se suman entre sí. Así una regla "60 años" y
+ * otra "75 años" no se acumulan para alguien de 80: se le aplica la de 75.
+ */
+function obtener_cuota_efectiva(PDO $conexion, int $id_vivienda): float
+{
+    $stmt = $conexion->prepare(
+        "SELECT v.cuota, u.fecha_nacimiento
+         FROM viviendas v
+         LEFT JOIN usuarios u ON v.id_usuario = u.id_usuario
+         WHERE v.id_vivienda = ?"
+    );
+    $stmt->execute([$id_vivienda]);
+    $fila = $stmt->fetch();
+
+    if (!$fila) {
+        return 0.0;
+    }
+
+    $cuota = (float) $fila['cuota'];
+
+    if (empty($fila['fecha_nacimiento'])) {
+        return $cuota; // sin fecha de nacimiento registrada, no se puede calcular la edad
+    }
+
+    $edad = (new DateTime($fila['fecha_nacimiento']))->diff(new DateTime())->y;
+
+    $stmtDescuento = $conexion->prepare(
+        "SELECT monto_descuento FROM descuentos_edad
+         WHERE edad_minima <= ?
+         ORDER BY edad_minima DESC
+         LIMIT 1"
+    );
+    $stmtDescuento->execute([$edad]);
+    $descuento = (float) $stmtDescuento->fetchColumn();
+
+    return max(0, round($cuota - $descuento, 2));
+}

@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/permisos.php";
+requerirPermiso('agua');
 require_once __DIR__ . "/helpers_agua.php";
 $conexion = Connection();
 
@@ -25,6 +27,7 @@ if ($id_usuario_seleccionado) {
 
     foreach ($viviendas as &$v) {
         $v['estado'] = refrescar_estado_vivienda($conexion, (int) $v['id_vivienda']);
+        $v['cuota'] = obtener_cuota_efectiva($conexion, (int) $v['id_vivienda']); // con descuento por edad, si aplica
     }
     unset($v);
 }
@@ -42,6 +45,7 @@ $todas_viviendas = $stmt_estado->fetchAll();
 
 foreach ($todas_viviendas as &$viv) {
     $viv['estado'] = refrescar_estado_vivienda($conexion, (int) $viv['id_vivienda']);
+    $viv['cuota'] = obtener_cuota_efectiva($conexion, (int) $viv['id_vivienda']); // con descuento por edad, si aplica
 }
 unset($viv);
 
@@ -83,6 +87,31 @@ if (!empty($_GET['ok']) && !empty($_GET['recibos'])) {
     $recibos_nuevos = array_map('intval', explode(',', $_GET['recibos']));
 }
 
+// 6. Solicitudes de pago con comprobante subidas por los usuarios, en revisión
+$sql_solicitudes = "SELECT sp.id_solicitud, sp.codigo_referencia, sp.cantidad_meses, sp.monto_declarado,
+                            sp.ruta_comprobante, sp.fecha_solicitud,
+                            v.id_vivienda, v.numero_vivienda, s.nombre_sector,
+                            CONCAT(u.nombre, ' ', u.apellido) AS nombre_usuario, u.dni, u.telefono
+                     FROM solicitudes_pago sp
+                     INNER JOIN viviendas v ON sp.id_vivienda = v.id_vivienda
+                     LEFT JOIN sectores s ON v.id_sector = s.id_sector
+                     INNER JOIN usuarios u ON sp.id_usuario = u.id_usuario
+                     WHERE sp.id_estado_solicitud = 1
+                     ORDER BY sp.fecha_solicitud ASC";
+$solicitudes_pendientes = $conexion->query($sql_solicitudes)->fetchAll();
+
+// Meses declarados de cada solicitud (para mostrarlos en el modal de revisión)
+$meses_por_solicitud = [];
+if ($solicitudes_pendientes) {
+    $idsSolicitud = array_column($solicitudes_pendientes, 'id_solicitud');
+    $in = implode(',', array_fill(0, count($idsSolicitud), '?'));
+    $stmtMeses = $conexion->prepare("SELECT id_solicitud, anio, mes FROM solicitud_pago_meses WHERE id_solicitud IN ($in) ORDER BY anio, mes");
+    $stmtMeses->execute($idsSolicitud);
+    foreach ($stmtMeses->fetchAll() as $fila) {
+        $meses_por_solicitud[$fila['id_solicitud']][] = $fila;
+    }
+}
+
 function clase_badge($nombre_estado)
 {
     if ($nombre_estado === 'Pagado') return 'badge-pagado';
@@ -107,6 +136,13 @@ function clase_badge($nombre_estado)
         </select>
 
         <button class="btn_nuevo" id="abrir-modal">+ Registrar pago</button>
+
+        <button type="button" class="btn-secundario btn-notificaciones" id="abrir-modal-notificaciones">
+            🔔 Notificaciones
+            <?php if ($solicitudes_pendientes): ?>
+            <span class="contador-notificaciones"><?= count($solicitudes_pendientes) ?></span>
+            <?php endif; ?>
+        </button>
     </div>
 </div>
 
@@ -312,6 +348,129 @@ function clase_badge($nombre_estado)
                 </thead>
                 <tbody id="detalle-cuerpo"></tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Lista de solicitudes de pago pendientes -->
+<div class="modal" id="modal-notificaciones">
+    <div class="modal-contenido" style="width: 720px;">
+        <span class="cerrar" data-cerrar-modal>✕</span>
+        <div class="formulario">
+            <h4>🔔 Solicitudes de pago pendientes</h4>
+
+            <?php if (!$solicitudes_pendientes): ?>
+            <p>No hay comprobantes esperando revisión por ahora.</p>
+            <?php else: ?>
+            <table class="tabla_datos">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Vivienda</th>
+                        <th>Usuario</th>
+                        <th>Meses</th>
+                        <th>Monto (L)</th>
+                        <th>Código</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($solicitudes_pendientes as $s):
+                        $mesesTexto = [];
+                        foreach (($meses_por_solicitud[$s['id_solicitud']] ?? []) as $m) {
+                            $mesesTexto[] = $nombres_meses[(int) $m['mes']] . ' ' . $m['anio'];
+                        }
+                        $mesesTexto = implode(', ', $mesesTexto);
+                    ?>
+                    <tr>
+                        <td><?= date('d/m/Y', strtotime($s['fecha_solicitud'])) ?></td>
+                        <td>#<?= htmlspecialchars($s['numero_vivienda']) ?> (<?= htmlspecialchars($s['nombre_sector'] ?? '—') ?>)</td>
+                        <td><?= htmlspecialchars($s['nombre_usuario']) ?></td>
+                        <td><?= htmlspecialchars($mesesTexto) ?></td>
+                        <td class="col-monto">L<?= number_format($s['monto_declarado'], 2) ?></td>
+                        <td><code><?= htmlspecialchars($s['codigo_referencia']) ?></code></td>
+                        <td>
+                            <button type="button" class="btn-editar btn-revisar-solicitud"
+                                data-solicitud='<?= htmlspecialchars(json_encode([
+                                    'id_solicitud'      => $s['id_solicitud'],
+                                    'numero_vivienda'   => $s['numero_vivienda'],
+                                    'nombre_sector'     => $s['nombre_sector'],
+                                    'nombre_usuario'    => $s['nombre_usuario'],
+                                    'dni'               => $s['dni'],
+                                    'telefono'          => $s['telefono'],
+                                    'codigo_referencia' => $s['codigo_referencia'],
+                                    'cantidad_meses'    => $s['cantidad_meses'],
+                                    'monto_declarado'   => $s['monto_declarado'],
+                                    'meses_texto'       => $mesesTexto,
+                                    'ruta_comprobante'  => '../SITIO/' . $s['ruta_comprobante'],
+                                    'fecha_solicitud'   => date('d/m/Y H:i', strtotime($s['fecha_solicitud'])),
+                                ]), ENT_QUOTES) ?>'>
+                                Revisar
+                            </button>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Revisar una solicitud de pago -->
+<div class="modal" id="modal-revisar-solicitud">
+    <div class="modal-contenido" style="width: 640px;">
+        <span class="cerrar" data-cerrar-modal>✕</span>
+        <div class="formulario">
+            <h4>Revisar comprobante</h4>
+
+            <div class="revision-grid">
+                <div class="revision-comprobante">
+                    <a id="rev-imagen-link" href="#" target="_blank">
+                        <img id="rev-imagen" src="" alt="Comprobante subido">
+                    </a>
+                </div>
+                <div class="revision-datos">
+                    <p><span>Vivienda</span> <strong id="rev-vivienda"></strong></p>
+                    <p><span>Dueño</span> <strong id="rev-usuario"></strong></p>
+                    <p><span>DNI</span> <strong id="rev-dni"></strong></p>
+                    <p><span>Teléfono</span> <strong id="rev-telefono"></strong></p>
+                    <p><span>Código de referencia</span> <strong id="rev-codigo"></strong></p>
+                    <p><span>Meses declarados</span> <strong id="rev-meses"></strong></p>
+                    <p><span>Monto declarado</span> <strong id="rev-monto"></strong></p>
+                    <p><span>Enviado</span> <strong id="rev-fecha"></strong></p>
+                </div>
+            </div>
+
+            <p class="ayuda-revision">
+                Busca el código de referencia en la banca en línea. Si el depósito llegó completo,
+                verifica cubriendo todos los meses declarados. Si llegó para menos meses, ajusta el
+                número antes de verificar.
+            </p>
+
+            <form id="form-verificar-solicitud" class="formulario">
+                <input type="hidden" name="id_solicitud" id="rev-id-solicitud-verificar">
+                <div class="campo">
+                    <label>¿Cuántos meses de los declarados realmente llegaron?</label>
+                    <input type="number" name="meses_confirmados" id="rev-meses-confirmados" min="1" required>
+                </div>
+                <div class="form-acciones">
+                    <button type="submit" class="btn-primario">✓ Verificar y aplicar pago</button>
+                </div>
+            </form>
+
+            <form id="form-rechazar-solicitud" class="formulario">
+                <input type="hidden" name="id_solicitud" id="rev-id-solicitud-rechazar">
+                <div class="campo">
+                    <label>Motivo del rechazo</label>
+                    <input type="text" name="motivo_rechazo" placeholder="Ej: no encontramos el depósito" required>
+                </div>
+                <div class="form-acciones">
+                    <button type="submit" class="btn-secundario btn-rechazar">✕ Rechazar</button>
+                </div>
+            </form>
+
+            <p id="rev-mensaje" class="mensaje-pago"></p>
         </div>
     </div>
 </div>

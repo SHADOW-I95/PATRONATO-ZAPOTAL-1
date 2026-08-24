@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
 require_once __DIR__ . "/../../../config/auth.php";
+require_once __DIR__ . "/../../../config/bitacora.php";
 $conexion = Connection();
 
 header('Content-Type: application/json; charset=utf-8');
@@ -48,6 +49,8 @@ try {
             WHERE id_vivienda = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->execute([$id_vivienda]);
+
+    registrar_actividad('mapa', 'eliminó', "Quitó la ubicación de la vivienda #{$id_vivienda}");
 
     echo json_encode(["ok" => true]);
     exit;

@@ -105,3 +105,65 @@ if (formMiCuenta) {
             });
     });
 }
+/* ==================== Roles y permisos ==================== */
+
+const formNuevoRol = document.getElementById("form-nuevo-rol");
+if (formNuevoRol) {
+    formNuevoRol.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(formNuevoRol.action, {
+            method: "POST",
+            body: new FormData(formNuevoRol),
+        })
+            .then((r) => r.json())
+            .then((datos) => {
+                if (datos.ok) {
+                    window.location.reload();
+                } else {
+                    alert(datos.error === "nombre_vacio" ? "Escribe un nombre para el rol." : "No se pudo agregar el rol.");
+                }
+            });
+    });
+}
+
+document.querySelectorAll(".form-permisos").forEach((form) => {
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const datos = new FormData(form);
+        datos.append("id_rol", form.dataset.idRol);
+
+        fetch("modulos/configuracion/permisos_guardar.php", {
+            method: "POST",
+            body: datos,
+        })
+            .then((r) => r.json())
+            .then((resp) => {
+                if (resp.ok) {
+                    alert("Permisos guardados. Si el empleado tiene la sesión abierta, verá los cambios la próxima vez que navegue.");
+                } else {
+                    alert("No se pudieron guardar los permisos.");
+                }
+            });
+    });
+});
+/* ==================== Descuentos por edad ==================== */
+
+const formNuevoDescuento = document.getElementById("form-nuevo-descuento");
+if (formNuevoDescuento) {
+    formNuevoDescuento.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(formNuevoDescuento.action, {
+            method: "POST",
+            body: new FormData(formNuevoDescuento),
+        })
+            .then((r) => r.json())
+            .then((datos) => {
+                if (datos.ok) {
+                    window.location.reload();
+                } else {
+                    alert("No se pudo guardar el descuento. Revisa que los datos sean válidos.");
+                }
+            });
+    });
+}

@@ -29,6 +29,36 @@ if ($es_admin) {
     $servicios     = $conexion->query("SELECT id_servicio, nombre_servicio FROM servicios ORDER BY nombre_servicio")->fetchAll();
     $tipos_reporte = $conexion->query("SELECT id_tipo_reporte, tipo_reporte FROM tipo_reporte ORDER BY tipo_reporte")->fetchAll();
 }
+
+// =======================
+// DESCUENTOS POR EDAD (solo Administrador)
+// =======================
+$descuentos_edad = [];
+
+if ($es_admin) {
+    $descuentos_edad = $conexion->query("SELECT id_descuento, descripcion, edad_minima, monto_descuento FROM descuentos_edad ORDER BY edad_minima DESC")->fetchAll();
+}
+
+// =======================
+// ROLES Y PERMISOS (solo Administrador)
+// =======================
+$roles_editables = [];
+$modulos_sistema = [];
+$permisos_actuales = []; // [id_rol][clave_modulo] = true
+
+if ($es_admin) {
+    // El rol Administrador (id 3) nunca aparece aquí: siempre tiene todo,
+    // no se edita ni se muestra como si fuera configurable.
+    $roles_editables = $conexion->query("SELECT id_roles, nombre_rol FROM roles WHERE id_roles <> 3 ORDER BY nombre_rol")->fetchAll();
+    $modulos_sistema = $conexion->query("SELECT id_modulo, clave, nombre_visible FROM modulos_sistema ORDER BY orden")->fetchAll();
+
+    $stmtPermisos = $conexion->query(
+        "SELECT pr.id_rol, m.clave FROM permisos_rol pr INNER JOIN modulos_sistema m ON pr.id_modulo = m.id_modulo"
+    );
+    foreach ($stmtPermisos->fetchAll() as $p) {
+        $permisos_actuales[$p['id_rol']][$p['clave']] = true;
+    }
+}
 ?>
 
 <div class="modulo_header">
@@ -52,6 +82,8 @@ if ($es_admin) {
 <div class="tabs-config">
     <?php if ($es_admin): ?>
     <button type="button" class="tab-btn activo" data-tab="tab-catalogos">Catálogos</button>
+    <button type="button" class="tab-btn" data-tab="tab-descuentos">Descuentos</button>
+    <button type="button" class="tab-btn" data-tab="tab-roles">Roles y permisos</button>
     <?php endif; ?>
     <button type="button" class="tab-btn <?= $es_admin ? '' : 'activo' ?>" data-tab="tab-cuenta">Mi cuenta</button>
 </div>
@@ -172,6 +204,108 @@ if ($es_admin) {
         </div>
 
     </div>
+</div>
+<?php endif; ?>
+
+<!-- ==================== TAB: DESCUENTOS POR EDAD ==================== -->
+<?php if ($es_admin): ?>
+<div class="tab-panel" id="tab-descuentos">
+
+    <p class="ayuda-catalogo">
+        Se aplican automáticamente según la edad del dueño/a de la vivienda
+        (se calcula con su fecha de nacimiento). Si alguien califica para
+        más de un descuento a la vez, solo se aplica el de la edad mínima
+        más alta que cumpla — no se suman entre sí.
+    </p>
+
+    <div class="seccion">
+        <h3>Agregar descuento</h3>
+        <form class="form-descuento" id="form-nuevo-descuento" action="modulos/configuracion/descuento_agregar.php" method="POST">
+            <div class="campo-descuento">
+                <label>Descripción</label>
+                <input type="text" name="descripcion" placeholder="Ej. Adulto mayor" required maxlength="50">
+            </div>
+            <div class="campo-descuento">
+                <label>Edad mínima (o más)</label>
+                <input type="number" name="edad_minima" min="0" max="120" required>
+            </div>
+            <div class="campo-descuento">
+                <label>Descuento (L)</label>
+                <input type="number" name="monto_descuento" min="0" step="0.01" required>
+            </div>
+            <button type="submit" class="btn-primario">Agregar</button>
+        </form>
+    </div>
+
+    <div class="seccion">
+        <h3>Descuentos configurados</h3>
+        <table class="tabla_datos">
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Edad mínima</th>
+                    <th>Descuento</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($descuentos_edad as $d): ?>
+                <tr>
+                    <td><?= htmlspecialchars($d['descripcion']) ?></td>
+                    <td><?= (int) $d['edad_minima'] ?> años o más</td>
+                    <td>L<?= number_format($d['monto_descuento'], 2) ?></td>
+                    <td class="col-acciones">
+                        <a class="btn-eliminar" href="modulos/configuracion/descuento_eliminar.php?id=<?= $d['id_descuento'] ?>"
+                            onclick="return confirm('¿Eliminar este descuento?')">Eliminar</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+                <?php if (!$descuentos_edad): ?>
+                <tr><td colspan="4">Todavía no hay descuentos configurados.</td></tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<?php endif; ?>
+
+<!-- ==================== TAB: ROLES Y PERMISOS ==================== -->
+<?php if ($es_admin): ?>
+<div class="tab-panel" id="tab-roles">
+
+    <p class="ayuda-catalogo">
+        El Administrador siempre tiene acceso a todo el sistema — no aparece
+        aquí porque no se puede editar. Los demás roles solo ven los módulos
+        que marques abajo.
+    </p>
+
+    <div class="seccion">
+        <h3>Agregar rol nuevo</h3>
+        <form class="form-catalogo" id="form-nuevo-rol" action="modulos/configuracion/rol_agregar.php" method="POST">
+            <input type="text" name="nombre_rol" placeholder="Nombre del nuevo rol (ej. Supervisor)" required maxlength="40">
+            <button type="submit" class="btn-primario">Agregar rol</button>
+        </form>
+    </div>
+
+    <?php foreach ($roles_editables as $rol): ?>
+    <div class="seccion">
+        <h3><?= htmlspecialchars($rol['nombre_rol']) ?></h3>
+
+        <form class="form-permisos" data-id-rol="<?= $rol['id_roles'] ?>">
+            <div class="permisos-lista">
+                <?php foreach ($modulos_sistema as $mod): ?>
+                <label class="permiso-item">
+                    <input type="checkbox" name="modulos[]" value="<?= htmlspecialchars($mod['clave']) ?>"
+                        <?= isset($permisos_actuales[$rol['id_roles']][$mod['clave']]) ? 'checked' : '' ?>>
+                    <?= htmlspecialchars($mod['nombre_visible']) ?>
+                </label>
+                <?php endforeach; ?>
+            </div>
+            <button type="submit" class="btn-secundario">Guardar permisos de <?= htmlspecialchars($rol['nombre_rol']) ?></button>
+        </form>
+    </div>
+    <?php endforeach; ?>
+
 </div>
 <?php endif; ?>
 

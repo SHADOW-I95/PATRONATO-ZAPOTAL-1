@@ -429,3 +429,56 @@ body {
   font-size: 0.95em;
   background: white;
 }
+/*==========================================================
+  RESPONSIVO — para cuando el patronato usa el sistema desde
+  el celular al registrar viviendas casa por casa.
+===========================================================*/
+@media (max-width: 900px) {
+  .contenido_3 {
+    padding: 14px;
+  }
+
+  /* Las tablas no se "aplastan": el contenedor se vuelve
+     desplazable de lado a lado en vez de romper el diseño. */
+  .seccion {
+    overflow-x: auto;
+    padding: 14px;
+  }
+  .tabla_datos {
+    min-width: 560px; /* así siempre se puede deslizar en vez de amontonarse */
+  }
+
+  /* Formularios de "Nuevo" / "Editar" a una sola columna */
+  .informacion,
+  .vivienda {
+    grid-template-columns: 1fr;
+    padding: 14px;
+    gap: 4px;
+  }
+
+  .modal-contenido {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .opciones {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .opciones > * {
+    width: 100%;
+  }
+
+  .catalogos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards {
+    grid-template-columns: 1fr !important;
+  }
+}

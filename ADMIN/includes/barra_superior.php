@@ -2,6 +2,10 @@
 <header class="barra_superior">
     <!-- Contenedor principal del encabezado superior -->
 
+    <button class="btn_menu_movil" id="btnMenuMovil" onclick="abrirSidebarAdmin()" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+    </button>
+
     <div class="div_lateral">
         <!-- Sección lateral dentro del encabezado -->
 
@@ -10,9 +14,11 @@
             <?= htmlspecialchars(strtoupper(substr($_SESSION['nombre'] ?? '?', 0, 1))) ?>
         </div>
 
-        <span><?= htmlspecialchars(($_SESSION['nombre'] ?? '') . ' ' . ($_SESSION['apellido'] ?? '')) ?></span>
+        <span class="nombre_empleado"><?= htmlspecialchars(($_SESSION['nombre'] ?? '') . ' ' . ($_SESSION['apellido'] ?? '')) ?></span>
         <!-- Nombre real del empleado que inició sesión -->
 
         <a href="../SITIO/login/cerrar_sesion.php" class="btn_cerrar_sesion">Cerrar sesión</a>
     </div>
 </header>
+
+<div class="overlay_sidebar_admin" id="overlaySidebarAdmin" onclick="cerrarSidebarAdmin()"></div>

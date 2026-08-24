@@ -1,6 +1,14 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/permisos.php";
+require_once __DIR__ . "/../../../config/bitacora.php";
 require_once __DIR__ . "/helpers_agua.php";
+
+if (!tienePermiso('agua')) {
+    http_response_code(403);
+    die("No tienes permiso para hacer esto.");
+}
+
 $conexion = Connection();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -73,6 +81,8 @@ if (empty($recibos_generados)) {
     header('Location: ../../index.php?modulo=agua&error=ninguna_vivienda_seleccionada');
     exit;
 }
+
+registrar_actividad('agua', 'creó', "Registró pago(s) para el usuario #{$id_usuario} — recibo(s) " . implode(', ', $recibos_generados));
 
 header('Location: ../../index.php?modulo=agua&ok=pago_registrado&recibos=' . implode(',', $recibos_generados));
 exit;

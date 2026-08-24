@@ -144,6 +144,30 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.perfil-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-cambiar-foto {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--blanco, #fff);
+  border: 1px solid #d1d5db;
+  color: var(--primario);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.btn-cambiar-foto:hover {
+  background: var(--primario-claro, #dbeafe);
 }
 
 .perfil-foto-placeholder {
@@ -374,5 +398,227 @@ body{
     display: block;
     overflow-x: auto;
     white-space: nowrap;
+  }
+}
+
+/* ===== Acordeón de viviendas / sistema de pagos ===== */
+.lista-viviendas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vivienda-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.vivienda-cabecera {
+  width: 100%;
+  background: #f9fafb;
+  border: none;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+.vivienda-cabecera-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vivienda-numero {
+  font-weight: 700;
+  font-size: 14.5px;
+  color: #111827;
+}
+
+.vivienda-sub {
+  font-size: 12.5px;
+  color: #6b7280;
+}
+
+.vivienda-cabecera-derecha {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.flecha-vivienda {
+  color: #9ca3af;
+  transition: transform 0.2s ease;
+}
+.flecha-abierta {
+  transform: rotate(180deg);
+}
+
+.badge-revision {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.vivienda-detalle {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+  background: #fff;
+}
+.vivienda-detalle.abierta {
+  max-height: 900px;
+}
+
+.vivienda-datos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px;
+}
+.vivienda-datos-grid > div {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.vivienda-datos-grid span {
+  display: block;
+  font-size: 11.5px;
+  color: #6b7280;
+  margin-bottom: 2px;
+}
+.vivienda-datos-grid strong {
+  font-size: 14.5px;
+  color: #111827;
+}
+
+.al-dia {
+  padding: 0 16px 16px 16px;
+  color: #166534;
+  font-size: 14px;
+}
+
+.aviso-revision, .aviso-rechazo {
+  margin: 0 16px 16px 16px;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+}
+.aviso-revision {
+  background: #fef3c7;
+  color: #92400e;
+}
+.aviso-rechazo {
+  background: #fee2e2;
+  color: #991b1b;
+}
+.aviso-revision i, .aviso-rechazo i {
+  font-size: 18px;
+  margin-top: 2px;
+}
+.aviso-revision p, .aviso-rechazo p {
+  margin: 4px 0 0 0;
+}
+
+.form-pago {
+  padding: 0 16px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.form-pago label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #374151;
+}
+.form-pago select,
+.form-pago input[type="file"] {
+  padding: 10px 12px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.monto-a-pagar {
+  background: var(--primario-claro);
+  color: var(--primario-oscuro);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.datos-bancarios {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px;
+}
+.datos-bancarios h4 {
+  margin: 0 0 8px 0;
+  font-size: 13.5px;
+  color: #111827;
+}
+.datos-bancarios p {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin: 4px 0;
+  color: #374151;
+}
+.datos-bancarios p span {
+  color: #6b7280;
+}
+.nota-referencia {
+  display: block !important;
+  margin-top: 10px !important;
+  padding-top: 10px;
+  border-top: 1px dashed #d1d5db;
+  color: #374151 !important;
+}
+.codigo-referencia-valor {
+  color: var(--primario);
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.btn-subir-comprobante {
+  background: var(--primario);
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-subir-comprobante:hover {
+  background: var(--primario-oscuro);
+}
+.btn-subir-comprobante:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.mensaje-pago {
+  font-size: 13px;
+  margin: 0;
+  min-height: 1em;
+}
+.mensaje-exito-pago { color: #166534; }
+.mensaje-error-pago { color: #991b1b; }
+
+@media (max-width: 480px) {
+  .vivienda-datos-grid {
+    grid-template-columns: 1fr;
   }
 }

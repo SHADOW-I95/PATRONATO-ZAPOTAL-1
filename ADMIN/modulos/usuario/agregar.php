@@ -1,8 +1,16 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/permisos.php";
+require_once __DIR__ . "/../../../config/bitacora.php";
 $conexion = Connection();
 
 header('Content-Type: application/json; charset=utf-8');
+
+if (!tienePermiso('usuario')) {
+    http_response_code(403);
+    echo json_encode(["ok" => false, "error" => "sin_permiso"]);
+    exit;
+}
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     echo json_encode(["ok" => false, "error" => "metodo_invalido"]);
@@ -135,6 +143,8 @@ try {
     }
 
     $conexion->commit();
+
+    registrar_actividad('usuario', 'creó', "Registró al usuario {$nombre} {$apellido} (DNI {$dni})");
 
     echo json_encode(["ok" => true]);
     exit;

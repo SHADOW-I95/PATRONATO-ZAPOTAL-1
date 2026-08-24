@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
 require_once __DIR__ . "/../../../config/auth.php";
+require_once __DIR__ . "/../../../config/bitacora.php";
 $conexion = Connection();
 
 header('Content-Type: application/json; charset=utf-8');
@@ -81,6 +82,8 @@ try {
         $stmt = $conexion->prepare($sql);
         $stmt->execute([$latitud, $longitud, $id_empleado, $id_vivienda]);
     }
+
+    registrar_actividad('mapa', $esPrimerRegistro ? 'creó' : 'editó', ($esPrimerRegistro ? "Registró" : "Actualizó") . " la ubicación de la vivienda #{$id_vivienda}");
 
     echo json_encode(["ok" => true]);
     exit;

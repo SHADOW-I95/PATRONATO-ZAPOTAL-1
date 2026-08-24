@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
 require_once __DIR__ . "/../../../config/auth.php";
+require_once __DIR__ . "/../../../config/bitacora.php";
 $conexion = Connection();
 
 header('Content-Type: application/json; charset=utf-8');
@@ -49,6 +50,8 @@ try {
     $sql = "UPDATE `$tabla` SET `$columna` = ? WHERE `$idCol` = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->execute([$nombre, $id]);
+
+    registrar_actividad('configuracion', 'editó', "Renombró un valor del catálogo de {$tipo} a '{$nombre}'");
 
     echo json_encode(["ok" => true]);
 } catch (PDOException $e) {

@@ -28,7 +28,7 @@ $stmt_empleados->execute();
 $empleados = $stmt_empleados->fetchAll();
 
 // Roles disponibles para el <select> del formulario (Empleado / Administrador)
-$roles = $conexion->query("SELECT id_roles, nombre_rol FROM roles WHERE id_roles IN (2, 3)")->fetchAll();
+$roles = $conexion->query("SELECT id_roles, nombre_rol FROM roles ORDER BY (id_roles = 3) DESC, nombre_rol")->fetchAll();
 ?>
 
 <div class="modulo_header">

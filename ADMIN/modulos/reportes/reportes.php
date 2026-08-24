@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/permisos.php";
+requerirPermiso('reportes');
 $conexion = Connection();
 
 // Filtros que llegan por GET (tipo de reporte y texto de búsqueda)

@@ -1,5 +1,12 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/permisos.php";
+
+if (!tienePermiso('usuario')) {
+    http_response_code(403);
+    exit;
+}
+
 $conexion = Connection();
 
 $id_usuario = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);

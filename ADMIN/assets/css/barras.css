@@ -92,3 +92,80 @@
 }
 
 .iconos img{ height: 50px;}
+
+/*==========================
+[  RESPONSIVO (celular)   ]
+===========================*/
+
+/* Botón hamburguesa de la barra superior: oculto en escritorio */
+.btn_menu_movil{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 40px;
+    height: 40px;
+    margin-left: 14px;
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn_menu_movil span{
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--azul-oscuro);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+.overlay_sidebar_admin{
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+    z-index: 998;
+}
+.overlay_sidebar_admin.visible{
+    display: block;
+}
+
+@media (max-width: 900px) {
+    .barra_superior{
+        justify-content: space-between;
+        padding: 0 12px;
+    }
+    .btn_menu_movil{
+        display: flex;
+    }
+    .div_lateral{
+        margin-right: 0;
+        gap: 8px;
+    }
+    /* En pantallas chicas el nombre completo del empleado ocupa mucho
+       espacio junto al ícono y "Cerrar sesión"; se oculta y basta con
+       el círculo con su inicial. */
+    .nombre_empleado{
+        display: none;
+    }
+    .btn_cerrar_sesion{
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .barraLateral{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 999;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        box-shadow: 6px 0 24px rgba(0,0,0,0.25);
+        overflow-y: auto;
+    }
+    .barraLateral.abierto{
+        transform: translateX(0);
+    }
+}

@@ -1,6 +1,13 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/permisos.php";
 require_once __DIR__ . "/../agua/helpers_agua.php";
+
+if (!tienePermiso('usuario')) {
+    http_response_code(403);
+    exit;
+}
+
 $conexion = Connection();
 
 $id_usuario = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
@@ -11,7 +18,7 @@ if (!$id_usuario) {
 }
 
 // Datos básicos del usuario
-$sql_usuario = "SELECT dni, nombre, apellido, telefono, codigo,
+$sql_usuario = "SELECT dni, nombre, apellido, telefono, codigo, foto_perfil,
                        TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) AS edad
                 FROM usuarios WHERE id_usuario = ?";
 $stmt_usuario = $conexion->prepare($sql_usuario);
@@ -44,6 +51,14 @@ function clase_badge($nombre_estado)
 ?>
 
 <h3>Información del usuario</h3>
+
+<div class="ver-usuario-foto">
+    <?php if (!empty($usuario['foto_perfil'])): ?>
+        <img src="../SITIO/<?= htmlspecialchars($usuario['foto_perfil']) ?>" alt="Foto de perfil">
+    <?php else: ?>
+        <div class="ver-usuario-sin-foto"><?= htmlspecialchars(strtoupper(substr($usuario['nombre'], 0, 1))) ?></div>
+    <?php endif; ?>
+</div>
 
 <div class="informacion">
     <div class="campo"><label>DNI</label><span><?= htmlspecialchars($usuario['dni']) ?></span></div>

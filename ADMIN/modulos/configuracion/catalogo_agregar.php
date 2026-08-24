@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
 require_once __DIR__ . "/../../../config/auth.php";
+require_once __DIR__ . "/../../../config/bitacora.php";
 $conexion = Connection();
 
 header('Content-Type: application/json; charset=utf-8');
@@ -45,6 +46,8 @@ try {
     $sql = "INSERT INTO `$tabla` (`$columna`) VALUES (?)";
     $stmt = $conexion->prepare($sql);
     $stmt->execute([$nombre]);
+
+    registrar_actividad('configuracion', 'creó', "Agregó '{$nombre}' al catálogo de {$tipo}");
 
     echo json_encode(["ok" => true]);
 } catch (PDOException $e) {

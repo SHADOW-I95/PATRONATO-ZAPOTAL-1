@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
 require_once __DIR__ . "/../../../config/auth.php";
+require_once __DIR__ . "/../../../config/bitacora.php";
 $conexion = Connection();
 
 if (!esAdministrador()) {
@@ -23,6 +24,8 @@ if (isset($catalogos[$tipo]) && $id) {
     try {
         $stmt = $conexion->prepare("DELETE FROM `$tabla` WHERE `$idCol` = ?");
         $stmt->execute([$id]);
+
+        registrar_actividad('configuracion', 'eliminó', "Eliminó el valor #{$id} del catálogo de {$tipo}");
     } catch (PDOException $e) {
         // Error 23000 = viola una llave foránea: significa que ese sector,
         // servicio o tipo de reporte todavía está siendo usado por alguna

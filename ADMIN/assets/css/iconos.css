@@ -284,3 +284,149 @@
 .cuenta-caja {
   max-width: 640px;
 }
+/*==========================================================
+  NOTIFICACIONES DE PAGOS (módulo Agua)
+===========================================================*/
+.btn-notificaciones {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.contador-notificaciones {
+  background: var(--peligro);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 999px;
+  line-height: 1.5;
+}
+
+.revision-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.revision-comprobante img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--borde);
+  object-fit: cover;
+  max-height: 260px;
+}
+.revision-datos p {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+  margin: 6px 0;
+  border-bottom: 1px dashed var(--borde);
+  padding-bottom: 6px;
+}
+.revision-datos p span {
+  color: var(--texto-suave);
+}
+
+.ayuda-revision {
+  background: var(--primario-claro);
+  color: var(--primario-oscuro);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.btn-rechazar {
+  color: var(--peligro);
+  border-color: #fecaca;
+}
+
+@media (max-width: 640px) {
+  .revision-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*==========================================================
+  ROLES Y PERMISOS (Configuración)
+===========================================================*/
+.permisos-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 12px 0 16px 0;
+}
+.permiso-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.permiso-item input {
+  cursor: pointer;
+}
+/*==========================================================
+  DESCUENTOS POR EDAD (Configuración)
+===========================================================*/
+.form-descuento {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+.campo-descuento {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.campo-descuento label {
+  font-size: 12px;
+  color: var(--texto-suave);
+  font-weight: 600;
+}
+.campo-descuento input {
+  padding: 8px 10px;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  font-size: 13px;
+  width: 160px;
+}
+.form-descuento .btn-primario {
+  padding: 9px 16px;
+  font-size: 13px;
+}
+
+/*==========================================================
+  FOTO DE PERFIL en "Ver usuario" (módulo Usuario)
+===========================================================*/
+.ver-usuario-foto {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.ver-usuario-foto img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primario-claro);
+}
+.ver-usuario-sin-foto {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--primario);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  font-weight: 700;
+}

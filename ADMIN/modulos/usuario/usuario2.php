@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/permisos.php";
+requerirPermiso('usuario');
 $conexion = Connection();
 
 // Trae cada usuario junto con la cantidad de viviendas que tiene (LEFT JOIN + COUNT)

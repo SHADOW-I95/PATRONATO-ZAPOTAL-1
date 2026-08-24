@@ -1,5 +1,13 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/permisos.php";
+require_once __DIR__ . "/../../../config/bitacora.php";
+
+if (!tienePermiso('reportes')) {
+    http_response_code(403);
+    die("No tienes permiso para hacer esto.");
+}
+
 $conexion = Connection();
 
 // Verifica que la petición sea POST, si no lo es redirige al módulo de reportes
@@ -32,6 +40,8 @@ $stmt->bindValue(":descripcion_reporte", $descripcion_reporte);
 
 // Ejecuta la consulta para guardar el reporte
 $stmt->execute();
+
+registrar_actividad('reportes', 'creó', "Registró un reporte (tipo #{$id_tipo_reporte}) para el usuario #{$id_usuario}");
 
 // Redirige al listado de reportes después de guardar
 header("Location: ../../index.php?modulo=reportes");

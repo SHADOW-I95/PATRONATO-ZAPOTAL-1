@@ -1,17 +1,31 @@
-
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/permisos.php";
+require_once __DIR__ . "/../../../config/bitacora.php";
 $conexion = Connection();
 
+header('Content-Type: application/json; charset=utf-8');
+// IMPORTANTE: este archivo se llama por fetch() desde usuario.js, que espera
+// una respuesta JSON (igual que agregar.php). Antes este archivo respondía
+// con header('Location: ...') o con die("texto plano"), que usuario.js no
+// podía interpretar como JSON — la promesa fallaba en silencio y el botón
+// "Guardar cambios" del modal de Editar parecía no hacer nada.
+
+if (!tienePermiso('usuario')) {
+    http_response_code(403);
+    echo json_encode(["ok" => false, "error" => "sin_permiso"]);
+    exit;
+}
+
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header("Location: ../../index.php?modulo=usuario");
+    echo json_encode(["ok" => false, "error" => "metodo_invalido"]);
     exit;
 }
 
 $id_usuario = (int) ($_POST["id_usuario"] ?? 0);
 
 if (!$id_usuario) {
-    header("Location: ../../index.php?modulo=usuario&error=usuario_invalido");
+    echo json_encode(["ok" => false, "error" => "usuario_invalido"]);
     exit;
 }
 
@@ -123,7 +137,9 @@ try {
     // Todo salió bien: se confirman los cambios
     $conexion->commit();
 
-    header("Location: ../../index.php?modulo=usuario&mensaje=actualizado");
+    registrar_actividad('usuario', 'editó', "Editó al usuario {$nombre} {$apellido} (DNI {$dni})");
+
+    echo json_encode(["ok" => true]);
     exit;
 
 } catch (PDOException $e) {
@@ -131,5 +147,11 @@ try {
     // Algo falló: se deshace todo lo que se haya intentado guardar en esta transacción
     $conexion->rollBack();
 
-    die("Error al actualizar: " . $e->getMessage());
+    if ($e->getCode() == 23000) {
+        echo json_encode(["ok" => false, "error" => "dato_duplicado"]);
+        exit;
+    }
+
+    echo json_encode(["ok" => false, "error" => "error_guardando"]);
+    exit;
 }

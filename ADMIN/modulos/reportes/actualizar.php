@@ -1,5 +1,13 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
+require_once __DIR__ . "/../../../config/permisos.php";
+require_once __DIR__ . "/../../../config/bitacora.php";
+
+if (!tienePermiso('reportes')) {
+    http_response_code(403);
+    die("No tienes permiso para hacer esto.");
+}
+
 $conexion = Connection();
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -25,6 +33,8 @@ try {
         $descripcion_reporte,
         $id_reporte
     ]);
+
+    registrar_actividad('reportes', 'editó', "Editó el reporte #{$id_reporte}");
 
     header("Location: ../../index.php?modulo=reportes&mensaje=actualizado");
     exit;

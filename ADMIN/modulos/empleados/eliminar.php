@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
 require_once __DIR__ . "/../../../config/auth.php";
+require_once __DIR__ . "/../../../config/bitacora.php";
 $conexion = Connection();
 
 if (!esAdministrador()) {
@@ -10,6 +11,11 @@ if (!esAdministrador()) {
 $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
 if ($id) {
+
+    // Datos para la bitácora, antes de borrarlo
+    $stmtDatos = $conexion->prepare("SELECT nombre, apellido, dni FROM empleados WHERE id_empleado = ?");
+    $stmtDatos->execute([$id]);
+    $empleadoAEliminar = $stmtDatos->fetch();
 
     // No dejar que se elimine al último administrador del sistema
     $stmt = $conexion->prepare("SELECT id_rol FROM empleados WHERE id_empleado = ?");
@@ -26,6 +32,10 @@ if ($id) {
 
     $stmtEliminar = $conexion->prepare("DELETE FROM empleados WHERE id_empleado = ?");
     $stmtEliminar->execute([$id]);
+
+    if ($empleadoAEliminar) {
+        registrar_actividad('empleados', 'eliminó', "Eliminó al empleado {$empleadoAEliminar['nombre']} {$empleadoAEliminar['apellido']} (DNI {$empleadoAEliminar['dni']})");
+    }
 }
 
 header("Location: ../../index.php?modulo=empleados");
