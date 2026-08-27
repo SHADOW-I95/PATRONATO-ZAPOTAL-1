@@ -1,11 +1,12 @@
 <?php
 require_once __DIR__ . '/../../config/conexion.php';
 require_once __DIR__ . '/../../config/auth.php';
+require_once __DIR__ . '/../../config/vinculacion.php';
 require_once __DIR__ . '/../../ADMIN/modulos/agua/helpers_agua.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
-if (!esUsuarioComun()) {
+if (!haySesion()) {
     http_response_code(403);
     echo json_encode(["ok" => false, "error" => "sin_permiso"]);
     exit;
@@ -18,7 +19,17 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
 $conexion = Connection();
 
-$id_usuario         = (int) $_SESSION['id'];
+// Puede ser un usuario común, o un empleado viendo su propio perfil de
+// vecino (vinculado por DNI) — en ambos casos se resuelve al mismo
+// id_usuario real de la tabla `usuarios`.
+$id_usuario = resolverIdUsuarioParaPerfil($conexion);
+
+if (!$id_usuario) {
+    http_response_code(403);
+    echo json_encode(["ok" => false, "error" => "sin_permiso"]);
+    exit;
+}
+
 $id_vivienda        = (int) ($_POST['id_vivienda'] ?? 0);
 $cantidad_meses     = (int) ($_POST['cantidad_meses'] ?? 0);
 $codigo_referencia  = trim($_POST['codigo_referencia'] ?? '');

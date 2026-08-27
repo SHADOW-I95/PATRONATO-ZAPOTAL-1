@@ -52,6 +52,7 @@ const textosErrorRevision = {
     solicitud_no_valida: "Esta solicitud ya no está disponible.",
     datos_incompletos: "Faltan datos, intenta de nuevo.",
     error_guardando: "Ocurrió un error al guardar. Intenta de nuevo.",
+    autocobro_bloqueado: "Esta vivienda pertenece a un empleado del patronato. Solo el Administrador puede procesar este pago.",
 };
 
 const formVerificar = document.getElementById("form-verificar-solicitud");

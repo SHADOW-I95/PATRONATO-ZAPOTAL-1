@@ -11,6 +11,12 @@ $conexion = Connection();
 $total_recaudado = $conexion->query("SELECT SUM(total) AS total FROM pagos_agua")->fetch()['total'] ?? 0;
 
 // =======================
+// TOTAL GASTADO (para saber el balance real, no solo lo que entra)
+// =======================
+$total_gastado = $conexion->query("SELECT SUM(monto) AS total FROM gastos")->fetch()['total'] ?? 0;
+$balance = $total_recaudado - $total_gastado;
+
+// =======================
 // USUARIOS REGISTRADOS
 // =======================
 $total_usuarios = $conexion->query("SELECT COUNT(*) AS total FROM usuarios")->fetch()['total'] ?? 0;
@@ -45,6 +51,12 @@ $ultimos_pagos = $conexion->query($sql_ultimos)->fetchAll();
     <p class="dashboard-subtexto">Resumen general del Patronato Pro-Mejoramiento El Zapotal</p>
 </div>
 
+<?php if (($_GET['error'] ?? '') === 'sin_perfil_vecino'): ?>
+<div class="aviso-exito" style="background:#fef2f2; border-color:#fecaca; color:#991b1b;">
+    No tienes un perfil de vecino vinculado — eso significa que tu DNI no coincide con ninguna vivienda registrada.
+</div>
+<?php endif; ?>
+
 <!-- Tarjetas de resumen -->
 <div class="cards">
 
@@ -52,6 +64,18 @@ $ultimos_pagos = $conexion->query($sql_ultimos)->fetchAll();
         <h3>Total Recaudado</h3>
         <p>L<?= number_format($total_recaudado, 2) ?></p>
     </div>
+
+    <?php if (tienePermiso('gastos')): ?>
+    <div class="card card-mora">
+        <h3>Total Gastado</h3>
+        <p>L<?= number_format($total_gastado, 2) ?></p>
+    </div>
+
+    <div class="card <?= $balance >= 0 ? 'card-pagadas' : 'card-mora' ?>">
+        <h3>Balance</h3>
+        <p>L<?= number_format($balance, 2) ?></p>
+    </div>
+    <?php endif; ?>
 
     <div class="card card-usuarios">
         <h3>Usuarios Registrados</h3>

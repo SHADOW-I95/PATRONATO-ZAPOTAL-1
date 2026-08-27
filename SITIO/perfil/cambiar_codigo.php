@@ -1,10 +1,11 @@
 <?php
 require_once __DIR__ . '/../../config/conexion.php';
 require_once __DIR__ . '/../../config/auth.php';
+require_once __DIR__ . '/../../config/vinculacion.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
-if (!esUsuarioComun()) {
+if (!haySesion()) {
     http_response_code(403);
     echo json_encode(["ok" => false, "error" => "sesion_invalida"]);
     exit;
@@ -17,9 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
 $conexion = Connection();
 
-// El id sale de la sesión, nunca del formulario: así un usuario solo puede
-// cambiar SU PROPIO código, nunca el de otra persona.
-$id_usuario = (int) ($_SESSION['id'] ?? 0);
+// Puede ser un usuario común, o un empleado cambiando el código de su
+// propio perfil de vecino (vinculado por DNI). Nunca sale del formulario:
+// así nadie puede cambiar el código de otra persona.
+$id_usuario = resolverIdUsuarioParaPerfil($conexion);
 
 $codigo_actual = trim($_POST['codigo_actual'] ?? '');
 $codigo_nuevo  = trim($_POST['codigo_nuevo'] ?? '');

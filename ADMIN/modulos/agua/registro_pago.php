@@ -2,6 +2,7 @@
 require_once __DIR__ . "/../../../config/conexion.php";
 require_once __DIR__ . "/../../../config/permisos.php";
 require_once __DIR__ . "/../../../config/bitacora.php";
+require_once __DIR__ . "/../../../config/vinculacion.php";
 require_once __DIR__ . "/helpers_agua.php";
 
 if (!tienePermiso('agua')) {
@@ -23,6 +24,14 @@ $pagos         = $_POST['pagos'] ?? []; // [id_vivienda => [aplicar, meses, mes_
 
 if (!$id_usuario || empty($pagos)) {
     header('Location: ../../index.php?modulo=agua&error=datos_incompletos');
+    exit;
+}
+
+// Bloqueo de autocobro: si este usuario ES también un empleado del
+// patronato (mismo DNI), solo el Administrador puede procesarle un pago
+// — ni siquiera otro Cobrador, para evitar favores entre compañeros.
+if (usuarioEsEmpleado($conexion, $id_usuario) && !esAdministrador()) {
+    header('Location: ../../index.php?modulo=agua&error=autocobro_bloqueado');
     exit;
 }
 

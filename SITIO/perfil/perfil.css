@@ -622,3 +622,55 @@ body{
     grid-template-columns: 1fr;
   }
 }
+/* ===== Aviso cuando un empleado ve su perfil de vecino ===== */
+.aviso-vista-empleado {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 12.5px;
+  padding: 10px 16px;
+  text-align: center;
+}
+
+/* ===== Traspaso de vivienda ===== */
+.bloque-traspaso {
+  padding: 0 16px 16px 16px;
+}
+
+.btn-mostrar-traspaso {
+  background: transparent;
+  border: 1px dashed #d1d5db;
+  color: #6b7280;
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+.btn-mostrar-traspaso:hover {
+  border-color: var(--primario);
+  color: var(--primario);
+}
+
+.form-traspaso {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 14px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+.form-traspaso label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #374151;
+}
+.form-traspaso select,
+.form-traspaso input {
+  padding: 9px 10px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13.5px;
+}

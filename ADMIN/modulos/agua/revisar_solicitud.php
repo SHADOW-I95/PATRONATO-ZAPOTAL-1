@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
 require_once __DIR__ . "/../../../config/auth.php";
+require_once __DIR__ . "/../../../config/vinculacion.php";
 require_once __DIR__ . "/helpers_agua.php";
 require_once __DIR__ . "/../../../config/bitacora.php";
 $conexion = Connection();
@@ -38,6 +39,15 @@ $solicitud = $stmtSolicitud->fetch();
 
 if (!$solicitud) {
     echo json_encode(["ok" => false, "error" => "solicitud_no_valida"]);
+    exit;
+}
+
+// Bloqueo de autocobro: si la vivienda es de un empleado (mismo DNI que
+// alguien en la tabla `empleados`), solo el Administrador puede
+// verificar o rechazar esta solicitud.
+if (usuarioEsEmpleado($conexion, (int) $solicitud['id_usuario']) && !esAdministrador()) {
+    http_response_code(403);
+    echo json_encode(["ok" => false, "error" => "autocobro_bloqueado"]);
     exit;
 }
 

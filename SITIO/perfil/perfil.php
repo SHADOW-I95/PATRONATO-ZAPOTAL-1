@@ -1,18 +1,38 @@
 <?php
 require_once __DIR__ . '/../../config/conexion.php';
 require_once __DIR__ . '/../../config/auth.php';
-require_once __DIR__ . '/../../config/pagos.php';
+require_once __DIR__ . '/../../config/configuracion_general.php';
+require_once __DIR__ . '/../../config/vinculacion.php';
 require_once __DIR__ . '/../../ADMIN/modulos/agua/helpers_agua.php';
 
-if (!esUsuarioComun()) {
+if (!haySesion()) {
     header("Location: ../login/login.php");
     exit;
 }
 
 $conexion = Connection();
+$config_general = obtenerConfiguracionGeneral();
+
+// Puede llegar aquí un usuario común (viendo su propio perfil) o un
+// empleado que también es vecino (viendo su perfil de vecino desde el
+// botón "Mi perfil de vecino" del panel ADMIN). En ambos casos, esta es
+// la variable que hay que usar de aquí en adelante — nunca $_SESSION['id']
+// directo, porque para un empleado ese id es de `empleados`, no de `usuarios`.
+$id_usuario_perfil = resolverIdUsuarioParaPerfil($conexion);
+$viendo_como_empleado = esEmpleado();
+
+if (!$id_usuario_perfil) {
+    // Es un empleado sin vivienda propia registrada: no tiene perfil de vecino
+    if ($viendo_como_empleado) {
+        header("Location: ../../ADMIN/index.php?modulo=dashboard&error=sin_perfil_vecino");
+        exit;
+    }
+    header("Location: ../login/login.php");
+    exit;
+}
 
 $stmt = $conexion->prepare("SELECT dni, nombre, apellido, telefono, fecha_registro, foto_perfil FROM usuarios WHERE id_usuario = ?");
-$stmt->execute([$_SESSION['id']]);
+$stmt->execute([$id_usuario_perfil]);
 $usuario = $stmt->fetch();
 
 $stmt_viviendas = $conexion->prepare(
@@ -23,7 +43,7 @@ $stmt_viviendas = $conexion->prepare(
      LEFT JOIN estado_pago ep ON v.id_estado_pago = ep.id_estado_pago
      WHERE v.id_usuario = ?"
 );
-$stmt_viviendas->execute([$_SESSION['id']]);
+$stmt_viviendas->execute([$id_usuario_perfil]);
 $viviendas = $stmt_viviendas->fetchAll();
 
 // Para cada vivienda: sus meses pendientes reales y si ya tiene una
@@ -39,6 +59,12 @@ $stmt_ultimo_rechazo = $conexion->prepare(
      WHERE id_vivienda = ? AND id_estado_solicitud = 3
      ORDER BY fecha_revision DESC LIMIT 1"
 );
+$stmt_traspaso_activo = $conexion->prepare(
+    "SELECT id_solicitud, nombre_comprador, apellido_comprador, fecha_solicitud
+     FROM solicitudes_traspaso
+     WHERE id_vivienda = ? AND id_estado_solicitud = 1
+     ORDER BY fecha_solicitud DESC LIMIT 1"
+);
 
 foreach ($viviendas as &$v) {
     $v['meses_pendientes'] = obtener_meses_pendientes($conexion, (int) $v['id_vivienda']);
@@ -52,6 +78,9 @@ foreach ($viviendas as &$v) {
         $stmt_ultimo_rechazo->execute([$v['id_vivienda']]);
         $v['ultimo_rechazo'] = $stmt_ultimo_rechazo->fetch();
     }
+
+    $stmt_traspaso_activo->execute([$v['id_vivienda']]);
+    $v['traspaso_activo'] = $stmt_traspaso_activo->fetch();
 }
 unset($v);
 
@@ -86,12 +115,21 @@ function clase_badge_perfil($nombre_estado)
 
   <p class="sidebar-titulo">MENU PRINCIPAL</p>
 
+  <?php if ($viendo_como_empleado): ?>
+  <a href="../../ADMIN/index.php?modulo=dashboard"><i class="fa-solid fa-arrow-left"></i> Volver al panel</a>
+  <?php else: ?>
   <a href="../index.php"><i class="fa-solid fa-house"></i> Inicio</a>
+  <?php endif; ?>
   <a href="perfil.php" class="activo"><i class="fa-solid fa-user"></i> Mi Perfil</a>
   <a href="../index.php#section4"><i class="fa-solid fa-triangle-exclamation"></i> Reportar problema</a>
   <a href="../login/cerrar_sesion.php"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
 </div>
 
+<?php if ($viendo_como_empleado): ?>
+<div class="aviso-vista-empleado">
+  <i class="fa-solid fa-id-badge"></i> Estás viendo esto como empleado — es tu perfil de vecino, vinculado por tu DNI.
+</div>
+<?php endif; ?>
 <div class="contenido">
 
   <div class="topbar">
@@ -255,9 +293,9 @@ function clase_badge_perfil($nombre_estado)
 
               <div class="datos-bancarios">
                 <h4><i class="fa-solid fa-building-columns"></i> Datos para el depósito</h4>
-                <p><span>Banco</span> <?= htmlspecialchars(BANCO_NOMBRE) ?></p>
-                <p><span>Cuenta</span> <?= htmlspecialchars(BANCO_NUMERO_CUENTA) ?></p>
-                <p><span>A nombre de</span> <?= htmlspecialchars(BANCO_TITULAR) ?></p>
+                <p><span>Banco</span> <?= htmlspecialchars($config_general['banco_nombre'] ?? '—') ?></p>
+                <p><span>Cuenta</span> <?= htmlspecialchars($config_general['banco_cuenta'] ?? '—') ?></p>
+                <p><span>A nombre de</span> <?= htmlspecialchars($config_general['banco_titular'] ?? '—') ?></p>
                 <p class="nota-referencia">
                   Importante: escribe el código
                   <strong class="codigo-referencia-valor"><?= htmlspecialchars($codigoReferencia) ?></strong>
@@ -276,6 +314,59 @@ function clase_badge_perfil($nombre_estado)
             </form>
 
           <?php endif; ?>
+
+          <!-- ===== Vender / traspasar esta vivienda ===== -->
+          <div class="bloque-traspaso">
+            <?php if ($v['traspaso_activo']): ?>
+              <div class="aviso-revision">
+                <i class="fa-solid fa-house-circle-check"></i>
+                <div>
+                  <strong>Traspaso en revisión.</strong>
+                  <p>
+                    Comprador declarado: <?= htmlspecialchars($v['traspaso_activo']['nombre_comprador'] . ' ' . $v['traspaso_activo']['apellido_comprador']) ?><br>
+                    Enviado el <?= date('d/m/Y', strtotime($v['traspaso_activo']['fecha_solicitud'])) ?>. El patronato debe confirmarlo antes de que quede oficial.
+                  </p>
+                </div>
+              </div>
+            <?php else: ?>
+              <button type="button" class="btn-mostrar-traspaso" onclick="toggleAcordeonTraspaso(<?= (int) $v['id_vivienda'] ?>)">
+                <i class="fa-solid fa-right-left"></i> ¿Vendiste esta vivienda?
+              </button>
+
+              <form class="form-traspaso" id="form-traspaso-<?= (int) $v['id_vivienda'] ?>" style="display:none;">
+                <input type="hidden" name="id_vivienda" value="<?= (int) $v['id_vivienda'] ?>">
+
+                <label>Motivo</label>
+                <select name="motivo">
+                  <option value="Venta">Venta</option>
+                  <option value="Herencia">Herencia</option>
+                  <option value="Donación">Donación</option>
+                  <option value="Otro">Otro</option>
+                </select>
+
+                <label>Nombre del comprador</label>
+                <input type="text" name="nombre_comprador" required maxlength="30">
+
+                <label>Apellido del comprador</label>
+                <input type="text" name="apellido_comprador" required maxlength="30">
+
+                <label>DNI del comprador</label>
+                <input type="text" name="dni_comprador" required maxlength="20">
+
+                <label>Teléfono del comprador (opcional)</label>
+                <input type="text" name="telefono_comprador" maxlength="30">
+
+                <p class="nota-referencia" style="margin-top:8px;">
+                  Esto es solo una solicitud — el patronato debe confirmarla en la oficina antes de que el traspaso quede oficial.
+                  Si la vivienda tiene meses pendientes, esa deuda queda a nombre de la vivienda y la hereda el nuevo dueño.
+                </p>
+
+                <button type="submit" class="btn-subir-comprobante">Enviar solicitud de traspaso</button>
+                <p class="mensaje-pago" id="mensaje-traspaso-<?= (int) $v['id_vivienda'] ?>"></p>
+              </form>
+            <?php endif; ?>
+          </div>
+
         </div>
       </div>
       <?php endforeach; ?>
@@ -500,6 +591,49 @@ document.querySelectorAll('.form-pago').forEach((form) => {
         mensaje.classList.add('mensaje-error-pago');
         boton.disabled = false;
         boton.innerHTML = '<i class="fa-solid fa-upload"></i> Subir comprobante';
+      });
+  });
+});
+</script>
+
+<script>
+/* ===== Solicitud de traspaso de vivienda ===== */
+function toggleAcordeonTraspaso(id) {
+  const form = document.getElementById('form-traspaso-' + id);
+  form.style.display = form.style.display === 'none' ? 'flex' : 'none';
+}
+
+document.querySelectorAll('.form-traspaso').forEach((form) => {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const mensaje = form.querySelector('.mensaje-pago');
+    mensaje.className = 'mensaje-pago';
+    mensaje.textContent = 'Enviando...';
+
+    fetch('solicitar_traspaso.php', { method: 'POST', body: new FormData(form) })
+      .then((r) => r.json())
+      .then((resp) => {
+        const textos = {
+          sin_permiso: 'Tu sesión expiró, vuelve a iniciar sesión.',
+          vivienda_no_valida: 'Esa vivienda no te pertenece.',
+          ya_tiene_solicitud: 'Ya hay una solicitud de traspaso en revisión para esta vivienda.',
+          datos_incompletos: 'Completa todos los campos requeridos.',
+          error_guardando: 'Ocurrió un error al guardar. Intenta de nuevo.',
+        };
+
+        if (resp.ok) {
+          mensaje.textContent = 'Solicitud enviada. El patronato debe confirmarla.';
+          mensaje.classList.add('mensaje-exito-pago');
+          setTimeout(() => location.reload(), 1200);
+        } else {
+          mensaje.textContent = textos[resp.error] || 'No se pudo enviar la solicitud.';
+          mensaje.classList.add('mensaje-error-pago');
+        }
+      })
+      .catch(() => {
+        mensaje.textContent = 'Error de conexión. Intenta de nuevo.';
+        mensaje.classList.add('mensaje-error-pago');
       });
   });
 });

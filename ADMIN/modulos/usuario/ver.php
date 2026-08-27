@@ -41,6 +41,21 @@ $stmt_viviendas = $conexion->prepare($sql_viviendas);
 $stmt_viviendas->execute([$id_usuario]);
 $viviendas = $stmt_viviendas->fetchAll();
 
+// Historial de traspasos donde este usuario participó (como comprador o como vendedor)
+$sql_historial = "SELECT t.id_traspaso, t.motivo, t.deuda_al_momento, t.fecha_traspaso,
+                          v.numero_vivienda,
+                          CONCAT(ua.nombre, ' ', ua.apellido) AS nombre_anterior,
+                          CONCAT(un.nombre, ' ', un.apellido) AS nombre_nuevo
+                   FROM traspasos_vivienda t
+                   INNER JOIN viviendas v ON t.id_vivienda = v.id_vivienda
+                   INNER JOIN usuarios ua ON t.id_usuario_anterior = ua.id_usuario
+                   INNER JOIN usuarios un ON t.id_usuario_nuevo = un.id_usuario
+                   WHERE t.id_usuario_anterior = ? OR t.id_usuario_nuevo = ?
+                   ORDER BY t.fecha_traspaso DESC";
+$stmt_historial = $conexion->prepare($sql_historial);
+$stmt_historial->execute([$id_usuario, $id_usuario]);
+$historial_traspasos = $stmt_historial->fetchAll();
+
 // Traduce el nombre del estado a la clase CSS del badge correspondiente
 function clase_badge($nombre_estado)
 {
@@ -96,6 +111,34 @@ function clase_badge($nombre_estado)
                 <td>L<?= number_format($v['cuota'], 2) ?></td>
                 <td><span class="badge <?= clase_badge($estado['nombre']) ?>"><?= $estado['nombre'] ?></span></td>
             </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>
+
+<?php if ($historial_traspasos): ?>
+<h4 style="margin-top:18px;">Historial de traspasos</h4>
+<table class="tabla_datos">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Vivienda</th>
+            <th>De</th>
+            <th>A</th>
+            <th>Motivo</th>
+            <th>Deuda heredada</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($historial_traspasos as $h): ?>
+        <tr>
+            <td><?= date('d/m/Y', strtotime($h['fecha_traspaso'])) ?></td>
+            <td>#<?= htmlspecialchars($h['numero_vivienda']) ?></td>
+            <td><?= htmlspecialchars($h['nombre_anterior']) ?></td>
+            <td><?= htmlspecialchars($h['nombre_nuevo']) ?></td>
+            <td><?= htmlspecialchars($h['motivo']) ?></td>
+            <td>L<?= number_format($h['deuda_al_momento'], 2) ?></td>
+        </tr>
         <?php endforeach; ?>
     </tbody>
 </table>

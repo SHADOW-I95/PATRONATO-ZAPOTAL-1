@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/permisos.php';
+require_once __DIR__ . '/../../config/configuracion_general.php';
+$config_general = obtenerConfiguracionGeneral();
 // Módulo actual, para resaltar en qué sección está parado el usuario
 $modulo_actual = $_GET['modulo'] ?? 'dashboard';
 $modulos = modulosVisibles(); // solo los módulos que el rol actual puede ver
@@ -9,8 +11,8 @@ $modulos = modulosVisibles(); // solo los módulos que el rol actual puede ver
 
     <div class="iconos">
         <!-- Sección superior con logo e identificación -->
-        <img src="./assets/img/LOGO.png"> <!-- Imagen del logo -->
-        <p>Patronato el Zapotal</p> <!-- Texto con el nombre de la organización -->
+        <img src="../SITIO/<?= htmlspecialchars($config_general['logo_path'] ?? 'assets/img/LOGO.png') ?>"> <!-- Logo del patronato, editable en Configuración -->
+        <p><?= htmlspecialchars($config_general['nombre_patronato'] ?? 'Patronato el Zapotal') ?></p>
     </div>
 
     <nav class="barraNavegacion">

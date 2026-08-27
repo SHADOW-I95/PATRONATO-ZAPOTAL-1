@@ -1,9 +1,13 @@
-<?php require_once __DIR__ . '/../../config/auth.php'; ?>
+<?php
+require_once __DIR__ . '/../../config/auth.php';
+require_once __DIR__ . '/../../config/configuracion_general.php';
+$config_general = obtenerConfiguracionGeneral();
+?>
 <header class="header">
 
     <div class="header-div1">
-        <img src="./assets/img/LOGO.png" alt="logo-patronato">
-        <h2 class="title">Patronato Pro-mejoramiento <br><span class="title-spam">Zapotal</span></h2>
+        <img src="./<?= htmlspecialchars($config_general['logo_path'] ?? 'assets/img/LOGO.png') ?>" alt="logo-patronato">
+        <h2 class="title"><?= htmlspecialchars($config_general['nombre_patronato'] ?? 'Patronato el Zapotal') ?></h2>
     </div>
 
     <div class="header-div2">
@@ -36,6 +40,7 @@
     <span class="menu-titulo">Menú</span>
     <ul>
         <li class="nav-li"><a href="#section2" onclick="cerrarMenu()">Quiénes somos</a></li>
+        <li class="nav-li"><a href="#section5" onclick="cerrarMenu()">Comunicados</a></li>
         <li class="nav-li"><a href="#section3" onclick="cerrarMenu()">Ubicación de oficinas</a></li>
         <li class="nav-li"><a href="#section4" onclick="cerrarMenu()">Reportar queja</a></li>
     </ul>

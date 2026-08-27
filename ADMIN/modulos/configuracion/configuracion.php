@@ -1,9 +1,15 @@
 <?php
 require_once __DIR__ . "/../../../config/conexion.php";
 require_once __DIR__ . "/../../../config/auth.php";
+require_once __DIR__ . "/../../../config/configuracion_general.php";
 $conexion = Connection();
 
 $es_admin = esAdministrador();
+
+// =======================
+// DATOS DEL PATRONATO (solo Administrador)
+// =======================
+$datos_patronato = $es_admin ? obtenerConfiguracionGeneral() : [];
 
 // =======================
 // MI CUENTA (cualquier empleado logueado)
@@ -76,21 +82,99 @@ if ($es_admin) {
 <div class="aviso-exito" style="background:#fef2f2; border-color:#fecaca; color:#991b1b;">
     Ocurrió un error al eliminar. Intenta de nuevo.
 </div>
+<?php elseif (($_GET['error'] ?? '') === 'nombre_vacio'): ?>
+<div class="aviso-exito" style="background:#fef2f2; border-color:#fecaca; color:#991b1b;">
+    El nombre del patronato no puede quedar vacío.
+</div>
+<?php elseif (($_GET['error'] ?? '') === 'logo_invalido'): ?>
+<div class="aviso-exito" style="background:#fef2f2; border-color:#fecaca; color:#991b1b;">
+    El logo debe ser una imagen (jpg, png o webp).
+</div>
+<?php elseif (($_GET['error'] ?? '') === 'logo_muy_grande'): ?>
+<div class="aviso-exito" style="background:#fef2f2; border-color:#fecaca; color:#991b1b;">
+    El logo es muy pesado (máximo 3MB).
+</div>
+<?php elseif (($_GET['error'] ?? '') === 'error_guardando'): ?>
+<div class="aviso-exito" style="background:#fef2f2; border-color:#fecaca; color:#991b1b;">
+    Ocurrió un error al guardar. Intenta de nuevo.
+</div>
+<?php elseif (($_GET['mensaje'] ?? '') === 'actualizado'): ?>
+<div class="aviso-exito">
+    Datos guardados correctamente.
+</div>
 <?php endif; ?>
 
 <!-- ==================== PESTAÑAS ==================== -->
 <div class="tabs-config">
     <?php if ($es_admin): ?>
-    <button type="button" class="tab-btn activo" data-tab="tab-catalogos">Catálogos</button>
+    <button type="button" class="tab-btn activo" data-tab="tab-patronato">Datos del patronato</button>
+    <button type="button" class="tab-btn" data-tab="tab-catalogos">Catálogos</button>
     <button type="button" class="tab-btn" data-tab="tab-descuentos">Descuentos</button>
     <button type="button" class="tab-btn" data-tab="tab-roles">Roles y permisos</button>
     <?php endif; ?>
     <button type="button" class="tab-btn <?= $es_admin ? '' : 'activo' ?>" data-tab="tab-cuenta">Mi cuenta</button>
 </div>
 
+<!-- ==================== TAB: DATOS DEL PATRONATO ==================== -->
+<?php if ($es_admin): ?>
+<div class="tab-panel activo" id="tab-patronato">
+    <div class="seccion" style="max-width: 640px;">
+        <h3>Información general</h3>
+        <p class="ayuda-catalogo">
+            Estos datos se muestran en el sitio público (header, footer, login) y en el panel ADMIN.
+            La cuenta bancaria es la que ve el usuario cuando va a pagar.
+        </p>
+
+        <form id="form-datos-patronato" action="modulos/configuracion/configuracion_general_actualizar.php" method="POST" enctype="multipart/form-data" class="formulario">
+            <div class="informacion">
+                <div class="campo" style="grid-column: 1 / -1;">
+                    <label>Logo actual</label>
+                    <div style="display:flex; align-items:center; gap:14px; margin-top:6px;">
+                        <img src="../SITIO/<?= htmlspecialchars($datos_patronato['logo_path'] ?? 'assets/img/LOGO.png') ?>" alt="Logo actual" style="width:56px; height:56px; object-fit:contain; border:1px solid var(--borde); border-radius:8px; padding:4px;">
+                        <input type="file" name="logo" accept="image/*">
+                    </div>
+                </div>
+                <div class="campo">
+                    <label>Nombre del patronato</label>
+                    <input type="text" name="nombre_patronato" required maxlength="100" value="<?= htmlspecialchars($datos_patronato['nombre_patronato'] ?? '') ?>">
+                </div>
+                <div class="campo">
+                    <label>Teléfono de contacto</label>
+                    <input type="text" name="telefono_contacto" maxlength="30" value="<?= htmlspecialchars($datos_patronato['telefono_contacto'] ?? '') ?>">
+                </div>
+                <div class="campo" style="grid-column: 1 / -1;">
+                    <label>Dirección</label>
+                    <input type="text" name="direccion" maxlength="150" value="<?= htmlspecialchars($datos_patronato['direccion'] ?? '') ?>">
+                </div>
+            </div>
+
+            <h3 style="margin-top:22px;">Cuenta bancaria (para pagos)</h3>
+            <div class="informacion">
+                <div class="campo">
+                    <label>Banco</label>
+                    <input type="text" name="banco_nombre" maxlength="80" value="<?= htmlspecialchars($datos_patronato['banco_nombre'] ?? '') ?>">
+                </div>
+                <div class="campo">
+                    <label>Número de cuenta</label>
+                    <input type="text" name="banco_cuenta" maxlength="50" value="<?= htmlspecialchars($datos_patronato['banco_cuenta'] ?? '') ?>">
+                </div>
+                <div class="campo" style="grid-column: 1 / -1;">
+                    <label>A nombre de</label>
+                    <input type="text" name="banco_titular" maxlength="100" value="<?= htmlspecialchars($datos_patronato['banco_titular'] ?? '') ?>">
+                </div>
+            </div>
+
+            <div class="form-acciones">
+                <button type="submit" class="btn-primario">Guardar cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+<?php endif; ?>
+
 <!-- ==================== TAB: CATÁLOGOS ==================== -->
 <?php if ($es_admin): ?>
-<div class="tab-panel activo" id="tab-catalogos">
+<div class="tab-panel" id="tab-catalogos">
 
     <p class="ayuda-catalogo">
         Estos son los valores que se usan en los formularios de todo el sistema

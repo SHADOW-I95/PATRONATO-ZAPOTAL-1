@@ -78,6 +78,8 @@ function modulosVisibles(): array
         'agua'      => ['texto' => 'Agua',      'href' => '?modulo=agua'],
         'reportes'  => ['texto' => 'Reportes',  'href' => '?modulo=reportes'],
         'mapa'      => ['texto' => 'Mapa',      'href' => '?modulo=mapa'],
+        'gastos'      => ['texto' => 'Gastos',      'href' => '?modulo=gastos'],
+        'comunicados' => ['texto' => 'Comunicados', 'href' => '?modulo=comunicados'],
     ];
     // "empleados" no está en esta lista a propósito: se sigue mostrando
     // aparte, solo para Administrador, directamente en barra_lateral.php.

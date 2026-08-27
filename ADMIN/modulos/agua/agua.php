@@ -158,6 +158,21 @@ function clase_badge($nombre_estado)
 </div>
 <?php endif; ?>
 
+<!-- Avisos de error al registrar un pago -->
+<?php if (($_GET['error'] ?? '') === 'autocobro_bloqueado'): ?>
+<div class="aviso-exito" style="background:#fef2f2; border-color:#fecaca; color:#991b1b;">
+    Esta vivienda pertenece a un empleado del patronato. Solo el Administrador puede procesar este pago.
+</div>
+<?php elseif (($_GET['error'] ?? '') === 'datos_incompletos'): ?>
+<div class="aviso-exito" style="background:#fef2f2; border-color:#fecaca; color:#991b1b;">
+    Faltan datos para registrar el pago. Intenta de nuevo.
+</div>
+<?php elseif (($_GET['error'] ?? '') === 'ninguna_vivienda_seleccionada'): ?>
+<div class="aviso-exito" style="background:#fef2f2; border-color:#fecaca; color:#991b1b;">
+    No seleccionaste ninguna vivienda para pagar.
+</div>
+<?php endif; ?>
+
 <!-- Estado de viviendas -->
 <div class="seccion">
     <h3>Estado de viviendas</h3>

@@ -18,6 +18,20 @@ $sql_usuarios = "SELECT
   LEFT JOIN viviendas
   ON usuarios.id_usuario = viviendas.id_usuario
   GROUP BY usuarios.id_usuario;";
+$usuarios = $conexion->query($sql_usuarios)->fetchAll();
+
+// Solicitudes de traspaso pendientes
+$sql_traspasos = "SELECT st.id_solicitud, st.nombre_comprador, st.apellido_comprador, st.dni_comprador,
+                          st.telefono_comprador, st.motivo, st.fecha_solicitud,
+                          v.id_vivienda, v.numero_vivienda, s.nombre_sector,
+                          CONCAT(u.nombre, ' ', u.apellido) AS nombre_actual, u.dni AS dni_actual
+                   FROM solicitudes_traspaso st
+                   INNER JOIN viviendas v ON st.id_vivienda = v.id_vivienda
+                   LEFT JOIN sectores s ON v.id_sector = s.id_sector
+                   INNER JOIN usuarios u ON st.id_usuario_actual = u.id_usuario
+                   WHERE st.id_estado_solicitud = 1
+                   ORDER BY st.fecha_solicitud ASC";
+$traspasos_pendientes = $conexion->query($sql_traspasos)->fetchAll();
 
   $stmt_usuario = $conexion->prepare($sql_usuarios);
   $stmt_usuario->execute(); 
@@ -62,6 +76,12 @@ $sql_usuarios = "SELECT
         <input type="text" placeholder="Nombre o DNI..." class="buscar">
         <button class="btn_nuevo" id="abrir-modal">
             + Nuevo Usuario
+        </button>
+        <button type="button" class="btn-secundario btn-notificaciones" id="abrir-modal-traspasos">
+            🔄 Traspasos
+            <?php if ($traspasos_pendientes): ?>
+            <span class="contador-notificaciones"><?= count($traspasos_pendientes) ?></span>
+            <?php endif; ?>
         </button>
     </div>
 </div>
@@ -301,4 +321,114 @@ $sql_usuarios = "SELECT
         </tbody>
 
     </table>
+</div>
+
+<!-- Modal: Lista de solicitudes de traspaso pendientes -->
+<div class="modal" id="modal-traspasos">
+    <div class="modal-contenido" style="width: 720px;">
+        <span class="cerrar" data-cerrar-modal>✕</span>
+        <div class="formulario">
+            <h4>🔄 Solicitudes de traspaso pendientes</h4>
+
+            <?php if (!$traspasos_pendientes): ?>
+            <p>No hay traspasos esperando confirmación por ahora.</p>
+            <?php else: ?>
+            <table class="tabla_datos">
+                <thead>
+                    <tr>
+                        <th>Vivienda</th>
+                        <th>Dueño actual</th>
+                        <th>Comprador declarado</th>
+                        <th>Motivo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($traspasos_pendientes as $t): ?>
+                    <tr>
+                        <td>#<?= htmlspecialchars($t['numero_vivienda']) ?> (<?= htmlspecialchars($t['nombre_sector'] ?? '—') ?>)</td>
+                        <td><?= htmlspecialchars($t['nombre_actual']) ?></td>
+                        <td><?= htmlspecialchars($t['nombre_comprador'] . ' ' . $t['apellido_comprador']) ?></td>
+                        <td><?= htmlspecialchars($t['motivo']) ?></td>
+                        <td>
+                            <button type="button" class="btn-editar btn-procesar-traspaso"
+                                data-traspaso='<?= htmlspecialchars(json_encode([
+                                    'id_solicitud'       => $t['id_solicitud'],
+                                    'numero_vivienda'    => $t['numero_vivienda'],
+                                    'nombre_sector'      => $t['nombre_sector'],
+                                    'nombre_actual'      => $t['nombre_actual'],
+                                    'dni_actual'         => $t['dni_actual'],
+                                    'nombre_comprador'   => $t['nombre_comprador'],
+                                    'apellido_comprador' => $t['apellido_comprador'],
+                                    'dni_comprador'      => $t['dni_comprador'],
+                                    'telefono_comprador' => $t['telefono_comprador'],
+                                    'motivo'             => $t['motivo'],
+                                ]), ENT_QUOTES) ?>'>
+                                Procesar
+                            </button>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Procesar un traspaso -->
+<div class="modal" id="modal-procesar-traspaso">
+    <div class="modal-contenido" style="width: 560px;">
+        <span class="cerrar" data-cerrar-modal>✕</span>
+        <div class="formulario">
+            <h4>Procesar traspaso</h4>
+
+            <div class="informacion">
+                <div class="campo"><label>Vivienda</label><span id="pt-vivienda"></span></div>
+                <div class="campo"><label>Dueño actual</label><span id="pt-actual"></span></div>
+                <div class="campo"><label>Motivo</label><span id="pt-motivo"></span></div>
+            </div>
+
+            <h4 style="margin-top:14px;">Comprador declarado</h4>
+            <div class="informacion">
+                <div class="campo"><label>Nombre</label><span id="pt-comprador-nombre"></span></div>
+                <div class="campo"><label>DNI</label><span id="pt-comprador-dni"></span></div>
+                <div class="campo"><label>Teléfono</label><span id="pt-comprador-telefono"></span></div>
+            </div>
+
+            <p id="pt-aviso-existente" class="ayuda-revision" style="display:none;">
+                Ya existe un usuario registrado con este DNI — se usará esa cuenta como nuevo dueño.
+            </p>
+
+            <div id="pt-form-nuevo-usuario" style="display:none;">
+                <p class="ayuda-revision">No hay ningún usuario con este DNI todavía. Completa sus datos para crearlo al confirmar:</p>
+                <div class="informacion">
+                    <div class="campo"><label>Código de acceso</label><input type="text" id="pt-nuevo-codigo" maxlength="50"></div>
+                    <div class="campo"><label>Fecha de nacimiento</label><input type="date" id="pt-nuevo-fecha-nacimiento"></div>
+                </div>
+            </div>
+
+            <form id="form-confirmar-traspaso" style="margin-top:14px;">
+                <input type="hidden" id="pt-id-solicitud" name="id_solicitud">
+                <input type="hidden" id="pt-codigo-hidden" name="codigo_nuevo_usuario">
+                <input type="hidden" id="pt-fecha-hidden" name="fecha_nacimiento_nuevo_usuario">
+                <div class="form-acciones">
+                    <button type="submit" class="btn-primario">✓ Confirmar traspaso</button>
+                </div>
+            </form>
+
+            <form id="form-rechazar-traspaso">
+                <input type="hidden" id="pt-id-solicitud-rechazar" name="id_solicitud">
+                <div class="campo">
+                    <label>Motivo del rechazo</label>
+                    <input type="text" name="motivo_rechazo" placeholder="Ej: necesitamos verificar identidad en persona" required>
+                </div>
+                <div class="form-acciones">
+                    <button type="submit" class="btn-secundario btn-rechazar">✕ Rechazar</button>
+                </div>
+            </form>
+
+            <p id="pt-mensaje" class="mensaje-pago"></p>
+        </div>
+    </div>
 </div>

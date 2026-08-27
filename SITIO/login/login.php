@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../../config/configuracion_general.php';
+$config_general = obtenerConfiguracionGeneral();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,8 +17,8 @@
 
         <!-- Panel izquierdo: marca (se oculta en pantallas pequeñas) -->
         <div class="panel-marca">
-            <img src="../assets/img/LOGO.png" alt="Logo Patronato el Zapotal">
-            <h2>PATRONATO<br><span>EL ZAPOTAL</span></h2>
+            <img src="../<?= htmlspecialchars($config_general['logo_path'] ?? 'assets/img/LOGO.png') ?>" alt="Logo <?= htmlspecialchars($config_general['nombre_patronato'] ?? '') ?>">
+            <h2><?= htmlspecialchars($config_general['nombre_patronato'] ?? 'Patronato el Zapotal') ?></h2>
             <p>Consulta el estado de tus viviendas, tus pagos de agua y reporta cualquier problema desde tu cuenta.</p>
         </div>
 
@@ -23,8 +27,8 @@
 
             <!-- Logo visible solo en móvil, arriba del formulario -->
             <div class="logo-movil">
-                <img src="../assets/img/LOGO.png" alt="Logo">
-                <span>PATRONATO EL ZAPOTAL</span>
+                <img src="../<?= htmlspecialchars($config_general['logo_path'] ?? 'assets/img/LOGO.png') ?>" alt="Logo">
+                <span><?= htmlspecialchars(strtoupper($config_general['nombre_patronato'] ?? 'Patronato el Zapotal')) ?></span>
             </div>
 
             <form class="formulario" method="post" action="procesar_login.php" id="formLogin">

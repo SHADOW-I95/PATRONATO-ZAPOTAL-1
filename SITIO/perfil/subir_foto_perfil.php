@@ -1,10 +1,20 @@
 <?php
 require_once __DIR__ . '/../../config/conexion.php';
 require_once __DIR__ . '/../../config/auth.php';
+require_once __DIR__ . '/../../config/vinculacion.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
-if (!esUsuarioComun()) {
+if (!haySesion()) {
+    http_response_code(403);
+    echo json_encode(["ok" => false, "error" => "sin_permiso"]);
+    exit;
+}
+
+$conexionPrevia = Connection();
+$id_usuario_valido = resolverIdUsuarioParaPerfil($conexionPrevia);
+
+if (!$id_usuario_valido) {
     http_response_code(403);
     echo json_encode(["ok" => false, "error" => "sin_permiso"]);
     exit;
@@ -38,7 +48,7 @@ if (!isset($tiposPermitidos[$mime])) {
 }
 
 $conexion = Connection();
-$id_usuario = (int) $_SESSION['id'];
+$id_usuario = $id_usuario_valido;
 $extension = $tiposPermitidos[$mime];
 
 // Nombre generado por el servidor, nunca el que mandó el navegador

@@ -65,6 +65,12 @@ if (!esEmpleado()) {
                 elseif ($modulo == 'registro_empleado') {
                     include './modulos/registro_empleado/registro_empleado.php';
                 }
+                elseif ($modulo == 'gastos') {
+                    include './modulos/gastos/gastos.php';
+                }
+                elseif ($modulo == 'comunicados') {
+                    include './modulos/comunicados/comunicados.php';
+                }
                 ?>
             </main>
         </div>
@@ -73,6 +79,7 @@ if (!esEmpleado()) {
     <!-- Archivos JS para funcionalidades -->
     <script src="./assets/js/layout.js"></script>
     <script src="./assets/js/usuario.js"></script>
+    <script src="./assets/js/traspasos.js"></script>
     <script src="./assets/js/reporte.js"></script>
     <script src="./assets/js/modal.js"></script>
     <script src="./assets/js/agua.js"></script>
